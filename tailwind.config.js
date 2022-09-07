@@ -4,7 +4,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Roboto', 'sans-serif'],
+        suit: ['SUIT'],
+        gmarket: ['GmarketTTF'],
+        montserrat: ['Montserrat'],
       },
     },
   },
