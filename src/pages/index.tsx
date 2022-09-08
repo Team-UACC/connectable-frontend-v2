@@ -1,11 +1,13 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
 
+import CheckBox from '~/components/CheckBox';
+
 const Home: NextPage = () => {
   return (
     <h1 className="font-bold font-montserrat">
       Montserrat
-      <Image src={`/icons/Connectable_sg2_w.png`} alt="logo" width={170} height={36} />
+      <CheckBox label="123" id="123" shape="square" />
     </h1>
   );
 };

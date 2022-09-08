@@ -1,0 +1,51 @@
+.checkbox input {
+  display: none;
+}
+
+.checkbox_icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border: 2px solid #dfdfdf;
+  position: relative;
+  cursor: pointer;
+}
+
+.checkbox_icon::before,
+.checkbox_icon::after {
+  content: '';
+  display: inline-block;
+  width: 2px;
+  height: 0;
+  background-color: white;
+  position: absolute;
+  transform-origin: left top;
+}
+
+.checkbox_icon::before {
+  top: 9px;
+  left: 2px;
+  transform: rotate(-45deg);
+}
+
+.checkbox_icon::after {
+  top: 13px;
+  left: 6px;
+  transform: rotate(-135deg);
+}
+
+.checkbox input:checked + .checkbox_icon {
+  border-color: black;
+  background-color: black;
+}
+
+.checkbox input:checked + .checkbox_icon::before {
+  height: 4px;
+  transition: all 0.15s ease;
+}
+
+.checkbox input:checked + .checkbox_icon::after {
+  height: 10px;
+  transition: all 0.15s ease 0.15s;
+}
