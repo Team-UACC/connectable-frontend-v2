@@ -27,7 +27,7 @@ const Intro = () => {
         </Link>
       </div>
       <Image
-        src="/images/img_banner.svg"
+        src="/images/img_banner.png"
         alt="banner"
         width={428}
         height={204}
