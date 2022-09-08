@@ -17,7 +17,7 @@ export default function Layout({ children, selectedFooter, headerType }: Props) 
       </header>
       <div>{children}</div>
       {selectedFooter && (
-        <footer className="fixed w-full max-w-[428px] bottom-0">
+        <footer className="sticky w-full max-w-[428px] bottom-0 mt-8 z-50">
           <NavFooter selected={selectedFooter} />
         </footer>
       )}

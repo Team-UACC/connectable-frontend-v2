@@ -2,12 +2,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ReactElement } from 'react';
 
+import Label from '~/components/Design/Label';
+import MySwiper from '~/components/Design/Swiper';
 import Layout from '~/components/Layout';
 
 const Home = () => {
   return (
     <>
       <Intro />
+      <TodayTicketSwiper />
     </>
   );
 };
@@ -32,6 +35,15 @@ const Intro = () => {
         placeholder="empty"
         className="animate-fadeIn"
       />
+    </section>
+  );
+};
+
+const TodayTicketSwiper = () => {
+  return (
+    <section className="flex flex-col items-center w-full mt-[60px]">
+      <Label title="TODAY TICKET" color="white" />
+      <MySwiper className="mt-8" />
     </section>
   );
 };

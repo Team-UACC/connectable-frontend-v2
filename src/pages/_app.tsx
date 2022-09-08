@@ -3,6 +3,12 @@ import '../../public/fonts/GmarketSansTTF/GmarketSansTTF.css';
 import '../../public/fonts/Montserrat/Montserrat.css';
 
 import '~/styles/globals.css';
+import '~/styles/swiper.css';
+
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
 import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import { ReactElement, ReactNode } from 'react';
