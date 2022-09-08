@@ -3,10 +3,30 @@ import '../../public/fonts/GmarketSansTTF/GmarketSansTTF.css';
 import '../../public/fonts/Montserrat/Montserrat.css';
 
 import '~/styles/globals.css';
+import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
+import { ReactElement, ReactNode } from 'react';
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+import Layout from '~/components/Layout';
+
+type NextPageWithLayout = NextPage & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+  const getLayout =
+    Component.getLayout ??
+    ((page: ReactElement) => (
+      <Layout headerType="home" selectedFooter={null}>
+        {page}
+      </Layout>
+    ));
+
+  return <>{getLayout(<Component {...pageProps} />)}</>;
 }
 
 export default MyApp;

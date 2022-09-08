@@ -1,15 +1,14 @@
-import type { NextPage } from 'next';
-import Image from 'next/image';
+import { ReactElement } from 'react';
 
-import CheckBox from '~/components/CheckBox';
+import Layout from '~/components/Layout';
 
-const Home: NextPage = () => {
-  return (
-    <h1 className="font-bold font-montserrat">
-      Montserrat
-      <CheckBox label="123" id="123" shape="square" />
-    </h1>
-  );
+const Home = () => {
+  return <div className="font-bold font-montserrat h-[1000px]">Montserrat</div>;
 };
 
+Home.getLayout = (page: ReactElement) => (
+  <Layout headerType="home" selectedFooter="events">
+    {page}
+  </Layout>
+);
 export default Home;
