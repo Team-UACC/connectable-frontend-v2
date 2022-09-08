@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
+export type NavHeaderType = 'sub-transparent' | 'sub-white' | 'close-black' | 'close-white' | 'home';
+
 interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {
-  type?: 'sub-transparent' | 'sub-white' | 'close-black' | 'close-white' | 'home';
+  type?: NavHeaderType;
   hasNotificaiton?: boolean;
 }
 
@@ -45,12 +47,14 @@ const NavHeader = (props: Props) => {
   }
 
   return (
-    <nav className="relative w-full h-[60px] flex justify-between items-center text-white bg-black " {...rest}>
-      <Image src={`/icons/Connectable_sg2_w.png`} alt="logo" width={171} height={36} className="ml-3" />
-      <div className="flex gap-4 mr-5">
+    <nav className="relative w-full h-[60px] flex justify-between items-center text-white bg-black pl-2 pr-4" {...rest}>
+      <Image src={`/icons/Connectable_sg2_w.png`} alt="logo" width={171} height={36} />
+      <div className="flex gap-4">
         <div className="relative w-6 h-6 ">
           {hasNotificaiton && <div className="absolute w-[6px] h-[6px] bg-brand-pink top-0 right-0 rounded-full"></div>}
-          <Image src={`/icons/notifications.svg`} alt="noti" width={16} height={20} className="ml-[4px] mt-[2px]" />
+          <div className="ml-[4px] mt-[2px]">
+            <Image src={`/icons/notifications.svg`} alt="noti" width={16} height={20} />
+          </div>
         </div>
         <Image src={`/icons/menu.svg`} alt="menu" width={24} height={24} />
       </div>

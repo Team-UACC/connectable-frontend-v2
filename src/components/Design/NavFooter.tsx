@@ -1,18 +1,18 @@
 import Image from 'next/image';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-type TabType = 'events' | 'artists' | 'my';
+export type FooterTabType = 'events' | 'artists' | 'my';
 
 interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {
-  selected: TabType;
+  selected: FooterTabType;
 }
 
 const NavFooter = (props: Props) => {
   const { selected, ...rest } = props;
-  const tabNameList: Array<TabType> = ['events', 'artists', 'my'];
+  const tabNameList: Array<FooterTabType> = ['events', 'artists', 'my'];
 
   return (
-    <nav className="relative w-full h-[66x] flex justify-around items-center bg-white " {...rest}>
+    <nav className="relative w-full h-[66px] flex justify-around items-center bg-gray6 " {...rest}>
       {tabNameList.map(name => (
         <TabItem name={name} selected={name === selected} key={name} />
       ))}
@@ -20,14 +20,14 @@ const NavFooter = (props: Props) => {
   );
 };
 
-const TAB_TYPE_NAME: { [type in TabType]: string } = {
+const TAB_TYPE_NAME: { [type in FooterTabType]: string } = {
   events: '이벤트',
   artists: '아티스트',
   my: '마이',
 };
 
-const TabItem = ({ name, selected }: { name: TabType; selected: boolean }) => (
-  <div className="flex flex-col items-center w-100px">
+const TabItem = ({ name, selected }: { name: FooterTabType; selected: boolean }) => (
+  <div className="flex flex-col items-center cursor-pointer w-100px">
     <Image src={`/icons/icon_tab_${name}_${selected ? 'pink' : 'white'}_24.svg`} alt={name} width={24} height={24} />
     <span className={'text-xs' + ' ' + (selected ? 'text-brand-pink font-bold' : 'text-gray2')}>
       {TAB_TYPE_NAME[name]}
