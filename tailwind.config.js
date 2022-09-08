@@ -11,7 +11,7 @@ module.exports = {
       colors: {
         transparent: 'transparent',
         curretn: 'current',
-        'brand-pink': '#FE533B0',
+        'brand-pink': '#FE52B0',
         'brand-pink-second': '#FFBAE0',
         'brand-pink-third': '#FFF4FA',
         'brand-skyblue': '#08BCFF',
