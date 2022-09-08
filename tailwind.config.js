@@ -5,7 +5,7 @@ module.exports = {
     extend: {
       fontFamily: {
         suit: ['SUIT'],
-        gmarket: ['GmarketTTF'],
+        gmarket: ['GmarketSans'],
         montserrat: ['Montserrat'],
       },
       colors: {
@@ -28,6 +28,19 @@ module.exports = {
         success: '#4CAF50',
         'point-neonblue': '#00D8F0',
         'point-neongreen': '#6DFFCB',
+      },
+      animation: {
+        fadeIn: 'fadeIn 1s ease-in-out',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': {
+            opacity: 0,
+          },
+          '100%': {
+            opacity: 1,
+          },
+        },
       },
     },
   },
