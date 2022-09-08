@@ -12,7 +12,7 @@ interface Props {
 export default function Layout({ children, selectedFooter, headerType }: Props) {
   return (
     <div className="relative max-w-[428px] min-h-screen m-auto w-full">
-      <header>
+      <header className="sticky top-0 z-10">
         <NavHeader type={headerType} />
       </header>
       <div>{children}</div>
