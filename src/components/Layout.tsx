@@ -11,13 +11,13 @@ interface Props {
 
 export default function Layout({ children, selectedFooter, headerType }: Props) {
   return (
-    <div className="relative max-w-[428px] min-h-screen m-auto w-full mb-[66px]">
+    <div className="relative max-w-[428px] min-h-screen m-auto w-full">
       <header className="sticky top-0 z-10">
         <NavHeader type={headerType} logoLink="/" />
       </header>
-      <div>{children}</div>
+      <div className="min-h-[calc(100vh-126px)] ">{children}</div>
       {selectedFooter && (
-        <footer className="fixed w-full max-w-[428px] bottom-0 z-50">
+        <footer className="sticky w-full max-w-[428px] bottom-0 z-50">
           <NavFooter selected={selectedFooter} />
         </footer>
       )}
