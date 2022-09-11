@@ -4,7 +4,7 @@ import React from 'react';
 import Counter from './Counter';
 
 export default {
-  title: 'Counter',
+  title: 'Design/Counter',
   component: Counter,
 } as ComponentMeta<typeof Counter>;
 

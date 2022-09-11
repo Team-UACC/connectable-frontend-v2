@@ -4,7 +4,7 @@ import React from 'react';
 import Label from './Label';
 
 export default {
-  title: 'Label',
+  title: 'Design/Label',
   component: Label,
 } as ComponentMeta<typeof Label>;
 

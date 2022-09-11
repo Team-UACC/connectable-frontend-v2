@@ -4,7 +4,7 @@ import React from 'react';
 import NavHeader from './NavHeader';
 
 export default {
-  title: 'NavHeader',
+  title: 'Design/NavHeader',
   component: NavHeader,
 } as ComponentMeta<typeof NavHeader>;
 

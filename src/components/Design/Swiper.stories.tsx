@@ -4,7 +4,7 @@ import React from 'react';
 import Swiper from './Swiper';
 
 export default {
-  title: 'Swiper',
+  title: 'Design/Swiper',
   component: Swiper,
 } as ComponentMeta<typeof Swiper>;
 

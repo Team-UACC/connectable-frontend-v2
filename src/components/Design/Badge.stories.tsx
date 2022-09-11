@@ -4,7 +4,7 @@ import React from 'react';
 import Badge from './Badge';
 
 export default {
-  title: 'Badge',
+  title: 'Design/Badge',
   component: Badge,
 } as ComponentMeta<typeof Badge>;
 

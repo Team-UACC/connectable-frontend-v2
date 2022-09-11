@@ -4,7 +4,7 @@ import React from 'react';
 import Input from './Input';
 
 export default {
-  title: 'Input',
+  title: 'Design/Input',
   component: Input,
 } as ComponentMeta<typeof Input>;
 

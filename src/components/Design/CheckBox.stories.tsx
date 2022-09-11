@@ -4,7 +4,7 @@ import React from 'react';
 import CheckBox from './CheckBox';
 
 export default {
-  title: 'CheckBox',
+  title: 'Design/CheckBox',
   component: CheckBox,
 } as ComponentMeta<typeof CheckBox>;
 

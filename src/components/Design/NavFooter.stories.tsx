@@ -4,7 +4,7 @@ import React from 'react';
 import NavFooter from './NavFooter';
 
 export default {
-  title: 'NavFooter',
+  title: 'Design/NavFooter',
   component: NavFooter,
 } as ComponentMeta<typeof NavFooter>;
 

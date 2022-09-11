@@ -4,7 +4,7 @@ import React from 'react';
 import BodyText from './BodyText';
 
 export default {
-  title: 'BodyText',
+  title: 'Design/BodyText',
   component: BodyText,
 } as ComponentMeta<typeof BodyText>;
 
