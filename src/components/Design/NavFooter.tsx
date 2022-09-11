@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 export type FooterTabType = 'events' | 'artists' | 'my';
@@ -14,7 +15,11 @@ const NavFooter = (props: Props) => {
   return (
     <nav className="relative w-full h-[66px] flex justify-around items-center bg-gray6 " {...rest}>
       {tabNameList.map(name => (
-        <TabItem name={name} selected={name === selected} key={name} />
+        <Link href={name === 'events' ? '/' : `/${name}`} key={name}>
+          <a>
+            <TabItem name={name} selected={name === selected} />
+          </a>
+        </Link>
       ))}
     </nav>
   );

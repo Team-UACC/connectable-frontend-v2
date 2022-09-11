@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 export type NavHeaderType = 'sub-transparent' | 'sub-white' | 'close-black' | 'close-white' | 'home';
@@ -6,10 +7,11 @@ export type NavHeaderType = 'sub-transparent' | 'sub-white' | 'close-black' | 'c
 interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {
   type?: NavHeaderType;
   hasNotificaiton?: boolean;
+  logoLink?: string;
 }
 
 const NavHeader = (props: Props) => {
-  const { type = 'home', hasNotificaiton = false, children, ...rest } = props;
+  const { type = 'home', hasNotificaiton = false, children, logoLink, ...rest } = props;
 
   if (type === 'sub-transparent') {
     return (
@@ -48,7 +50,15 @@ const NavHeader = (props: Props) => {
 
   return (
     <nav className="relative w-full h-[60px] flex justify-between items-center text-white bg-black pl-2 pr-4" {...rest}>
-      <Image src={`/icons/Connectable_sg2_w.png`} alt="logo" width={171} height={36} />
+      {logoLink ? (
+        <Link href={logoLink}>
+          <a>
+            <Image src={`/icons/Connectable_sg2_w.png`} alt="logo" width={171} height={36} />
+          </a>
+        </Link>
+      ) : (
+        <Image src={`/icons/Connectable_sg2_w.png`} alt="logo" width={171} height={36} />
+      )}
       <div className="flex gap-4">
         <div className="relative w-6 h-6 ">
           {hasNotificaiton && <div className="absolute w-[6px] h-[6px] bg-brand-pink top-0 right-0 rounded-full"></div>}
