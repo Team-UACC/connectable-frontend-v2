@@ -3484,6 +3484,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cookie@npm:^0.4.1":
+  version: 0.4.1
+  resolution: "@types/cookie@npm:0.4.1"
+  checksum: 3275534ed69a76c68eb1a77d547d75f99fedc80befb75a3d1d03662fb08d697e6f8b1274e12af1a74c6896071b11510631ba891f64d30c78528d0ec45a9c1a18
+  languageName: node
+  linkType: hard
+
 "@types/eslint-scope@npm:^3.7.3":
   version: 3.7.4
   resolution: "@types/eslint-scope@npm:3.7.4"
@@ -3650,6 +3657,13 @@ __metadata:
   version: 16.11.49
   resolution: "@types/node@npm:16.11.49"
   checksum: 05545ee49da3b783ab77cddca45db6f4d47861c2bb148a17b774688e1082f20f27177591d140923724bcd8643b32291203f6f1eadba397e394232d4a1e28e07a
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^16.10.2":
+  version: 16.11.58
+  resolution: "@types/node@npm:16.11.58"
+  checksum: efdf14c62e6c1a8e758416aaa3ae4b81015ffd4e1f31c05680d1242817ba23f0b4b1345886fe5aeb3c05d818bcaed1a7af4d637e7cca5723a5e4ac8b759d3ace
   languageName: node
   linkType: hard
 
@@ -6120,6 +6134,7 @@ __metadata:
     autoprefixer: ^10.4.8
     axios: ^0.27.2
     babel-loader: ^8.2.5
+    cookies-next: ^2.1.1
     dayjs: ^1.11.3
     eslint: 8.22.0
     eslint-config-next: 12.2.5
@@ -6197,6 +6212,24 @@ __metadata:
   version: 0.5.0
   resolution: "cookie@npm:0.5.0"
   checksum: 1f4bd2ca5765f8c9689a7e8954183f5332139eb72b6ff783d8947032ec1fdf43109852c178e21a953a30c0dd42257828185be01b49d1eb1a67fd054ca588a180
+  languageName: node
+  linkType: hard
+
+"cookie@npm:^0.4.0":
+  version: 0.4.2
+  resolution: "cookie@npm:0.4.2"
+  checksum: a00833c998bedf8e787b4c342defe5fa419abd96b32f4464f718b91022586b8f1bafbddd499288e75c037642493c83083da426c6a9080d309e3bd90fd11baa9b
+  languageName: node
+  linkType: hard
+
+"cookies-next@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "cookies-next@npm:2.1.1"
+  dependencies:
+    "@types/cookie": ^0.4.1
+    "@types/node": ^16.10.2
+    cookie: ^0.4.0
+  checksum: c5fc2c72cf2d46d6fa804e5690b5038bab3d5c7e741a8472079bfbd6920010802962f7512d999ea430ebcbfc7c89c38e16f423479e4df7cb0bb782cc1a7f9004
   languageName: node
   linkType: hard
 

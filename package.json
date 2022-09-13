@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "cookies-next": "^2.1.1",
     "dayjs": "^1.11.3",
     "next": "12.2.5",
     "react": "18.2.0",
