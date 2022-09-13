@@ -12,11 +12,13 @@
     "postinstall": "husky install"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "dayjs": "^1.11.3",
     "next": "12.2.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.2.0",
+    "react-query": "^3.39.1",
     "swiper": "^8.0.0"
   },
   "devDependencies": {
