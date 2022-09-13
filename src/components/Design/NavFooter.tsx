@@ -16,7 +16,7 @@ const NavFooter = (props: Props) => {
     <nav className="relative w-full h-[66px] flex justify-around items-center bg-gray6 " {...rest}>
       {tabNameList.map(name => (
         <Link href={name === 'events' ? '/' : `/${name}`} key={name}>
-          <a>
+          <a className="w-1/3 h-full">
             <TabItem name={name} selected={name === selected} />
           </a>
         </Link>
@@ -32,7 +32,7 @@ const TAB_TYPE_NAME: { [type in FooterTabType]: string } = {
 };
 
 const TabItem = ({ name, selected }: { name: FooterTabType; selected: boolean }) => (
-  <div className="flex flex-col items-center cursor-pointer w-100px">
+  <div className="flex flex-col items-center cursor-pointer w-100px py-[13px]">
     <Image src={`/icons/icon_tab_${name}_${selected ? 'pink' : 'white'}_24.svg`} alt={name} width={24} height={24} />
     <span className={'text-xs' + ' ' + (selected ? 'text-brand-pink font-bold' : 'text-gray2')}>
       {TAB_TYPE_NAME[name]}

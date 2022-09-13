@@ -8,6 +8,8 @@ body {
   margin: 0;
 
   font-family: 'SUIT', sans-serif;
+
+  overflow: overlay;
 }
 
 a {
