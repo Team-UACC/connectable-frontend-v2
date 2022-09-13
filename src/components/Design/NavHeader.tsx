@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 export type NavHeaderType = 'sub-transparent' | 'sub-white' | 'close-black' | 'close-white' | 'home';
@@ -11,20 +12,26 @@ interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLEleme
 }
 
 const NavHeader = (props: Props) => {
+  const router = useRouter();
+
   const { type = 'home', hasNotificaiton = false, children, logoLink, ...rest } = props;
 
   if (type === 'sub-transparent') {
     return (
-      <nav className="relative w-full h-[60px] flex  items-center bg-transparent " {...rest}>
-        <Image src={`/icons/icon_arrow_back_circle_white.svg`} alt="back" width={36} height={36} className="ml-4" />
+      <nav className="relative w-full h-[60px] flex  items-center bg-transparent p-2" {...rest}>
+        <button onClick={() => router.back()}>
+          <Image src={`/icons/icon_arrow_back_circle_white.svg`} alt="back" width={36} height={36} />
+        </button>
       </nav>
     );
   }
 
   if (type === 'sub-white') {
     return (
-      <nav className="relative w-full h-[60px] flex items-center bg-white " {...rest}>
-        <Image src={`/icons/icon_arrow_back_black_24.svg`} alt="back" width={24} height={24} className="ml-4" />
+      <nav className="relative w-full h-[60px] flex items-center bg-white  p-2" {...rest}>
+        <button onClick={() => router.back()}>
+          <Image src={`/icons/icon_arrow_back_black_24.svg`} alt="back" width={24} height={24} />
+        </button>
         <span className="absolute text-lg font-bold -translate-x-1/2 left-1/2">{children}</span>
       </nav>
     );
@@ -32,8 +39,8 @@ const NavHeader = (props: Props) => {
 
   if (type === 'close-white') {
     return (
-      <nav className="relative w-full h-[60px] flex items-center bg-white " {...rest}>
-        <Image src={`/icons/icon_nav_black_close_32.svg`} alt="back" width={24} height={24} className="ml-4" />
+      <nav className="relative w-full h-[60px] flex items-center bg-white  p-2" {...rest}>
+        <Image src={`/icons/icon_nav_black_close_32.svg`} alt="back" width={24} height={24} />
         <span className="absolute text-lg font-bold -translate-x-1/2 left-1/2">{children}</span>
       </nav>
     );
@@ -41,8 +48,8 @@ const NavHeader = (props: Props) => {
 
   if (type === 'close-black') {
     return (
-      <nav className="relative w-full h-[60px] flex items-center bg-black text-white " {...rest}>
-        <Image src={`/icons/icon_nav_white_close_32.svg`} alt="back" width={24} height={24} className="ml-4" />
+      <nav className="relative w-full h-[60px] flex items-center bg-black text-white  p-2" {...rest}>
+        <Image src={`/icons/icon_nav_white_close_32.svg`} alt="back" width={24} height={24} />
         <span className="absolute text-lg font-bold -translate-x-1/2 left-1/2">{children}</span>
       </nav>
     );

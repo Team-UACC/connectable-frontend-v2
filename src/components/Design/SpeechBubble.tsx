@@ -3,18 +3,20 @@ import { ReactNode } from 'react';
 interface Props {
   color?: 'pink' | 'gray';
   children: ReactNode;
+  className?: string;
 }
 
 const SpeeachBubble = (props: Props) => {
-  const { color = 'pink', children } = props;
+  const { color = 'pink', children, className = '' } = props;
   const colorClassName = color === 'pink' ? 'bg-[#FE52B0]' : 'bg-[#8B8B8B]';
 
   return (
-    <div className="relative flex flex-col items-start w-max">
+    <div className={['relative flex flex-col items-start opacity-75 backdrop-blur w-max', className].join(' ')}>
       <div
-        className={['relative p-2 text-xs leading-none text-white whitespace-no-wrap shadow-lg', colorClassName].join(
-          ' '
-        )}
+        className={[
+          ' relative px-4 py-2 text-xs leading-none text-white whitespace-no-wrap shadow-lg',
+          colorClassName,
+        ].join(' ')}
       >
         {children}
       </div>

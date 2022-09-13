@@ -6084,6 +6084,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.17.0
     autoprefixer: ^10.4.8
     babel-loader: ^8.2.5
+    dayjs: ^1.11.3
     eslint: 8.22.0
     eslint-config-next: 12.2.5
     eslint-plugin-prettier: ^4.0.0
@@ -6095,6 +6096,7 @@ __metadata:
     prettier: ^2.7.1
     react: 18.2.0
     react-dom: 18.2.0
+    react-hot-toast: ^2.2.0
     swiper: ^8.0.0
     tailwindcss: ^3.1.8
     typescript: 4.7.4
@@ -6447,6 +6449,13 @@ __metadata:
   version: 1.0.8
   resolution: "damerau-levenshtein@npm:1.0.8"
   checksum: d240b7757544460ae0586a341a53110ab0a61126570ef2d8c731e3eab3f0cb6e488e2609e6a69b46727635de49be20b071688698744417ff1b6c1d7ccd03e0de
+  languageName: node
+  linkType: hard
+
+"dayjs@npm:^1.11.3":
+  version: 1.11.5
+  resolution: "dayjs@npm:1.11.5"
+  checksum: e3bbaa7b4883b31be4bf75a181f1447fbb19800c29b332852125aab96baeff3ac232dcba8b88c4ea17d3b636c99dac5fb9d1af4bb6ae26615698bbc4a852dffb
   languageName: node
   linkType: hard
 
@@ -8448,6 +8457,15 @@ __metadata:
     pify: ^4.0.1
     slash: ^2.0.0
   checksum: 9b4cb70aa0b43bf89b18cf0e543695185e16d8dd99c17bdc6a1df0a9f88ff9dc8d2467aebace54c3842fc451a564882948c87a3b4fbdb1cacf3e05fd54b6ac5d
+  languageName: node
+  linkType: hard
+
+"goober@npm:^2.1.10":
+  version: 2.1.11
+  resolution: "goober@npm:2.1.11"
+  peerDependencies:
+    csstype: ^3.0.10
+  checksum: c37c14f476f65f7c66d94ac1a1686a130b4fa42fc512175444e3c708fa1815f6ea579e1b23567e57d41de2e62ff8b5913915ec829f05a3b995d1a7a0016c0bdf
   languageName: node
   linkType: hard
 
@@ -12539,6 +12557,18 @@ __metadata:
     react: ^0.14.8 || ^15.0.1 || ^16.0.0 || ^17.0.1
     react-dom: ^0.14.8 || ^15.0.1 || ^16.0.0 || ^17.0.1
   checksum: 42bcd4423f12e9ee21b2d3f0c2a28805ff4953bd82b6be4c1f5b5f9a371115aafa36a6f3d82726d43b4912179b79e99550c2b9a772c7fe6a5cd8f7e93ff34ceb
+  languageName: node
+  linkType: hard
+
+"react-hot-toast@npm:^2.2.0":
+  version: 2.3.0
+  resolution: "react-hot-toast@npm:2.3.0"
+  dependencies:
+    goober: ^2.1.10
+  peerDependencies:
+    react: ">=16"
+    react-dom: ">=16"
+  checksum: d2526f4bf62d94ca1874de1d618e30537aa8123b5d954cf1ff4e41f063d4ab410fc4f10a0ad134d533c1e0ae3d910af1d21f5a4f37f46dcbdb1710380cbb4bc1
   languageName: node
   linkType: hard
 
