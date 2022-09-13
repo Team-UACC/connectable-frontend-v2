@@ -27,10 +27,14 @@ const EventCard = ({ title, description, image, saleStatus, overlap, isFull }: P
             `absolute w-full max-w-[${maxWidth}px] h-full max-h-[${maxWidth}px] top-0 ${isFull ? '' : 'rounded-xl'}`,
           ].join(' ')}
         />
-        <section className="absolute z-10 flex flex-col gap-2 text-white bottom-4 left-4">
+        <section className="absolute z-10 flex flex-col w-full gap-2 px-4 text-white bottom-4">
           {saleStatus && <Badge name={saleStatus} size="lg" color="white" />}
           <h1 className={isFull ? 'font-gmarket text-2xl font-bold' : 'text-lg font-bold'}>{title}</h1>
-          {description && <BodyText className="text-sm">{description}</BodyText>}
+          {description && (
+            <BodyText className="w-full overflow-hidden text-sm text-ellipsis whitespace-nowrap">
+              {description}
+            </BodyText>
+          )}
         </section>
       </article>
     );
@@ -42,7 +46,11 @@ const EventCard = ({ title, description, image, saleStatus, overlap, isFull }: P
       <section className="flex flex-col gap-1 mt-2 text-white">
         {saleStatus && <Badge name={saleStatus} color="white" opacity={saleStatus !== '판매중'} />}
         <h1 className="font-bold ">{title}</h1>
-        <BodyText className="text-xs text-gray5">{description}</BodyText>
+        {description && (
+          <BodyText className="text-xs text-gray5">
+            {description.slice(0, 25) + (description.length > 25 ? '...' : '')}
+          </BodyText>
+        )}
       </section>
     </article>
   );

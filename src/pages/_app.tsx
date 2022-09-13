@@ -42,16 +42,18 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout =
     Component.getLayout ??
     ((page: ReactElement) => (
-      <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps.dehydratedState}>
-          <Layout headerType="home" selectedFooter={null}>
-            {page}
-          </Layout>
-        </Hydrate>
-      </QueryClientProvider>
+      <Layout headerType="home" selectedFooter={null}>
+        {page}
+      </Layout>
     ));
 
-  return <>{getLayout(<Component {...pageProps} />)}</>;
+  return (
+    <>
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>{getLayout(<Component {...pageProps} />)}</Hydrate>
+      </QueryClientProvider>
+    </>
+  );
 }
 
 export default MyApp;

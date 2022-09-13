@@ -2,52 +2,37 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ReactElement, useMemo } from 'react';
 
+import { fetchAllEvents } from '~/apis/events';
 import Label from '~/components/Design/Label';
 import MySwiper from '~/components/Design/Swiper';
 import EventCard from '~/components/Events/EventCard';
 import Layout from '~/components/Layout';
 import { BUSINESS } from '~/constants/company';
 import { DOCS_PATH } from '~/constants/path';
+import { EventSimpleType } from '~/types/eventType';
 
-const Home = () => {
+export async function getStaticProps() {
+  const events = (await fetchAllEvents()).map(e => ({ ...e, saleStatus: '판매중' }));
+
+  return {
+    props: { events },
+  };
+}
+
+interface Props {
+  events: Array<EventSimpleType>;
+}
+
+const Home = ({ events }: Props) => {
   return (
     <>
       <Intro />
-      <TodayTicketSwiper />
-      <EventList events={EVENTS} />
+      <TodayTicketSwiper events={events} />
+      <EventList events={events} />
       <Footer />
     </>
   );
 };
-
-const EVENTS: Array<{
-  id: number;
-  title: string;
-  description?: string;
-  image: string;
-  saleStatus: '판매중' | '매진' | '판매종료';
-}> = [
-  {
-    id: 1,
-    title: `LET'S ROCK FESTIVAL 2022 NFT Ticket (2일권)`,
-    image: `https://connectable-events.s3.ap-northeast-2.amazonaws.com/lets-rock-festival/image.jpeg`,
-    saleStatus: `판매중`,
-  },
-  {
-    id: 2,
-    title: `LET'S ROCK FESTIVAL 2022 NFT Ticket (2일권)`,
-    description: ` 2년 만에 돌아온 렛츠락 페스티벌!`,
-    image: `https://connectable-events.s3.ap-northeast-2.amazonaws.com/lets-rock-festival/image.jpeg`,
-    saleStatus: `매진`,
-  },
-  {
-    id: 3,
-    title: `LET'S ROCK FESTIVAL 2022 NFT Ticket (2일권)`,
-    description: ` 2년 만에 돌아온 렛츠락 페스티벌!`,
-    image: `https://connectable-events.s3.ap-northeast-2.amazonaws.com/lets-rock-festival/image.jpeg`,
-    saleStatus: `판매종료`,
-  },
-];
 
 const Intro = () => {
   return (
@@ -73,15 +58,15 @@ const Intro = () => {
   );
 };
 
-const TodayTicketSwiper = () => {
+const TodayTicketSwiper = ({ events }: { events: Array<EventSimpleType> }) => {
   return (
     <section className="flex flex-col items-center w-full py-[60px]">
       <Label title="TODAY TICKETS" color="white" />
       <MySwiper className="mt-8">
-        {EVENTS.map(({ id, title, description, image, saleStatus }) => (
+        {events.map(({ id, name, description, image, saleStatus }) => (
           <Link href={`/events/${id}`} key={id}>
             <a>
-              <EventCard title={title} description={description} image={image} saleStatus={saleStatus} overlap={true} />
+              <EventCard title={name} description={description} image={image} saleStatus={saleStatus} overlap={true} />
             </a>
           </Link>
         ))}
@@ -90,23 +75,17 @@ const TodayTicketSwiper = () => {
   );
 };
 
-const EventList = ({ events }: { events: Array<any> }) => {
+const EventList = ({ events }: { events: Array<EventSimpleType> }) => {
   const length = useMemo(() => events.length, [events]);
 
   return (
     <section className="flex flex-col items-center w-full py-[60px] bg-black">
       <Label title="ALL TICKETS" color="blue" />
       <ul className="flex flex-wrap w-full justify-evenly ">
-        {events.map(({ id, title, description, image, saleStatus }) => (
+        {events.map(({ id, name, description, image, saleStatus }) => (
           <Link href={`/events/${id}`} key={id}>
             <a className=" basis-[45%] mt-8 ">
-              <EventCard
-                title={title}
-                description={description}
-                image={image}
-                saleStatus={saleStatus}
-                overlap={false}
-              />
+              <EventCard title={name} description={description} image={image} saleStatus={saleStatus} overlap={false} />
             </a>
           </Link>
         ))}
