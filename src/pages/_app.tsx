@@ -11,7 +11,8 @@ import 'swiper/css/navigation';
 
 import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
-import { ReactElement, ReactNode } from 'react';
+import { ReactElement, ReactNode, useState } from 'react';
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 import Layout from '~/components/Layout';
 
@@ -24,12 +25,30 @@ type AppPropsWithLayout = AppProps & {
 };
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 60 * 1000, // 1분
+            refetchOnMount: false,
+            refetchOnReconnect: false,
+            refetchOnWindowFocus: false,
+          },
+        },
+      })
+  );
+
   const getLayout =
     Component.getLayout ??
     ((page: ReactElement) => (
-      <Layout headerType="home" selectedFooter={null}>
-        {page}
-      </Layout>
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <Layout headerType="home" selectedFooter={null}>
+            {page}
+          </Layout>
+        </Hydrate>
+      </QueryClientProvider>
     ));
 
   return <>{getLayout(<Component {...pageProps} />)}</>;
