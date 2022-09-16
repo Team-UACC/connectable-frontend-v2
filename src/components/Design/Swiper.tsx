@@ -2,6 +2,7 @@ import React, { Children, HTMLAttributes, useMemo } from 'react';
 import { Pagination, Navigation, Autoplay } from 'swiper';
 // eslint-disable-next-line import/order
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { LAYOUT_MAX_WIDTH } from '~/constants/style';
 
 interface Props extends HTMLAttributes<HTMLDivElement> {}
 
@@ -14,7 +15,7 @@ const MySwiper = (props: Props) => {
   }
 
   return (
-    <div className={['relative w-full max-w-[428px]', className].join(' ')}>
+    <div className={[`relative w-full max-w-[${LAYOUT_MAX_WIDTH}px]`, className].join(' ')}>
       <Swiper
         slidesPerView={1.4}
         spaceBetween={30}

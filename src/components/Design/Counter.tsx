@@ -1,13 +1,14 @@
-import { ForwardedRef, forwardRef, useCallback, useMemo, useState } from 'react';
+import { ForwardedRef, forwardRef, useCallback, useEffect, useMemo, useState } from 'react';
 
 interface Props {
   deafultValue?: number;
   max?: number;
   min?: number;
+  handleChangeCount?: (count: number) => void;
 }
 
 const Counter = forwardRef(function Counter(props: Props, forwardRef: ForwardedRef<HTMLDivElement>) {
-  const { deafultValue = 0, max = Infinity, min = 0 } = props;
+  const { deafultValue = 0, max = Infinity, min = 0, handleChangeCount } = props;
 
   const [count, setCount] = useState(deafultValue);
 
@@ -20,6 +21,10 @@ const Counter = forwardRef(function Counter(props: Props, forwardRef: ForwardedR
   const handleClickPlusButton = useCallback(() => {
     setCount(now => Math.min(max, now + 1));
   }, [max]);
+
+  useEffect(() => {
+    handleChangeCount && handleChangeCount(count);
+  }, [count, handleChangeCount]);
 
   return (
     <div className="w-[6rem] h-[2rem] flex font-bold text-sm leading-[2rem]">

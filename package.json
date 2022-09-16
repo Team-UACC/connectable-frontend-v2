@@ -20,7 +20,8 @@
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.2.0",
     "react-query": "^3.39.1",
-    "swiper": "^8.0.0"
+    "swiper": "^8.0.0",
+    "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {
     "@babel/core": "^7.18.10",

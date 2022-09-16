@@ -6,7 +6,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const Button = forwardRef(function Button(props: Props, forwardRef: Ref<HTMLButtonElement>) {
-  const { fullWidth = true, color, children, ...rest } = props;
+  const { fullWidth = true, color, children, className, ...rest } = props;
 
   const widthClassName = (fullWidth ? `w-full` : `w-auto px-4`) + ' ';
   const colorClassName =
@@ -18,7 +18,9 @@ const Button = forwardRef(function Button(props: Props, forwardRef: Ref<HTMLButt
   return (
     <button
       ref={forwardRef}
-      className={widthClassName + colorClassName + 'rounded-[0.4rem] leading-[1.4rem] h-[3.5rem] font-bold'}
+      className={
+        widthClassName + colorClassName + 'rounded-[0.4rem] leading-[1.4rem] h-[3.5rem] font-bold' + ' ' + className
+      }
       {...rest}
     >
       <span>{children}</span>
