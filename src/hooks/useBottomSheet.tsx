@@ -34,7 +34,7 @@ export function useBottomSheet() {
     sheetRef.current?.style.setProperty('transform', `translateY(0)`);
   }, []);
   const setClose = useCallback(() => {
-    sheetRef.current?.style.setProperty('transform', 'translateY(100%)');
+    sheetRef.current?.style.setProperty('transform', 'translateY(110%)');
   }, []);
 
   // Touch Event 핸들러들을 등록한다.

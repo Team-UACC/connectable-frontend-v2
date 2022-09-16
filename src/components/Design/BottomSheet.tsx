@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 
-import { LAYOUT_MAX_WIDTH } from '~/constants/style';
 import { useBottomSheet } from '~/hooks/useBottomSheet';
 import { useBottomSheetModalStore } from '~/stores/bottomSheetModal';
 
@@ -21,7 +20,7 @@ const BottomSheet = () => {
     <>
       {isOpen && (
         <div
-          className={`absolute top-0 bg-black bg-opacity-30 h-full z-[999] w-full max-w-[${LAYOUT_MAX_WIDTH}px] m-auto`}
+          className={`absolute top-0 bg-black bg-opacity-30 h-full z-[999] w-full max-w-layout m-auto`}
           onClick={() => {
             hideBottomSheetModal();
           }}
@@ -29,7 +28,7 @@ const BottomSheet = () => {
       )}
       <div
         ref={sheetRef}
-        className={`flex flex-col fixed w-full max-w-[${LAYOUT_MAX_WIDTH}px] m-auto z-[999] bottom-0 left-0 right-0 rounded-t-lg bg-white shadow-[0_0_10px_rgba(0,0,0,0.6)] ease-in-out duration-500 translate-y-[100%]`}
+        className={`flex flex-col fixed w-full max-w-layout m-auto z-[999] bottom-0 left-0 right-0 rounded-t-lg bg-white shadow-[0_0_10px_rgba(0,0,0,0.6)] ease-in-out duration-500 translate-y-[110%]`}
       >
         <BottomSheetHeader name={bottomSheetModalName} />
         <div>{children}</div>

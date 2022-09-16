@@ -2,6 +2,9 @@
 module.exports = {
   content: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],
   theme: {
+    maxWidth: {
+      layout: '428px',
+    },
     extend: {
       fontFamily: {
         suit: ['SUIT'],

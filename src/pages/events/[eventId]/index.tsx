@@ -11,7 +11,6 @@ import EventInfoSection from '~/components/Events/EventPage/EventInfoSection';
 import NFTCollectionInfoSection from '~/components/Events/EventPage/NFTCollectionInfoSection';
 import Layout from '~/components/Layout';
 import Paragraph from '~/components/Paragraph';
-import { LAYOUT_MAX_WIDTH } from '~/constants/style';
 import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
 import { useBottomSheetModalStore } from '~/stores/bottomSheetModal';
 import { EventDetailType } from '~/types/eventType';
@@ -70,7 +69,7 @@ const EventPage = ({ eventDetail }: Props) => {
           contractAddress={eventDetail.contractAddress}
           openseaUrl={eventDetail.contractAddress}
         />
-        <footer className={`fixed w-full max-w-[${LAYOUT_MAX_WIDTH}px] p-4 bg-white bottom-0 z-10`}>
+        <footer className={`fixed w-full max-w-layout p-4 bg-white bottom-0 z-10`}>
           <div className="flex gap-3">
             {eventDetail.salesOption === 'FLAT_PRICE' && (
               <Button
