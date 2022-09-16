@@ -18,7 +18,7 @@ const Button = forwardRef(function Button(props: Props, forwardRef: Ref<HTMLButt
   return (
     <button
       ref={forwardRef}
-      className={widthClassName + colorClassName + 'rounded-[0.4rem] leading-[1.4rem] h-[3.5rem] '}
+      className={widthClassName + colorClassName + 'rounded-[0.4rem] leading-[1.4rem] h-[3.5rem] font-bold'}
       {...rest}
     >
       <span>{children}</span>
