@@ -10,7 +10,7 @@ import styles from './OrderTicketCard.module.css';
 
 interface Props {
   ticketData: TicketSimple;
-  handleSelect: ChangeEventHandler;
+  handleSelect: ChangeEventHandler<HTMLInputElement>;
 }
 
 const OrderTicketCard = ({ ticketData, handleSelect }: Props) => {
@@ -38,14 +38,16 @@ const OrderTicketCard = ({ ticketData, handleSelect }: Props) => {
     <div className={[shadowClassName, isSelected ? styles['cutout-selected-var'] : styles['cutout-var']].join(' ')}>
       <section
         className={[
-          'relative flex min-w-max justify-between w-full p-[18px] bg-white rounded-md h-[146px] border-[1px] ',
+          'relative flex min-w-max justify-between w-full p-[18px] bg-white rounded-md min-h-[146px] border-[1px] ',
           isSelected ? 'border-brand-pink-second' : 'border-white',
           styles.cutout,
         ].join(' ')}
       >
         <div className="flex">
-          <Image src={ticketData.metadata.image} alt={ticketData.metadata.name} width={110} height={110} />
-          <div className="relative flex flex-col ml-4 h-[110px] justify-between py-1">
+          <div className="flex-shrink-0 my-auto">
+            <Image src={ticketData.metadata.image} alt={ticketData.metadata.name} width={100} height={100} />
+          </div>
+          <div className="relative max-w-[min(190px,40vw)] flex flex-col ml-4 min-h-[100px] justify-between py-1">
             <Badge
               name={
                 ticketSalesStatus === 'ON_SALE' ? '판매중' : ticketSalesStatus === 'PENDING' ? '승인대기중' : '판매완료'
@@ -53,8 +55,8 @@ const OrderTicketCard = ({ ticketData, handleSelect }: Props) => {
               size="sm"
             />
             <div className="mb-2">
-              <div className="text-base font-semibold text-gray1">{ticketData.metadata.name}</div>
-              <div className="text-sm text-brand-pink">
+              <div className="text-sm font-semibold text-gray1">{ticketData.metadata.name}</div>
+              <div className="text-xs text-brand-pink">
                 판매가 <b>{ticketData.price.toLocaleString('ko-KR')}원</b>
               </div>
             </div>

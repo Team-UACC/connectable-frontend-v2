@@ -8,9 +8,10 @@ interface Props {
   children: ReactNode;
   selectedFooter: FooterTabType | null;
   headerType: NavHeaderType;
+  headerName?: string;
 }
 
-export default function Layout({ children, selectedFooter, headerType }: Props) {
+export default function Layout({ children, selectedFooter, headerType, headerName }: Props) {
   const paddingClassName = [
     headerType === 'sub-transparent' ? '' : 'pt-[60px]',
     selectedFooter === null ? '' : 'pb-[66px]',
@@ -21,7 +22,9 @@ export default function Layout({ children, selectedFooter, headerType }: Props) 
   return (
     <div className={[`relative max-w-layout min-h-screen m-auto w-full`, paddingClassName].join(' ')}>
       <header className={`fixed top-0 z-50 max-w-layout w-full`}>
-        <NavHeader type={headerType} logoLink="/" />
+        <NavHeader type={headerType} logoLink="/">
+          {headerName}
+        </NavHeader>
       </header>
       <div className={`min-h-[calc(100vh-${navPaddingSize}px)]`}>{children}</div>
       {selectedFooter && (

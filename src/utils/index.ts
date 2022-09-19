@@ -18,9 +18,10 @@ export const calculateRemaingTime = (endTime: number) => endTime - new Date().ge
 
 export const isAdrress = (string: string) => /^(0x)?[0-9a-f]{40}$/i.test(string);
 
-export const toggleSet = (element: any) => (set: any) => {
+export const toggleSet = (element: any) => (set: Set<any>) => {
   set.has(element) ? set.delete(element) : set.add(element);
-  return new Set([...set]);
+
+  return new Set(set);
 };
 
 const SHALLOW_MODAL_URL_LIST = ['?ticketId'];

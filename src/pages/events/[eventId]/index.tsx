@@ -1,4 +1,5 @@
 import { GetStaticPropsContext } from 'next';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ReactElement, useCallback, useEffect, useRef, useState } from 'react';
 
@@ -84,7 +85,9 @@ const EventPage = ({ eventDetail }: Props) => {
                 바로 구매하기
               </Button>
             )}
-            <Button color="black">티켓 선택</Button>
+            <Link href={`/events/${eventDetail.id}/sales`}>
+              <Button color="black">티켓 선택</Button>
+            </Link>
           </div>
         </footer>
       </article>

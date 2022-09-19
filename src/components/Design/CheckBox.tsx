@@ -17,7 +17,7 @@ const CheckBox = forwardRef(function CheckBox(props: Props, forwardRef: Forwarde
     <label className={[styles.checkbox, 'flex w-max items-center', direction === 'col' ? 'flex-col' : ''].join(' ')}>
       <input id={id} type="checkbox" ref={forwardRef} {...rest} onChange={handleChange} />
       <span className={[styles.checkbox_icon, shape === 'circle' ? 'rounded-full' : ''].join(' ')}></span>
-      <div className={['text-sm font-bold cursor-pointer', direction === 'col' ? 'mt-2' : 'ml-2 '].join(' ')}>
+      <div className={['text-sm font-bold cursor-pointer', direction === 'col' ? 'pt-2' : 'pl-2 '].join(' ')}>
         {label}
       </div>
     </label>
