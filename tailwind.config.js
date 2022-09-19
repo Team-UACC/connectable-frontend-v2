@@ -45,6 +45,10 @@ module.exports = {
           },
         },
       },
+      dropShadow: {
+        black: '2px 2px 18px rgba(0, 0, 0, 0.12)',
+        pink: '2px 2px 18px rgba(254, 82, 176, 0.12)',
+      },
     },
   },
   plugins: [],

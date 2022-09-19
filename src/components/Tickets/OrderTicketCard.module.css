@@ -14,37 +14,21 @@
 
 .cutout {
   background: radial-gradient(
-        circle at center left,
-        transparent 0px var(--coupon-side-radius),
-        var(--coupon-border-color) var(--coupon-side-radius)
-          calc(var(--coupon-side-radius) + var(--coupon-border-width, 0.5px)),
-        var(--coupon-background-color) calc(var(--coupon-side-radius) + var(--coupon-border-width) + 0.5px)
-      )
-      border-box,
-    radial-gradient(
-        0px at center right,
-        transparent 0px,
-        var(--coupon-border-color) 0,
-        var(--coupon-background-color) 0
-      )
-      border-box;
-  background-size: 50% 100%, 50% 100%;
-  background-position: 0% 100%, 100% 100%;
-  background-repeat: no-repeat, no-repeat;
+      circle,
+      transparent 0px var(--coupon-side-radius),
+      var(--coupon-border-color) var(--coupon-side-radius)
+        calc(var(--coupon-side-radius) + var(--coupon-border-width, 0.5px)),
+      var(--coupon-background-color) calc(var(--coupon-side-radius) + var(--coupon-border-width) + 0.5px)
+    )
+    center right/200%;
+  background-repeat: no-repeat;
 
   -webkit-mask-image: radial-gradient(
-      circle at center left,
-      transparent 0,
-      transparent var(--coupon-side-radius),
-      #000 calc(var(--coupon-side-radius) + 0.5px)
-    ),
-    radial-gradient(
-      0px at center right,
-      transparent 0,
-      transparent var(--coupon-side-radius),
-      #000 calc(var(--coupon-side-radius) + 0.5px)
-    );
-  -webkit-mask-size: 50% 100%, 50% 100%;
-  -webkit-mask-position: 0% 100%, 100% 100%;
-  -webkit-mask-repeat: no-repeat, no-repeat;
+    circle at left,
+    transparent 0px var(--coupon-side-radius),
+    var(--coupon-border-color) var(--coupon-side-radius)
+      calc(var(--coupon-side-radius) + var(--coupon-border-width, 0.5px)),
+    var(--coupon-background-color) calc(var(--coupon-side-radius) + var(--coupon-border-width) + 0.5px)
+  );
+  -webkit-mask-repeat: no-repeat;
 }

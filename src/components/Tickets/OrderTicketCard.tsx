@@ -28,11 +28,7 @@ const OrderTicketCard = ({ ticketData, handleSelect }: Props) => {
     [handleSelect]
   );
 
-  const shadowClassName = useMemo(
-    () =>
-      isSelected ? 'drop-shadow-[2px_2px_18px_rgba(254,82,176,0.12)]' : 'drop-shadow-[2px_2px_18px_rgba(0,0,0,0.12)]',
-    [isSelected]
-  );
+  const shadowClassName = useMemo(() => (isSelected ? 'drop-shadow-pink' : ''), [isSelected]);
 
   return (
     <div className={[shadowClassName, isSelected ? styles['cutout-selected-var'] : styles['cutout-var']].join(' ')}>

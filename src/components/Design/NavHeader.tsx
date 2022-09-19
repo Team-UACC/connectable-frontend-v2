@@ -18,8 +18,8 @@ const NavHeader = (props: Props) => {
 
   if (type === 'sub-transparent') {
     return (
-      <nav className="relative w-full h-[60px] flex  items-center bg-transparent p-2" {...rest}>
-        <button onClick={() => router.back()}>
+      <nav className="relative w-full h-[60px] flex items-center bg-transparent p-[18px]" {...rest}>
+        <button onClick={() => router.back()} className="flex items-center">
           <Image src={`/icons/icon_arrow_back_circle_white.svg`} alt="back" width={36} height={36} />
         </button>
       </nav>
@@ -28,8 +28,11 @@ const NavHeader = (props: Props) => {
 
   if (type === 'sub-white') {
     return (
-      <nav className="relative w-full h-[60px] flex items-center bg-white bg-opacity-50 backdrop-blur-md p-2" {...rest}>
-        <button onClick={() => router.back()}>
+      <nav
+        className="relative w-full h-[60px] flex items-center bg-white bg-opacity-50 backdrop-blur-md p-[18px]"
+        {...rest}
+      >
+        <button onClick={() => router.back()} className="flex items-center">
           <Image src={`/icons/icon_arrow_back_black_24.svg`} alt="back" width={24} height={24} />
         </button>
         <span className="absolute text-lg font-bold -translate-x-1/2 left-1/2">{children}</span>
@@ -40,7 +43,7 @@ const NavHeader = (props: Props) => {
   if (type === 'close-white') {
     return (
       <nav
-        className="relative w-full h-[60px] flex items-center bg-white bg-opacity-50 backdrop-blur-md  p-2"
+        className="relative w-full h-[60px] flex items-center bg-white bg-opacity-50 backdrop-blur-md  p-[18px]"
         {...rest}
       >
         <Image src={`/icons/icon_nav_black_close_32.svg`} alt="back" width={24} height={24} />
@@ -51,7 +54,7 @@ const NavHeader = (props: Props) => {
 
   if (type === 'close-black') {
     return (
-      <nav className="relative w-full h-[60px] flex items-center bg-black text-white  p-2" {...rest}>
+      <nav className="relative w-full h-[60px] flex items-center bg-black text-white  p-[18px]" {...rest}>
         <Image src={`/icons/icon_nav_white_close_32.svg`} alt="back" width={24} height={24} />
         <span className="absolute text-lg font-bold -translate-x-1/2 left-1/2">{children}</span>
       </nav>
