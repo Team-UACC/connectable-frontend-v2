@@ -14,6 +14,7 @@ interface BottomSheetModalState {
     children: React.ReactNode;
   }) => void;
   hideBottomSheetModal: () => void;
+  resetBottomSheetModal: () => void;
 }
 
 export const useBottomSheetModalStore = create<BottomSheetModalState>(set => ({
@@ -24,4 +25,5 @@ export const useBottomSheetModalStore = create<BottomSheetModalState>(set => ({
   showBottomSheetModal: ({ bottomSheetModalName, children }) =>
     set(state => ({ ...state, isOpen: true, bottomSheetModalName, children })),
   hideBottomSheetModal: () => set(state => ({ ...state, isOpen: false })),
+  resetBottomSheetModal: () => set(state => ({ ...state, isOpen: false, bottomSheetModalName: '', children: null })),
 }));

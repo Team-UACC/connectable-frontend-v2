@@ -39,7 +39,7 @@ const EventPage = ({ eventDetail }: Props) => {
   const router = useRouter();
   const { eventId } = router.query;
 
-  const { showBottomSheetModal } = useBottomSheetModalStore();
+  const { showBottomSheetModal, resetBottomSheetModal } = useBottomSheetModalStore();
 
   const { data, refetch: refetchEventDetail } = useEventByIdQuery(Number(eventId), {
     initialData: eventDetail,
@@ -50,6 +50,11 @@ const EventPage = ({ eventDetail }: Props) => {
       refetchEventDetail();
     }
   }, [router, refetchEventDetail]);
+
+  useEffect(() => {
+    resetBottomSheetModal();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>

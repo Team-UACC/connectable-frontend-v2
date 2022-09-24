@@ -54,7 +54,7 @@ const EventSalesPage = ({ eventDetail }: Props) => {
 
   return (
     <div>
-      <section className="relative w-full px-2 m-auto mt-[18px] drop-shadow-black">
+      <section className="relative w-full px-2 m-auto mt-[18px] drop-shadow-black pb-[120px]">
         <ul className="relative flex w-full flex-col gap-[18px]">
           {ticketList?.map(ticketData => (
             <li key={ticketData.tokenId}>

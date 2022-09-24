@@ -31,7 +31,13 @@ const OrderTicketCard = ({ ticketData, handleSelect }: Props) => {
   const shadowClassName = useMemo(() => (isSelected ? 'drop-shadow-pink' : ''), [isSelected]);
 
   return (
-    <div className={[shadowClassName, isSelected ? styles['cutout-selected-var'] : styles['cutout-var']].join(' ')}>
+    <div
+      className={[
+        shadowClassName,
+        isSelected ? styles['cutout-selected-var'] : styles['cutout-var'],
+        ticketSalesStatus !== 'ON_SALE' ? 'opacity-50' : '',
+      ].join(' ')}
+    >
       <section
         className={[
           'relative flex min-w-max justify-between w-full p-[18px] bg-white rounded-md min-h-[146px] border-[1px] ',
@@ -67,6 +73,7 @@ const OrderTicketCard = ({ ticketData, handleSelect }: Props) => {
             direction="col"
             label="선택"
             ref={checkBoxRef}
+            disabled={ticketSalesStatus !== 'ON_SALE'}
             handleChange={handleChange}
           />
         </div>
