@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from 'react';
+import { ReactElement } from 'react';
 
 import Button from '~/components/Design/Button';
 import KlipAuth from '~/components/Form/KlipAuthForm';

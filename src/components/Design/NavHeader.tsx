@@ -3,6 +3,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { DetailedHTMLProps, HTMLAttributes, MouseEvent } from 'react';
 
+import { useModalStore } from '~/stores/modal';
+
+import MoreMenu from '../Form/MoreMenuForm';
+
 export type NavHeaderType = 'sub-transparent' | 'sub-white' | 'close-black' | 'close-white' | 'home';
 
 interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {
@@ -14,6 +18,7 @@ interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLEleme
 
 const NavHeader = (props: Props) => {
   const router = useRouter();
+  const { showModal } = useModalStore();
 
   const { type = 'home', hasNotificaiton = false, children, logoLink, handleClickClose, ...rest } = props;
 
@@ -84,7 +89,9 @@ const NavHeader = (props: Props) => {
             <Image src={`/icons/notifications.svg`} alt="noti" width={16} height={20} />
           </div>
         </div>
-        <Image src={`/icons/menu.svg`} alt="menu" width={24} height={24} />
+        <button onClick={() => showModal('메뉴', <MoreMenu />)}>
+          <Image src={`/icons/menu.svg`} alt="menu" width={24} height={24} />
+        </button>
       </div>
     </nav>
   );
