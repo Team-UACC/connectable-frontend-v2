@@ -36,5 +36,5 @@ export default function KlipAuth() {
         </a>
       </div>
     );
-  else return <span className="font-bold">카카오톡으로 이동해서 로그인을 완료하세요.</span>;
+  else return <div className="font-bold">카카오톡으로 이동해서 로그인을 완료하세요.</div>;
 }
