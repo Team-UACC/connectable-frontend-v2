@@ -25,12 +25,12 @@ interface Props {
 
 const Home = ({ events }: Props) => {
   return (
-    <>
+    <div className="">
       <Intro />
       <TodayTicketSwiper events={events} />
       <EventList events={events} />
       <Footer />
-    </>
+    </div>
   );
 };
 
@@ -60,7 +60,7 @@ const Intro = () => {
 
 const TodayTicketSwiper = ({ events }: { events: Array<EventSimpleType> }) => {
   return (
-    <section className="flex flex-col items-center w-full py-[60px]">
+    <section className="flex flex-col items-center w-full py-[60px] bg-white">
       <Label title="TODAY TICKETS" color="white" />
       <MySwiper className="mt-8">
         {events.map(({ id, name, description, image, saleStatus }) => (

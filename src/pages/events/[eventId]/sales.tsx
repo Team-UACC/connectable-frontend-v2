@@ -71,7 +71,7 @@ const EventSalesPage = ({ eventDetail }: Props) => {
 };
 
 EventSalesPage.getLayout = (page: ReactElement) => (
-  <Layout headerType="sub-white" selectedFooter={null} headerName={'티켓 목록'}>
+  <Layout headerType="sub-white" selectedFooter={null} headerName={'티켓 목록'} bgColor="white">
     {page}
   </Layout>
 );

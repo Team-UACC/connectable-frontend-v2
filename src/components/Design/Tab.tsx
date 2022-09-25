@@ -47,7 +47,7 @@ const TabNavButton = ({ openTab, setOpenTab, children, idx }: TabNavButtonProps)
     <li className="flex-auto text-center">
       <a
         className={[
-          'block py-4 text-lg font-bold border-b-2',
+          'block py-4 font-bold border-b-2',
           openTab === idx ? 'border-black text-black' : 'text-gray5 border-nones',
         ].join(' ')}
         onClick={e => {

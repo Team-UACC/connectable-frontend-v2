@@ -13,9 +13,10 @@ interface Props {
   selectedFooter: FooterTabType | null;
   headerType: NavHeaderType;
   headerName?: string;
+  bgColor?: 'black' | 'white';
 }
 
-export default function Layout({ children, selectedFooter, headerType, headerName }: Props) {
+export default function Layout({ children, selectedFooter, headerType, headerName, bgColor = 'black' }: Props) {
   const { showModal } = useModalStore();
 
   const { pushShallowUrl } = useShallowModal();
@@ -28,7 +29,7 @@ export default function Layout({ children, selectedFooter, headerType, headerNam
   const navPaddingSize = (headerType !== 'sub-transparent' ? 60 : 0) + (selectedFooter !== null ? 66 : 0);
 
   return (
-    <div className={[`relative max-w-layout min-h-screen m-auto w-full`, paddingClassName].join(' ')}>
+    <div className={[`bg-${bgColor} relative max-w-layout min-h-screen m-auto w-full`, paddingClassName].join(' ')}>
       <header className={`fixed top-0 z-50 max-w-layout w-full`}>
         <NavHeader
           type={headerType}

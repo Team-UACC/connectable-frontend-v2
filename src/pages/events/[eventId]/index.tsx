@@ -58,7 +58,7 @@ const EventPage = ({ eventDetail }: Props) => {
 
   return (
     <>
-      <article className="pb-[88px]">
+      <article className="pb-[88px] bg-white">
         <EventCard
           title={eventDetail.name}
           description={'short description'}
