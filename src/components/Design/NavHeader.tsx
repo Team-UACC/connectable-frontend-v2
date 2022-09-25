@@ -10,12 +10,21 @@ interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLEleme
   hasNotificaiton?: boolean;
   logoLink?: string;
   handleClickClose?: (e: MouseEvent<HTMLButtonElement>) => void;
+  handleClickMoreMenu?: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const NavHeader = (props: Props) => {
   const router = useRouter();
 
-  const { type = 'home', hasNotificaiton = false, children, logoLink, handleClickClose, ...rest } = props;
+  const {
+    type = 'home',
+    hasNotificaiton = false,
+    children,
+    logoLink,
+    handleClickClose,
+    handleClickMoreMenu,
+    ...rest
+  } = props;
 
   if (type === 'sub-transparent') {
     return (
@@ -84,7 +93,9 @@ const NavHeader = (props: Props) => {
             <Image src={`/icons/notifications.svg`} alt="noti" width={16} height={20} />
           </div>
         </div>
-        <Image src={`/icons/menu.svg`} alt="menu" width={24} height={24} />
+        <button onClick={handleClickMoreMenu}>
+          <Image src={`/icons/menu.svg`} alt="menu" width={24} height={24} />
+        </button>
       </div>
     </nav>
   );
