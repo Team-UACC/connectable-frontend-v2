@@ -1,8 +1,11 @@
 import { ReactNode } from 'react';
 
+import { useModalStore } from '~/stores/modal';
+
 import BottomSheet from './Design/BottomSheet';
 import NavFooter, { FooterTabType } from './Design/NavFooter';
 import NavHeader, { NavHeaderType } from './Design/NavHeader';
+import MoreMenu from './Form/MoreMenuForm';
 
 interface Props {
   children: ReactNode;
@@ -12,6 +15,8 @@ interface Props {
 }
 
 export default function Layout({ children, selectedFooter, headerType, headerName }: Props) {
+  const { showModal } = useModalStore();
+
   const paddingClassName = [
     headerType === 'sub-transparent' ? '' : 'pt-[60px]',
     selectedFooter === null ? '' : 'pb-[66px]',
@@ -22,7 +27,7 @@ export default function Layout({ children, selectedFooter, headerType, headerNam
   return (
     <div className={[`relative max-w-layout min-h-screen m-auto w-full`, paddingClassName].join(' ')}>
       <header className={`fixed top-0 z-50 max-w-layout w-full`}>
-        <NavHeader type={headerType} logoLink="/">
+        <NavHeader type={headerType} logoLink="/" handleClickMoreMenu={() => showModal('메뉴', <MoreMenu />)}>
           {headerName}
         </NavHeader>
       </header>
