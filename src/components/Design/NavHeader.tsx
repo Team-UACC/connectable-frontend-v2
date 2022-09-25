@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { DetailedHTMLProps, HTMLAttributes } from 'react';
+import { DetailedHTMLProps, HTMLAttributes, MouseEvent } from 'react';
 
 export type NavHeaderType = 'sub-transparent' | 'sub-white' | 'close-black' | 'close-white' | 'home';
 
@@ -9,12 +9,13 @@ interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLEleme
   type?: NavHeaderType;
   hasNotificaiton?: boolean;
   logoLink?: string;
+  handleClickClose?: (e: MouseEvent<HTMLButtonElement>) => void;
 }
 
 const NavHeader = (props: Props) => {
   const router = useRouter();
 
-  const { type = 'home', hasNotificaiton = false, children, logoLink, ...rest } = props;
+  const { type = 'home', hasNotificaiton = false, children, logoLink, handleClickClose, ...rest } = props;
 
   if (type === 'sub-transparent') {
     return (
@@ -46,7 +47,9 @@ const NavHeader = (props: Props) => {
         className="relative w-full h-[60px] flex items-center bg-white bg-opacity-50 backdrop-blur-md  p-[18px]"
         {...rest}
       >
-        <Image src={`/icons/icon_nav_black_close_32.svg`} alt="back" width={24} height={24} />
+        <button onClick={handleClickClose} className="w-8 h-8 p-1">
+          <Image src={`/icons/icon_nav_black_close_32.svg`} alt="back" width={24} height={24} />
+        </button>
         <span className="absolute text-lg font-bold -translate-x-1/2 left-1/2">{children}</span>
       </nav>
     );
@@ -55,7 +58,9 @@ const NavHeader = (props: Props) => {
   if (type === 'close-black') {
     return (
       <nav className="relative w-full h-[60px] flex items-center bg-black text-white  p-[18px]" {...rest}>
-        <Image src={`/icons/icon_nav_white_close_32.svg`} alt="back" width={24} height={24} />
+        <button onClick={handleClickClose} className="w-8 h-8 p-1">
+          <Image src={`/icons/icon_nav_white_close_32.svg`} alt="back" width={24} height={24} />
+        </button>
         <span className="absolute text-lg font-bold -translate-x-1/2 left-1/2">{children}</span>
       </nav>
     );

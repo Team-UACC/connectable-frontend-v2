@@ -14,6 +14,7 @@ import type { AppProps } from 'next/app';
 import { ReactElement, ReactNode, useState } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
+import FullScreenModal from '~/components/FullScreenModal';
 import Layout from '~/components/Layout';
 
 type NextPageWithLayout = NextPage & {
@@ -50,7 +51,10 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps.dehydratedState}>{getLayout(<Component {...pageProps} />)}</Hydrate>
+        <Hydrate state={pageProps.dehydratedState}>
+          {getLayout(<Component {...pageProps} />)}
+          <FullScreenModal />
+        </Hydrate>
       </QueryClientProvider>
     </>
   );

@@ -1706,6 +1706,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@headlessui/react@npm:^1.6.5":
+  version: 1.7.2
+  resolution: "@headlessui/react@npm:1.7.2"
+  peerDependencies:
+    react: ^16 || ^17 || ^18
+    react-dom: ^16 || ^17 || ^18
+  checksum: 8889d7a1984c955c0034d8aed3211a91b90238ddecf116490bd892cae79c2983d8832ab450d387991d3330f5d5f1e4aa8d8e1ceb1ff2227960f76c89c0cc1e0a
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.10.4":
   version: 0.10.4
   resolution: "@humanwhocodes/config-array@npm:0.10.4"
@@ -6118,6 +6128,7 @@ __metadata:
   resolution: "connectable-frontend-v2@workspace:."
   dependencies:
     "@babel/core": ^7.18.10
+    "@headlessui/react": ^1.6.5
     "@storybook/addon-actions": ^6.5.10
     "@storybook/addon-essentials": ^6.5.10
     "@storybook/addon-interactions": ^6.5.10

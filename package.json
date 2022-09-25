@@ -12,6 +12,7 @@
     "postinstall": "husky install"
   },
   "dependencies": {
+    "@headlessui/react": "^1.6.5",
     "axios": "^0.27.2",
     "cookies-next": "^2.1.1",
     "dayjs": "^1.11.3",
