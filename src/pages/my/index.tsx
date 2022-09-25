@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { ReactElement } from 'react';
 
 import Button from '~/components/Design/Button';
@@ -8,18 +7,18 @@ import Tab from '~/components/Design/Tab';
 import KlipAuth from '~/components/Form/KlipAuthForm';
 import ProfileEditForm from '~/components/Form/ProfileEditForm';
 import Layout from '~/components/Layout';
+import useShallowModal from '~/hooks/useShallowModal';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 
 const TITLES = ['마이 티켓', '거래 내역'];
 
 function MyPage() {
-  const router = useRouter();
-
   const { isLoggedIn } = useUserStore();
-
   const { userName, klaytnAddress, phoneNumber } = useUserStore();
   const { showModal } = useModalStore();
+
+  const { pushShallowUrl } = useShallowModal();
 
   if (isLoggedIn === false) return <LoginSection />;
 
@@ -36,7 +35,10 @@ function MyPage() {
           />
           <button
             className="absolute bottom-[6px] right-0"
-            onClick={() => showModal('프로필 수정', <ProfileEditForm userName={userName} phoneNumber={phoneNumber} />)}
+            onClick={() => {
+              pushShallowUrl();
+              showModal('프로필 수정', <ProfileEditForm userName={userName} phoneNumber={phoneNumber} />);
+            }}
           >
             <Image src="/icons/icon_edit.svg" alt="edit" width={24} height={24} />
           </button>

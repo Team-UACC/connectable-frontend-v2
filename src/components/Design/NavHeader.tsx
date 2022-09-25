@@ -43,13 +43,10 @@ const NavHeader = (props: Props) => {
   if (type === 'sub-white') {
     return (
       <nav
-        className={[
-          'relative w-full h-[60px] flex items-center bg-white bg-opacity-50 backdrop-blur-md p-[18px]',
-          className,
-        ].join(' ')}
+        className={['relative w-full h-[60px] flex items-center bg-white bg-opacity-50 p-[18px]', className].join(' ')}
         {...rest}
       >
-        <button onClick={() => router.back()} className="flex items-center">
+        <button onClick={() => router.back()} className="w-8 h-8 p-1">
           <Image src={`/icons/icon_arrow_back_black_24.svg`} alt="back" width={24} height={24} />
         </button>
         <span className="absolute text-lg font-bold -translate-x-1/2 left-1/2">{children}</span>
@@ -60,10 +57,7 @@ const NavHeader = (props: Props) => {
   if (type === 'close-white') {
     return (
       <nav
-        className={[
-          'relative w-full h-[60px] flex items-center bg-white bg-opacity-50 backdrop-blur-md  p-[18px]',
-          className,
-        ].join(' ')}
+        className={['relative w-full h-[60px] flex items-center bg-white bg-opacity-50  p-[18px]', className].join(' ')}
         {...rest}
       >
         <button onClick={handleClickClose} className="w-8 h-8 p-1">

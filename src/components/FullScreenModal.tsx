@@ -13,7 +13,7 @@ export default function FullScreenModal() {
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-[999]" onClose={setIsOpen}>
+      <Dialog as="div" className="relative z-[999]" onClose={setIsOpen} initialFocus={undefined}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -66,7 +66,7 @@ export default function FullScreenModal() {
                 >
                   {modalName}
                 </NavHeader>
-                <div className="px-4 overflow-y-scroll">{children}</div>
+                <div className="px-4 overflow-y-auto">{children}</div>
               </div>
             </Transition.Child>
           </div>

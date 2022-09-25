@@ -24,6 +24,9 @@ export const toggleSet = (element: any) => (set: Set<any>) => {
   return new Set(set);
 };
 
-const SHALLOW_MODAL_URL_LIST = ['?ticketId'];
+const SHALLOW_MODAL_URL = '?stack_modal=true';
 
-export const isShallowModalUrl = (url: string) => SHALLOW_MODAL_URL_LIST.some(v => url.indexOf(v) !== -1);
+export const isShallowModalUrl = (url: string) => url.indexOf(SHALLOW_MODAL_URL) !== -1;
+
+export const replaceShallowUrl = () =>
+  window.history.replaceState(window.history.state, '', window.location.pathname + SHALLOW_MODAL_URL);

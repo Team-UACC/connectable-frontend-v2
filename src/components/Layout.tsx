@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 
+import useShallowModal from '~/hooks/useShallowModal';
 import { useModalStore } from '~/stores/modal';
 
 import BottomSheet from './Design/BottomSheet';
@@ -17,6 +18,8 @@ interface Props {
 export default function Layout({ children, selectedFooter, headerType, headerName }: Props) {
   const { showModal } = useModalStore();
 
+  const { pushShallowUrl } = useShallowModal();
+
   const paddingClassName = [
     headerType === 'sub-transparent' ? '' : 'pt-[60px]',
     selectedFooter === null ? '' : 'pb-[66px]',
@@ -27,7 +30,14 @@ export default function Layout({ children, selectedFooter, headerType, headerNam
   return (
     <div className={[`relative max-w-layout min-h-screen m-auto w-full`, paddingClassName].join(' ')}>
       <header className={`fixed top-0 z-50 max-w-layout w-full`}>
-        <NavHeader type={headerType} logoLink="/" handleClickMoreMenu={() => showModal('메뉴', <MoreMenu />)}>
+        <NavHeader
+          type={headerType}
+          logoLink="/"
+          handleClickMoreMenu={() => {
+            pushShallowUrl();
+            showModal('메뉴', <MoreMenu />);
+          }}
+        >
           {headerName}
         </NavHeader>
       </header>
