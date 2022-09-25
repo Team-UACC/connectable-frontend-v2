@@ -16,6 +16,7 @@ import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 import FullScreenModal from '~/components/FullScreenModal';
 import Layout from '~/components/Layout';
+import useUser from '~/hooks/useUser';
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -47,6 +48,8 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         {page}
       </Layout>
     ));
+
+  useUser();
 
   return (
     <>
