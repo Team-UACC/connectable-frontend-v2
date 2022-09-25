@@ -18,7 +18,7 @@ export default function KlipAuth() {
 
   if (method === 'QR')
     return (
-      <div>
+      <div className="text-center">
         {qrvalue === 'DEFAULT' ? (
           <Lottie options={defaultOptions} height={256} width={256} />
         ) : (
@@ -36,5 +36,5 @@ export default function KlipAuth() {
         </a>
       </div>
     );
-  else return <div className="font-bold">카카오톡으로 이동해서 로그인을 완료하세요.</div>;
+  else return <div className="font-bold text-center">카카오톡으로 이동해서 로그인을 완료하세요.</div>;
 }
