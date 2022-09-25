@@ -12,6 +12,7 @@ import 'swiper/css/navigation';
 import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import { ReactElement, ReactNode, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 import FullScreenModal from '~/components/FullScreenModal';
@@ -57,6 +58,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <Hydrate state={pageProps.dehydratedState}>
           {getLayout(<Component {...pageProps} />)}
           <FullScreenModal />
+          <Toaster containerStyle={{ top: 300 }} toastOptions={{ duration: 3000 }} />
         </Hydrate>
       </QueryClientProvider>
     </>

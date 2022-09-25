@@ -23,12 +23,16 @@ const NavHeader = (props: Props) => {
     logoLink,
     handleClickClose,
     handleClickMoreMenu,
+    className,
     ...rest
   } = props;
 
   if (type === 'sub-transparent') {
     return (
-      <nav className="relative w-full h-[60px] flex items-center bg-transparent p-[18px]" {...rest}>
+      <nav
+        className={['relative w-full h-[60px] flex items-center bg-transparent p-[18px]', className].join(' ')}
+        {...rest}
+      >
         <button onClick={() => router.back()} className="flex items-center">
           <Image src={`/icons/icon_arrow_back_circle_white.svg`} alt="back" width={36} height={36} />
         </button>
@@ -39,7 +43,10 @@ const NavHeader = (props: Props) => {
   if (type === 'sub-white') {
     return (
       <nav
-        className="relative w-full h-[60px] flex items-center bg-white bg-opacity-50 backdrop-blur-md p-[18px]"
+        className={[
+          'relative w-full h-[60px] flex items-center bg-white bg-opacity-50 backdrop-blur-md p-[18px]',
+          className,
+        ].join(' ')}
         {...rest}
       >
         <button onClick={() => router.back()} className="flex items-center">
@@ -53,7 +60,10 @@ const NavHeader = (props: Props) => {
   if (type === 'close-white') {
     return (
       <nav
-        className="relative w-full h-[60px] flex items-center bg-white bg-opacity-50 backdrop-blur-md  p-[18px]"
+        className={[
+          'relative w-full h-[60px] flex items-center bg-white bg-opacity-50 backdrop-blur-md  p-[18px]',
+          className,
+        ].join(' ')}
         {...rest}
       >
         <button onClick={handleClickClose} className="w-8 h-8 p-1">
@@ -66,7 +76,10 @@ const NavHeader = (props: Props) => {
 
   if (type === 'close-black') {
     return (
-      <nav className="relative w-full h-[60px] flex items-center bg-black text-white  p-[18px]" {...rest}>
+      <nav
+        className={['relative w-full h-[60px] flex items-center bg-black text-white  p-[18px]', className].join(' ')}
+        {...rest}
+      >
         <button onClick={handleClickClose} className="w-8 h-8 p-1">
           <Image src={`/icons/icon_nav_white_close_32.svg`} alt="back" width={24} height={24} />
         </button>
@@ -76,7 +89,13 @@ const NavHeader = (props: Props) => {
   }
 
   return (
-    <nav className="relative w-full h-[60px] flex justify-between items-center text-white bg-black pl-2 pr-4" {...rest}>
+    <nav
+      className={[
+        'relative w-full h-[60px] flex justify-between items-center text-white bg-black pl-2 pr-4',
+        className,
+      ].join(' ')}
+      {...rest}
+    >
       {logoLink ? (
         <Link href={logoLink}>
           <a>

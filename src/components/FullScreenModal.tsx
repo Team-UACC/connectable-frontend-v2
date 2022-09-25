@@ -9,7 +9,7 @@ import NavHeader from './Design/NavHeader';
 export default function FullScreenModal() {
   const { isOpen, modalName, children, setIsOpen, setModalContent, theme } = useModalStore();
 
-  const themeColor = theme === 'white' ? 'bg-white text-black' : 'bg-black text-white';
+  const themeColor = theme === 'white' ? 'text-black' : 'bg-black text-white';
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -23,12 +23,17 @@ export default function FullScreenModal() {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 m-auto transition-opacity bg-white" />
+          <div
+            className={[
+              'fixed m-auto inset-0 transition-opacity bg-white backdrop-blur-[6px]',
+              isOpen ? '' : 'bg-opacity-80 ',
+            ].join(' ')}
+          />
         </Transition.Child>
 
         <div
           className={[
-            'fixed w-[min(100vw,428px)] inset-0 z-10 flex items-end justify-center m-auto text-center',
+            'fixed w-[min(100vw,428px)] inset-0 z-[999] flex items-end justify-center m-auto text-center',
             themeColor,
           ].join(' ')}
         >
@@ -38,12 +43,13 @@ export default function FullScreenModal() {
               enter="ease-out duration-300"
               enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               enterTo="opacity-100 translate-y-0 sm:scale-100"
-              leave="ease-in duration-200"
+              leave="ease-in duration-300"
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <div className="relative flex flex-col w-full h-screen">
                 <NavHeader
+                  className={['bg-inherit backdrop-blur-none'].join(' ')}
                   type={theme === 'white' ? 'close-white' : 'close-black'}
                   handleClickClose={() => {
                     const storage = globalThis?.sessionStorage;
@@ -55,7 +61,7 @@ export default function FullScreenModal() {
                     }
 
                     setIsOpen(false);
-                    setModalContent(null, null);
+                    setTimeout(() => setModalContent(null, null, 'white'), 500);
                   }}
                 >
                   {modalName}
