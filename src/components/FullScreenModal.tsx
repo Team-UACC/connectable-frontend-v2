@@ -33,11 +33,11 @@ export default function FullScreenModal() {
 
         <div
           className={[
-            'fixed w-[min(100vw,428px)] inset-0 z-[999] flex items-end justify-center m-auto text-center',
+            'fixed w-[min(100vw,428px)] inset-0 z-[999] flex items-end justify-center m-auto',
             themeColor,
           ].join(' ')}
         >
-          <div className="relative flex items-end justify-center w-full min-h-screen m-auto text-center">
+          <div className="relative flex items-end justify-center w-full min-h-screen m-auto">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"

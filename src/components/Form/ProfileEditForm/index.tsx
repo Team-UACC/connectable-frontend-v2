@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import Image from 'next/image';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 
 import { requestSMSCertificationKey, verifyCertificationKey } from '~/apis/auth';
@@ -66,24 +67,32 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
     return () => {
       clearInterval(id);
     };
-  }, [certifiedPhoneNumberStep]);
+  }, [certifiedPhoneNumberStep, phoneNumber]);
 
   useEffect(() => {
     userNameRef.current?.focus();
     setValidationNickName(true);
     setValidationPhoneNumber(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (userNameRef.current?.value === userName) {
       setValidationNickName(true);
     }
-  }, [validationNickName]);
+  }, [setValidationNickName, userName, validationNickName]);
 
   return (
     <div className="w-full overflow-hidden">
       <form className={`flex w-full bg-transparent `}>
         <FormPageContainer>
+          <Image
+            src="/icons/default_profile.svg"
+            alt="profile"
+            width={100}
+            height={100}
+            style={{ borderRadius: '50%' }}
+          />
           <Input
             name="username"
             label="닉네임"
@@ -94,6 +103,7 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
                 ? '닉네임은 영어 / 한글 / 숫자 / 2~20자 사이로 작성해주세요.'
                 : ''
             }
+            isError={validationNickName !== true}
             type="text"
             placeholder="닉네임을 입력해주세요"
             defaultValue={userName}
@@ -102,8 +112,6 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
             spellCheck="false"
             ref={userNameRef}
           />
-          <div />
-          <div />
           <div className="relative">
             <Input
               name="phonenumber"
@@ -130,7 +138,7 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
             />
             <Button
               color="black"
-              className="absolute right-[5px] bottom-[5px] px-3 text-sm min-w-[4rem]"
+              className="absolute top-[29px] right-0 px-3 text-sm w-max min-w-[5rem]"
               disabled={
                 phoneNumberRef.current?.value === phoneNumber ||
                 validationPhoneNumber !== true ||
@@ -146,9 +154,8 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
             </Button>
           </div>
           {phoneNumberRef.current?.value !== phoneNumber && certifiedPhoneNumberStep !== 'Start' && (
-            <input
-              className={`w-full px-3 py-3 font-semibold leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline`}
-              id={'certificationNumber'}
+            <Input
+              name="certificationNumber"
               type="text"
               placeholder="인증번호를 입력해주세요"
               onChange={() => {
@@ -161,7 +168,11 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
           )}
           <Button
             color="black"
-            onClick={() => handleClickSubmitButton()}
+            className="absolute bottom-0 left-0"
+            onClick={e => {
+              e.preventDefault();
+              handleClickSubmitButton();
+            }}
             disabled={validationNickName !== true || certifiedPhoneNumberStep !== 'Success'}
           >
             수정하기
@@ -173,7 +184,5 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
 }
 
 const FormPageContainer = ({ children }: { children: ReactNode }) => (
-  <div className="relative w-full max-w-[18rem] h-[60vh] m-auto ">
-    <div className=" absolute w-full top-1/2 -translate-y-[60%] flex flex-col gap-[1rem]">{children}</div>
-  </div>
+  <div className="relative w-full h-[80vh] m-auto flex flex-col gap-4">{children}</div>
 );
