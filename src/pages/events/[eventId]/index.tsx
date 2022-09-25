@@ -75,8 +75,9 @@ const EventPage = ({ eventDetail }: Props) => {
           contractAddress={eventDetail.contractAddress}
           openseaUrl={eventDetail.contractAddress}
         />
-        <footer className={`fixed w-full max-w-layout p-4 bg-white bottom-0 z-10`}>
-          <div className="flex gap-3">
+        <footer className={`fixed w-full max-w-layout bottom-0 z-10`}>
+          <div className="w-full h-[34px] bg-gradient-to-t from-white to-transparent" />
+          <div className="flex gap-3 px-4 pb-4 bg-white ">
             {eventDetail.salesOption === 'FLAT_PRICE' && (
               <Button
                 color="white"
