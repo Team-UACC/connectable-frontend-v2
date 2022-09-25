@@ -83,7 +83,7 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
   }, [setValidationNickName, userName, validationNickName]);
 
   return (
-    <div className="w-full overflow-hidden">
+    <div className="relative w-full">
       <form className={`flex w-full bg-transparent `}>
         <FormPageContainer>
           <Image
@@ -166,17 +166,18 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
               ref={certificationKeyRef}
             />
           )}
-          <Button
-            color="black"
-            className="absolute bottom-0 left-0"
-            onClick={e => {
-              e.preventDefault();
-              handleClickSubmitButton();
-            }}
-            disabled={validationNickName !== true || certifiedPhoneNumberStep !== 'Success'}
-          >
-            수정하기
-          </Button>
+          <footer className="sticky bottom-0 z-10 w-full mt-4 bg-white max-w-layout">
+            <Button
+              color="black"
+              onClick={e => {
+                e.preventDefault();
+                handleClickSubmitButton();
+              }}
+              disabled={validationNickName !== true || certifiedPhoneNumberStep !== 'Success'}
+            >
+              수정하기
+            </Button>
+          </footer>
         </FormPageContainer>
       </form>
     </div>
@@ -184,5 +185,5 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
 }
 
 const FormPageContainer = ({ children }: { children: ReactNode }) => (
-  <div className="relative w-full h-[80vh] m-auto flex flex-col gap-4">{children}</div>
+  <div className="relative flex flex-col w-full gap-4 m-auto mt-10">{children}</div>
 );

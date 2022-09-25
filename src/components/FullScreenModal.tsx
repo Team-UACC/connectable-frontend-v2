@@ -66,7 +66,7 @@ export default function FullScreenModal() {
                 >
                   {modalName}
                 </NavHeader>
-                <div className="my-auto max-h-[80vh] overflow-y-scroll px-4">{children}</div>
+                <div className="px-4 overflow-y-scroll">{children}</div>
               </div>
             </Transition.Child>
           </div>
