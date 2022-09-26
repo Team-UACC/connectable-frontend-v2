@@ -7,6 +7,7 @@ import Tab from '~/components/Design/Tab';
 import KlipAuth from '~/components/Form/KlipAuthForm';
 import ProfileEditForm from '~/components/Form/ProfileEditForm';
 import Layout from '~/components/Layout';
+import UserTicketCardList from '~/components/Tickets/UserTicketCardList';
 import useShallowModal from '~/hooks/useShallowModal';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
@@ -49,11 +50,9 @@ function MyPage() {
           <TextInfo title="전화번호" info={phoneNumber} />
         </div>
       </div>
-      <div className="w-full min-h-[calc(100vh-126px-20rem)] px-4 bg-white">
+      <div className="w-full min-h-[calc(100vh-126px-20rem)] bg-white">
         <Tab titles={TITLES}>
-          {/* <UserTicketCardList /> */}
-          {/* <UserOrderStatusList /> */}
-          <div>UserTicketCardList</div>
+          <UserTicketCardList />
           <div>UserOrderStatusList</div>
         </Tab>
       </div>

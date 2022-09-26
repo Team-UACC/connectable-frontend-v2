@@ -11,7 +11,7 @@ const Tab = ({ titles, children }: Props) => {
     <>
       <div className="flex flex-wrap">
         <div className="w-full">
-          <ul className="flex flex-row flex-wrap list-none" role="tablist">
+          <ul className="flex flex-row flex-wrap px-4 list-none" role="tablist">
             {titles.map((title, idx) => (
               <TabNavButton key={title} openTab={openTab} setOpenTab={setOpenTab} idx={idx}>
                 {title}
