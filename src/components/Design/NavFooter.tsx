@@ -1,6 +1,9 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
+
+import Artists from '../Footer/Tab/Artists';
+import Events from '../Footer/Tab/Events';
+import My from '../Footer/Tab/My';
 
 export type FooterTabType = 'events' | 'artists' | 'my';
 
@@ -33,7 +36,8 @@ const TAB_TYPE_NAME: { [type in FooterTabType]: string } = {
 
 const TabItem = ({ name, selected }: { name: FooterTabType; selected: boolean }) => (
   <div className="flex flex-col items-center cursor-pointer w-100px py-[13px]">
-    <Image src={`/icons/icon_tab_${name}_${selected ? 'pink' : 'white'}_24.svg`} alt={name} width={24} height={24} />
+    {name === 'my' && <My isSelected={selected} />} {name === 'events' && <Events isSelected={selected} />}
+    {name === 'artists' && <Artists isSelected={selected} />}
     <span className={'text-xs' + ' ' + (selected ? 'text-brand-pink font-bold' : 'text-gray2')}>
       {TAB_TYPE_NAME[name]}
     </span>
