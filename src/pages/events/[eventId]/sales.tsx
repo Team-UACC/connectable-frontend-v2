@@ -54,10 +54,10 @@ const EventSalesPage = ({ eventDetail }: Props) => {
 
   return (
     <div>
-      <section className="relative w-full px-2 m-auto mt-[18px] drop-shadow-black pb-[120px]">
-        <ul className="relative flex w-full flex-col gap-[18px]">
-          {ticketList?.map(ticketData => (
-            <li key={ticketData.tokenId}>
+      <section className="relative w-full m-auto pb-[120px]">
+        <ul className="relative flex flex-col w-full">
+          {ticketList?.map((ticketData, idx) => (
+            <li key={ticketData.tokenId} style={{ transform: `translateY(-${18 * idx}px)` }}>
               <OrderTicketCard ticketData={ticketData} handleSelect={() => handleSelect(ticketData.id)} />
             </li>
           ))}
