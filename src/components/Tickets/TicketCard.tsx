@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { ChangeEvent, ChangeEventHandler, useCallback, useRef, useState } from 'react';
 
+import { IMAGE_BLUR_DATA_URL } from '~/constants/contents';
 import { TicketSimple } from '~/types/ticketType';
 
 import Badge from '../Design/Badge';
@@ -44,6 +45,8 @@ const OrderTicketCard = ({ ticketData, handleSelect, type = 'order' }: Props) =>
               layout="fill"
               width={100}
               height={100}
+              placeholder="blur"
+              blurDataURL={IMAGE_BLUR_DATA_URL}
             />
           </div>
           <div

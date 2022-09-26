@@ -6,6 +6,7 @@ import { fetchAllEvents, fetchEventsDetail } from '~/apis/events';
 import Button from '~/components/Design/Button';
 import Layout from '~/components/Layout';
 import OrderTicketCard from '~/components/Tickets/TicketCard';
+import TicketSkeleton from '~/components/Tickets/TicketSkeleton';
 import useTicketsByEventIdQuery from '~/hooks/apis/useTicketsByEventIdQuery';
 import { EventDetailType } from '~/types/eventType';
 
@@ -36,7 +37,7 @@ const EventSalesPage = ({ eventDetail }: Props) => {
 
   const checkedSetRef = useRef<Set<number>>(new Set());
 
-  const { data: ticketList } = useTicketsByEventIdQuery(Number(eventId), {
+  const { data: ticketList, isLoading } = useTicketsByEventIdQuery(Number(eventId), {
     staleTime: 0,
     onSuccess: () => (checkedSetRef.current = new Set<number>()),
     enabled: router.isReady,
@@ -56,11 +57,21 @@ const EventSalesPage = ({ eventDetail }: Props) => {
     <div>
       <section className="relative w-full m-auto pb-[120px]">
         <ul className="relative flex flex-col w-full">
-          {ticketList?.map((ticketData, idx) => (
-            <li key={ticketData.tokenId} style={{ transform: `translateY(-${18 * idx}px)` }}>
-              <OrderTicketCard ticketData={ticketData} handleSelect={() => handleSelect(ticketData.id)} />
-            </li>
-          ))}
+          {isLoading ? (
+            <>
+              <TicketSkeleton />
+              <TicketSkeleton />
+              <TicketSkeleton />
+              <TicketSkeleton />
+              <TicketSkeleton />
+            </>
+          ) : (
+            ticketList?.map((ticketData, idx) => (
+              <li key={ticketData.tokenId} style={{ transform: `translateY(-${18 * idx}px)` }}>
+                <OrderTicketCard ticketData={ticketData} handleSelect={() => handleSelect(ticketData.id)} />
+              </li>
+            ))
+          )}
         </ul>
       </section>
       <footer className={`fixed w-full max-w-layout p-4 bg-white bg-opacity-30 backdrop-blur-lg bottom-0 z-10`}>

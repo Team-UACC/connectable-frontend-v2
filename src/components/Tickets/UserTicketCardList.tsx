@@ -3,12 +3,22 @@ import Link from 'next/link';
 import TicketCard from '~/components/Tickets/TicketCard';
 import useTicketsOwnedByUserQuery from '~/hooks/apis/useTicketsOwnedByUserQuery';
 
+import TicketSkeleton from './TicketSkeleton';
+
 const UserTicketCardList = () => {
   const { data: ticketList, isLoading, error } = useTicketsOwnedByUserQuery({ cacheTime: 0, staleTime: 0 });
 
   if (error) return <div>error</div>;
 
-  if (isLoading) return <div>loading...</div>;
+  if (isLoading)
+    return (
+      <ul className="relative flex flex-col w-full">
+        <TicketSkeleton />
+        <TicketSkeleton />
+        <TicketSkeleton />
+        <TicketSkeleton />
+      </ul>
+    );
 
   return (
     <ul className="relative flex flex-col w-full">

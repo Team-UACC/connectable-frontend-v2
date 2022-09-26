@@ -1,5 +1,7 @@
 import Image from 'next/image';
 
+import { IMAGE_BLUR_DATA_URL } from '~/constants/contents';
+
 import Badge from '../Design/Badge';
 import BodyText from '../Design/BodyText';
 
@@ -20,7 +22,15 @@ const EventCard = ({ title, description, image, saleStatus, overlap, isFull }: P
 
     return (
       <article className="relative w-full text-start">
-        <Image src={image} alt={title} width={maxWidth} height={maxWidth} className={isFull ? '' : 'rounded-xl'} />
+        <Image
+          src={image}
+          alt={title}
+          width={maxWidth}
+          height={maxWidth}
+          className={isFull ? '' : 'rounded-xl'}
+          placeholder="blur"
+          blurDataURL={IMAGE_BLUR_DATA_URL}
+        />
         <div
           className={[
             styles.background,
@@ -42,7 +52,15 @@ const EventCard = ({ title, description, image, saleStatus, overlap, isFull }: P
 
   return (
     <article className="relative w-full max-w-[200px] text-start">
-      <Image src={image} alt={title} width={200} height={200} className="rounded" />
+      <Image
+        src={image}
+        alt={title}
+        width={200}
+        height={200}
+        className="rounded"
+        placeholder="blur"
+        blurDataURL={IMAGE_BLUR_DATA_URL}
+      />
       <section className="flex flex-col gap-1 mt-2 text-white">
         {saleStatus && <Badge name={saleStatus} color="white" opacity={saleStatus !== '판매중'} />}
         <h1 className="font-bold ">{title}</h1>
