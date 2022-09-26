@@ -1,14 +1,14 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import React from 'react';
 
-import OrderTicketCard from './OrderTicketCard';
+import TicketCard from './TicketCard';
 
 export default {
-  title: 'Tickets/OrderTicketCard',
-  component: OrderTicketCard,
-} as ComponentMeta<typeof OrderTicketCard>;
+  title: 'Tickets/TicketCard',
+  component: TicketCard,
+} as ComponentMeta<typeof TicketCard>;
 
-const Template: ComponentStory<typeof OrderTicketCard> = args => <OrderTicketCard {...args} />;
+const Template: ComponentStory<typeof TicketCard> = args => <TicketCard {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

@@ -5,7 +5,7 @@ import { ReactElement, useRef, useState } from 'react';
 import { fetchAllEvents, fetchEventsDetail } from '~/apis/events';
 import Button from '~/components/Design/Button';
 import Layout from '~/components/Layout';
-import OrderTicketCard from '~/components/Tickets/OrderTicketCard';
+import OrderTicketCard from '~/components/Tickets/TicketCard';
 import useTicketsByEventIdQuery from '~/hooks/apis/useTicketsByEventIdQuery';
 import { EventDetailType } from '~/types/eventType';
 
