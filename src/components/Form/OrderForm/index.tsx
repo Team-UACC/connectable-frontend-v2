@@ -143,10 +143,24 @@ export default function OrderForm({ amount, ticketIdList, eventId }: Props) {
           <MoreDescription page="UserName" amount={amount} />
 
           <div className="flex gap-4 min-w-2/3 ">
-            <Button color="black" onClick={() => setPage('Agreement')} disabled={false}>
+            <Button
+              color="black"
+              onClick={e => {
+                e.preventDefault();
+                setPage('Agreement');
+              }}
+              disabled={false}
+            >
               이전
             </Button>
-            <Button color="black" onClick={() => setPage('Finish')} disabled={isDisabledMoveToFinishPage}>
+            <Button
+              color="black"
+              onClick={e => {
+                e.preventDefault();
+                setPage('Finish');
+              }}
+              disabled={isDisabledMoveToFinishPage}
+            >
               다음
             </Button>
           </div>
