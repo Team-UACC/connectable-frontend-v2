@@ -1,4 +1,7 @@
 import { useRouter } from 'next/router';
+import { ReactElement } from 'react';
+
+import Layout from '~/components/Layout';
 
 export default function NotFoundPage() {
   const router = useRouter();
@@ -21,3 +24,9 @@ export default function NotFoundPage() {
     </section>
   );
 }
+
+NotFoundPage.getLayout = (page: ReactElement) => (
+  <Layout headerType="home" selectedFooter="events" bgColor="white">
+    {page}
+  </Layout>
+);
