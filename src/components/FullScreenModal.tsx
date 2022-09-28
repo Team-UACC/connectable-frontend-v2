@@ -31,10 +31,7 @@ export default function FullScreenModal() {
         </Transition.Child>
 
         <div
-          className={[
-            'fixed w-[min(100vw,428px)] inset-0 z-[999] flex justify-center h-screen m-auto',
-            themeColor,
-          ].join(' ')}
+          className={['fixed w-[min(100vw,428px)] inset-0 z-[999] flex justify-center m-auto', themeColor].join(' ')}
         >
           <div className="relative flex flex-col justify-center w-full">
             <Transition.Child
