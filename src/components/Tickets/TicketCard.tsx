@@ -30,7 +30,7 @@ const OrderTicketCard = ({ ticketData, handleSelect, type = 'order' }: Props) =>
   );
 
   return (
-    <div className={['relative', ticketSalesStatus !== 'ON_SALE' ? 'opacity-50' : ''].join(' ')}>
+    <div className={['relative', type === 'order' && ticketSalesStatus !== 'ON_SALE' ? 'opacity-50' : ''].join(' ')}>
       <TicketLayout type={type === 'order' ? (isSelected ? 'orderActive' : 'order') : 'my'} />
       <section
         className={[

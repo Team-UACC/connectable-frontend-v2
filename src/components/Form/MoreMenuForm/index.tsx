@@ -31,7 +31,7 @@ export default function MoreMenu() {
   ];
 
   return (
-    <section className="absolute top-[6rem] left-[2rem] text-base font-semibold text-start w-4/5 ">
+    <section className="absolute top-[1rem] left-[2rem] text-base font-semibold text-start w-4/5 ">
       <ul>
         {MENU.map(term => {
           if (term.href === undefined) {

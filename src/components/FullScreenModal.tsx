@@ -13,7 +13,7 @@ export default function FullScreenModal() {
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-[999]" onClose={setIsOpen} initialFocus={undefined}>
+      <Dialog as="div" className="relative z-[999]" onClose={setIsOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -25,7 +25,7 @@ export default function FullScreenModal() {
         >
           <div
             className={[
-              'fixed m-auto inset-0 transition-opacity bg-white backdrop-blur-[6px]',
+              'fixed m-auto inset-0 transition-opacity bg-white bg-opacity-90 backdrop-blur-[6px]',
               isOpen ? '' : 'bg-opacity-80 ',
             ].join(' ')}
           />
@@ -33,11 +33,11 @@ export default function FullScreenModal() {
 
         <div
           className={[
-            'fixed w-[min(100vw,428px)] inset-0 z-[999] flex items-end justify-center m-auto',
+            'fixed w-[min(100vw,428px)] inset-0 z-[999] flex justify-center h-screen m-auto',
             themeColor,
           ].join(' ')}
         >
-          <div className="relative flex items-end justify-center w-full min-h-screen m-auto">
+          <div className="relative flex flex-col justify-center w-full">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -47,9 +47,10 @@ export default function FullScreenModal() {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <div className="relative flex flex-col w-full h-screen">
+              <div className="relative flex flex-col-reverse w-full min-h-full">
+                <div className="relative px-4 h-[calc(100vh-60px)]  overflow-y-auto">{children}</div>
                 <NavHeader
-                  className={['bg-inherit backdrop-blur-none'].join(' ')}
+                  className={['bg-inherit'].join(' ')}
                   type={theme === 'white' ? 'close-white' : 'close-black'}
                   handleClickClose={() => {
                     const storage = globalThis?.sessionStorage;
@@ -66,7 +67,6 @@ export default function FullScreenModal() {
                 >
                   {modalName}
                 </NavHeader>
-                <div className="px-4 overflow-y-auto">{children}</div>
               </div>
             </Transition.Child>
           </div>
