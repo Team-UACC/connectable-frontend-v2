@@ -10,7 +10,7 @@ import EventSaleTimer from '../EventSaleTimer';
 const EventInfoSection = ({ eventDetail }: { eventDetail: EventDetailType }) => {
   return (
     <section className="px-4 pb-6 border-b-[12px] border-[#F5F5F5]">
-      <SpeeachBubble className="-translate-y-2 ">
+      <SpeeachBubble className="-translate-y-2 " color={eventDetail.endTime < new Date().getTime() ? 'gray' : 'pink'}>
         <EventSaleTimer endTime={eventDetail.endTime} />
       </SpeeachBubble>
       <span className="text-sm font-semibold text-gray5">
