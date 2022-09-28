@@ -24,10 +24,9 @@ export default function FullScreenModal() {
           leaveTo="opacity-0"
         >
           <div
-            className={[
-              'fixed m-auto inset-0 transition-opacity bg-white bg-opacity-90 backdrop-blur-[6px]',
-              isOpen ? '' : 'bg-opacity-80 ',
-            ].join(' ')}
+            className={['fixed m-auto inset-0 transition-opacity bg-white bg-opacity-[95%] backdrop-blur-[6px]'].join(
+              ' '
+            )}
           />
         </Transition.Child>
 

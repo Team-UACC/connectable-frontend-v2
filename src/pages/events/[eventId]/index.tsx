@@ -10,10 +10,12 @@ import EventCard from '~/components/Events/EventCard';
 import ArtistSection from '~/components/Events/EventPage/ArtistSection';
 import EventInfoSection from '~/components/Events/EventPage/EventInfoSection';
 import NFTCollectionInfoSection from '~/components/Events/EventPage/NFTCollectionInfoSection';
+import OrderForm from '~/components/Form/OrderForm';
 import Layout from '~/components/Layout';
 import Paragraph from '~/components/Paragraph';
 import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
 import { useBottomSheetModalStore } from '~/stores/bottomSheetModal';
+import { useModalStore } from '~/stores/modal';
 import { EventDetailType } from '~/types/eventType';
 
 export async function getStaticPaths() {
@@ -102,6 +104,11 @@ const EventPage = ({ eventDetail }: Props) => {
 };
 
 const BottomSheetContent = ({ amount }: { amount: number }) => {
+  const router = useRouter();
+  const { eventId } = router.query;
+
+  const { showModal } = useModalStore();
+
   const [totalAmount, setTotalAmount] = useState<number>(amount);
   const counterDivRef = useRef<HTMLDivElement>(null);
 
@@ -122,7 +129,13 @@ const BottomSheetContent = ({ amount }: { amount: number }) => {
           <div className="mt-1 text-2xl font-semibold text-brand-pink">{totalAmount.toLocaleString('ko-KR')}원</div>
         </div>
       </div>
-      <Button color="black" className="mt-3">
+      <Button
+        color="black"
+        className="mt-3"
+        onClick={() => {
+          showModal('결제하기', <OrderForm amount={totalAmount} ticketIdList={[]} eventId={Number(eventId)} />);
+        }}
+      >
         결제하기
       </Button>
     </div>
