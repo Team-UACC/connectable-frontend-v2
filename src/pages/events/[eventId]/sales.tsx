@@ -1,8 +1,6 @@
-import { GetStaticPropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { ReactElement, useRef, useState } from 'react';
 
-import { fetchAllEvents, fetchEventsDetail } from '~/apis/events';
 import Button from '~/components/Design/Button';
 import OrderForm from '~/components/Form/OrderForm';
 import Layout from '~/components/Layout';
@@ -10,28 +8,8 @@ import OrderTicketCard from '~/components/Tickets/TicketCard';
 import TicketSkeleton from '~/components/Tickets/TicketSkeleton';
 import useTicketsByEventIdQuery from '~/hooks/apis/useTicketsByEventIdQuery';
 import { useModalStore } from '~/stores/modal';
-import { EventDetailType } from '~/types/eventType';
 
-export async function getStaticPaths() {
-  const events = await fetchAllEvents();
-  const paths = events.map(e => ({ params: { eventId: e.id.toString() } }));
-  return { paths, fallback: false };
-}
-
-export async function getStaticProps({ params }: GetStaticPropsContext) {
-  const eventDetail = await fetchEventsDetail(Number(params?.eventId));
-  return {
-    props: {
-      eventDetail,
-    },
-  };
-}
-
-interface Props {
-  eventDetail: EventDetailType;
-}
-
-const EventSalesPage = ({ eventDetail }: Props) => {
+const EventSalesPage = () => {
   const router = useRouter();
   const { eventId } = router.query;
 
@@ -71,7 +49,11 @@ const EventSalesPage = ({ eventDetail }: Props) => {
             </>
           ) : (
             ticketList?.map((ticketData, idx) => (
-              <li key={ticketData.tokenId} style={{ transform: `translateY(-${18 * idx}px)` }}>
+              <li
+                key={ticketData.tokenId}
+                style={{ transform: `translateY(-${18 * idx}px)` }}
+                className={ticketData.ticketSalesStatus !== 'ON_SALE' ? 'opacity-50' : ''}
+              >
                 <OrderTicketCard ticketData={ticketData} handleSelect={() => handleSelect(ticketData.id)} />
               </li>
             ))
@@ -94,7 +76,7 @@ const EventSalesPage = ({ eventDetail }: Props) => {
               />
             );
           }}
-        >{`티켓 ${checkedSetRef.current.size}장 결제하기`}</Button>
+        >{`티켓 ${selectedCount}장 결제하기`}</Button>
       </footer>
     </div>
   );

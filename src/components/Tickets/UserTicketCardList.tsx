@@ -26,7 +26,7 @@ const UserTicketCardList = () => {
         <li key={ticketData.tokenId} style={{ transform: `translateY(-${18 * idx}px)` }}>
           <Link href={`tickets/${ticketData.eventId}/${ticketData.id}`} className="relative w-full">
             <a>
-              <TicketCard ticketData={ticketData} type="my" />
+              <TicketCard ticketData={ticketData} cutout="right" hasSelect={false} />
             </a>
           </Link>
         </li>
