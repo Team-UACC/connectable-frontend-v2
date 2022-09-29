@@ -59,45 +59,50 @@ const EventPage = ({ eventDetail }: Props) => {
 
   return (
     <>
-      <article className="pb-[88px] bg-white">
-        <EventCard
-          title={eventDetail.name}
-          description={'short description'}
-          image={eventDetail.image}
-          overlap={true}
-          isFull={true}
-        />
-        <EventInfoSection eventDetail={data ?? eventDetail} />
+      <article className="pb-[88px] bg-white divide-y-[12px] divide-[#F5F5F5]">
+        <div>
+          <EventCard
+            title={eventDetail.name}
+            description={'short description'}
+            image={eventDetail.image}
+            overlap={true}
+            isFull={true}
+          />
+          <EventInfoSection eventDetail={data ?? eventDetail} />
+        </div>
         <ArtistSection artistImage={eventDetail.artistImage} artistName={eventDetail.artistName} />
-        <section className="px-4 py-6 border-b-[12px] border-[#F5F5F5]">
-          <Paragraph title="공연 설명">{eventDetail.description}</Paragraph>
-        </section>
-        <NFTCollectionInfoSection
-          contractAddress={eventDetail.contractAddress}
-          openseaUrl={eventDetail.contractAddress}
-        />
-        <footer className={`fixed w-full max-w-layout bottom-0 z-10`}>
-          <div className="w-full h-[34px] bg-gradient-to-t from-white to-transparent" />
-          <div className="flex gap-3 px-4 pb-4 bg-white ">
-            {eventDetail.salesOption === 'FLAT_PRICE' && (
-              <Button
-                color="white"
-                onClick={() => {
-                  showBottomSheetModal({
-                    bottomSheetModalName: '티켓 구매하기',
-                    children: <BottomSheetContent amount={eventDetail.price} />,
-                  });
-                }}
-              >
-                바로 구매하기
-              </Button>
-            )}
-            <Link href={`/events/${eventDetail.id}/sales`}>
-              <Button color="black">티켓 선택</Button>
-            </Link>
-          </div>
-        </footer>
+        <div>
+          <section className="px-4 py-6 ">
+            <Paragraph title="공연 설명">{eventDetail.description}</Paragraph>
+          </section>
+          <NFTCollectionInfoSection
+            contractAddress={eventDetail.contractAddress}
+            openseaUrl={eventDetail.contractAddress}
+          />
+        </div>
       </article>
+
+      <footer className={`fixed w-full max-w-layout bottom-0 z-10`}>
+        <div className="w-full h-[34px] bg-gradient-to-t from-white to-transparent" />
+        <div className="flex gap-3 px-4 pb-4 bg-white ">
+          {eventDetail.salesOption === 'FLAT_PRICE' && (
+            <Button
+              color="white"
+              onClick={() => {
+                showBottomSheetModal({
+                  bottomSheetModalName: '티켓 구매하기',
+                  children: <BottomSheetContent amount={eventDetail.price} />,
+                });
+              }}
+            >
+              바로 구매하기
+            </Button>
+          )}
+          <Link href={`/events/${eventDetail.id}/sales`}>
+            <Button color="black">티켓 선택</Button>
+          </Link>
+        </div>
+      </footer>
     </>
   );
 };
