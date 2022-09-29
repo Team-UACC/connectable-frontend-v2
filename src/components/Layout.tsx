@@ -1,12 +1,11 @@
 import { ReactNode } from 'react';
 
+import useFullScreenModal from '~/hooks/useFullScreenModal';
 import useShallowModal from '~/hooks/useShallowModal';
-import { useModalStore } from '~/stores/modal';
 
 import BottomSheet from './Design/BottomSheet';
 import NavFooter, { FooterTabType } from './Design/NavFooter';
 import NavHeader, { NavHeaderType } from './Design/NavHeader';
-import MoreMenu from './Form/MoreMenuForm';
 
 interface Props {
   children: ReactNode;
@@ -17,8 +16,7 @@ interface Props {
 }
 
 export default function Layout({ children, selectedFooter, headerType, headerName, bgColor = 'black' }: Props) {
-  const { showModal } = useModalStore();
-
+  const { showMoreMenuModal } = useFullScreenModal();
   const { pushShallowUrl } = useShallowModal();
 
   const paddingClassName = [
@@ -36,7 +34,7 @@ export default function Layout({ children, selectedFooter, headerType, headerNam
           logoLink="/"
           handleClickMoreMenu={() => {
             pushShallowUrl();
-            showModal('메뉴', <MoreMenu />);
+            showMoreMenuModal();
           }}
         >
           {headerName}

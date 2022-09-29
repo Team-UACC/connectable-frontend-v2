@@ -4,10 +4,10 @@ import toast from 'react-hot-toast';
 import { useQuery } from 'react-query';
 
 import { requestUserLogin } from '~/apis/users';
-// import SignUpForm from '~/components/Form/SignUpForm';
-import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 import { getKlipAccessMethod, getKlipRequest, getKlipRequestKey } from '~/utils/klip';
+
+import useFullScreenModal from './useFullScreenModal';
 
 const AUTH_COOKIE_KEY = 'auth';
 
@@ -19,7 +19,8 @@ export const useKlipLogin = () => {
   const [requestKey, setRequestKey] = useState('');
 
   const { setKlaytnAddress, setIsLoggedIn } = useUserStore();
-  const { showModal, hideModal } = useModalStore();
+
+  const { showSignUpModal, hideModal } = useFullScreenModal();
 
   useQuery(['login', { requestKey }], () => requestUserLogin(requestKey), {
     onSuccess: data => {
@@ -32,7 +33,7 @@ export const useKlipLogin = () => {
 
         if (isNew) {
           setKlaytnAddress(klaytnAddress as string);
-          showModal('회원가입', <div>SignUp</div>);
+          showSignUpModal();
         } else {
           setIsLoggedIn(true);
           toast.success('로그인되었습니다.');

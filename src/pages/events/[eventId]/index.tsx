@@ -10,12 +10,11 @@ import EventCard from '~/components/Events/EventCard';
 import ArtistSection from '~/components/Events/EventPage/ArtistSection';
 import EventInfoSection from '~/components/Events/EventPage/EventInfoSection';
 import NFTCollectionInfoSection from '~/components/Events/EventPage/NFTCollectionInfoSection';
-import OrderForm from '~/components/Form/OrderForm';
 import Layout from '~/components/Layout';
 import Paragraph from '~/components/Paragraph';
 import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
+import useFullScreenModal from '~/hooks/useFullScreenModal';
 import { useBottomSheetModalStore } from '~/stores/bottomSheetModal';
-import { useModalStore } from '~/stores/modal';
 import { EventDetailType } from '~/types/eventType';
 
 export async function getStaticPaths() {
@@ -107,7 +106,7 @@ const BottomSheetContent = ({ amount }: { amount: number }) => {
   const router = useRouter();
   const { eventId } = router.query;
 
-  const { showModal } = useModalStore();
+  const { showOrderModal } = useFullScreenModal();
 
   const [totalAmount, setTotalAmount] = useState<number>(amount);
   const counterDivRef = useRef<HTMLDivElement>(null);
@@ -133,7 +132,7 @@ const BottomSheetContent = ({ amount }: { amount: number }) => {
         color="black"
         className="mt-3"
         onClick={() => {
-          showModal('결제하기', <OrderForm amount={totalAmount} ticketIdList={[]} eventId={Number(eventId)} />);
+          showOrderModal({ amount: totalAmount, ticketIdList: [], eventId: Number(eventId) });
         }}
       >
         결제하기

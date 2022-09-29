@@ -1,14 +1,12 @@
 import Link from 'next/link';
 
 import { useLogout } from '~/hooks/useAuth';
-import { useModalStore } from '~/stores/modal';
+import useFullScreenModal from '~/hooks/useFullScreenModal';
 import { useUserStore } from '~/stores/user';
-
-import KlipAuth from '../KlipAuthForm';
 
 export default function MoreMenu() {
   const { isLoggedIn } = useUserStore();
-  const { showModal, hideModal } = useModalStore();
+  const { showLoginModal, hideModal } = useFullScreenModal();
   const logOut = useLogout();
 
   const MENU: Array<{ name: string; href?: string; handleClick?: () => any }> = [
@@ -23,7 +21,7 @@ export default function MoreMenu() {
           logOut();
           hideModal();
         } else {
-          showModal('로그인', <KlipAuth />);
+          showLoginModal();
         }
       },
     },

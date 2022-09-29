@@ -4,13 +4,11 @@ import { ReactElement } from 'react';
 import Button from '~/components/Design/Button';
 import CopyButton from '~/components/Design/CopyButton';
 import Tab from '~/components/Design/Tab';
-import KlipAuth from '~/components/Form/KlipAuthForm';
-import ProfileEditForm from '~/components/Form/ProfileEditForm';
 import Layout from '~/components/Layout';
 import UserOrderStatusList from '~/components/Order/UserOrderStatusList';
 import UserTicketCardList from '~/components/Tickets/UserTicketCardList';
+import useFullScreenModal from '~/hooks/useFullScreenModal';
 import useShallowModal from '~/hooks/useShallowModal';
-import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 
 const TITLES = ['마이 티켓', '거래 내역'];
@@ -18,7 +16,7 @@ const TITLES = ['마이 티켓', '거래 내역'];
 function MyPage() {
   const { isLoggedIn } = useUserStore();
   const { userName, klaytnAddress, phoneNumber } = useUserStore();
-  const { showModal } = useModalStore();
+  const { showProfileEditModal } = useFullScreenModal();
 
   const { pushShallowUrl } = useShallowModal();
 
@@ -39,7 +37,7 @@ function MyPage() {
             className="absolute bottom-[6px] right-0"
             onClick={() => {
               pushShallowUrl();
-              showModal('프로필 수정', <ProfileEditForm userName={userName} phoneNumber={phoneNumber} />);
+              showProfileEditModal({ userName, phoneNumber });
             }}
           >
             <Image src="/icons/icon_edit.svg" alt="edit" width={24} height={24} />
@@ -80,7 +78,7 @@ const TextInfo = ({ title, info, hasCopy = false }: { title: string; info: strin
 };
 
 const LoginSection = () => {
-  const { showModal } = useModalStore();
+  const { showLoginModal } = useFullScreenModal();
 
   return (
     <div className="w-full h-full min-h-[calc(100vh-126px)] bg-white">
@@ -94,7 +92,7 @@ const LoginSection = () => {
         <Button
           color="black"
           onClick={() => {
-            showModal('로그인', <KlipAuth />);
+            showLoginModal();
           }}
         >
           로그인

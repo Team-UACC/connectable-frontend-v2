@@ -2,18 +2,17 @@ import { useRouter } from 'next/router';
 import { ReactElement, useRef, useState } from 'react';
 
 import Button from '~/components/Design/Button';
-import OrderForm from '~/components/Form/OrderForm';
 import Layout from '~/components/Layout';
 import OrderTicketCard from '~/components/Tickets/TicketCard';
 import TicketSkeleton from '~/components/Tickets/TicketSkeleton';
 import useTicketsByEventIdQuery from '~/hooks/apis/useTicketsByEventIdQuery';
-import { useModalStore } from '~/stores/modal';
+import useFullScreenModal from '~/hooks/useFullScreenModal';
 
 const EventSalesPage = () => {
   const router = useRouter();
   const { eventId } = router.query;
 
-  const { showModal } = useModalStore();
+  const { showOrderModal } = useFullScreenModal();
 
   const [selectedCount, setSelectedCount] = useState(0);
 
@@ -64,17 +63,11 @@ const EventSalesPage = () => {
         <Button
           color="black"
           onClick={() => {
-            showModal(
-              '결제하기',
-              <OrderForm
-                amount={ticketList!.reduce(
-                  (total, v) => (checkedSetRef.current.has(v.id) ? total + v.price : total),
-                  0
-                )}
-                ticketIdList={Array.from(checkedSetRef.current)}
-                eventId={Number(eventId)}
-              />
-            );
+            showOrderModal({
+              amount: ticketList!.reduce((total, v) => (checkedSetRef.current.has(v.id) ? total + v.price : total), 0),
+              ticketIdList: Array.from(checkedSetRef.current),
+              eventId: Number(eventId),
+            });
           }}
         >{`티켓 ${selectedCount}장 결제하기`}</Button>
       </footer>
