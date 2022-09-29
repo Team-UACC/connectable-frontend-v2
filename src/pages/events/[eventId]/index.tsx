@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { ReactElement, useCallback, useEffect, useRef, useState } from 'react';
 
 import { fetchAllEvents, fetchEventsDetail } from '~/apis/events';
+import BottomSheet from '~/components/Design/BottomSheet';
 import Button from '~/components/Design/Button';
 import Counter from '~/components/Design/Counter';
 import EventCard from '~/components/Events/EventCard';
@@ -102,6 +103,7 @@ const EventPage = ({ eventDetail }: Props) => {
           </Link>
         </div>
       </footer>
+      <BottomSheet />
     </>
   );
 };

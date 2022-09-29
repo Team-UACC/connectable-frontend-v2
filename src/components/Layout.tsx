@@ -46,7 +46,6 @@ export default function Layout({ children, selectedFooter, headerType, headerNam
           <NavFooter selected={selectedFooter} />
         </footer>
       )}
-      <BottomSheet />
     </div>
   );
 }
