@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import { ReactNode } from 'react';
 
+import CopyButton from '~/components/Design/CopyButton';
+
 interface NFTCollectionInfoSectionProps {
   contractAddress: string;
   openseaUrl: string;
@@ -16,7 +18,7 @@ const NFTCollectionInfoSection = ({ contractAddress, openseaUrl, ownedBy, tokenI
           <span className="text-point-neongreen">NFT</span> Collection Detail
         </h2>
         <div className="flex flex-col gap-2 mt-4 ">
-          {ownedBy && <TextInfo term="Owned By" content={ownedBy} />}
+          {ownedBy && <TextInfo term="Owned By" content={ownedBy} copyData={ownedBy} />}
           {tokenId && <TextInfo term="Token ID" content={tokenId} />}
           <TextInfo term="Contract Address" content={contractAddress} newTabLink={'https://scope.klaytn.com'} />
           <TextInfo term="Token Standard" content={'KIP-17'} />
@@ -32,22 +34,37 @@ interface TextInfoProps {
   term: string;
   content: ReactNode;
   newTabLink?: string;
+  copyData?: string;
 }
 
-const TextInfo = ({ term, content, newTabLink }: TextInfoProps) => {
-  return (
-    <div className="relative flex w-full">
-      <h3 className="w-[40%] text-sm font-bold text-gray4">{term}</h3>
-      <div className="relative max-w-[50%] w-max text-sm text-brand-pink overflow-hidden text-ellipsis whitespace-nowrap">
-        {content}
-      </div>
-      {newTabLink && (
+const TextInfo = ({ term, content, newTabLink, copyData }: TextInfoProps) => {
+  if (newTabLink)
+    return (
+      <a className="relative flex w-full" href={newTabLink} target="_blank" rel="noreferrer">
+        <h3 className="w-[40%] text-sm font-bold text-gray4">{term}</h3>
+        <div className="relative max-w-[50%] w-max text-sm text-brand-pink overflow-hidden text-ellipsis whitespace-nowrap">
+          {content}
+        </div>
         <button className="ml-2">
           <Image src={'/icons/icon_open_in_new_18.svg'} alt="open_new" width={18} height={18} />
         </button>
-      )}
-    </div>
-  );
+      </a>
+    );
+  else
+    return (
+      <div className="relative flex w-full">
+        <h3 className="w-[40%] text-sm font-bold text-gray4">{term}</h3>
+        <div className="relative max-w-[50%] w-max text-sm text-brand-pink overflow-hidden text-ellipsis whitespace-nowrap">
+          {content}
+        </div>
+
+        {copyData && (
+          <div className="ml-2">
+            <CopyButton color="pink" copyTarget={copyData} />
+          </div>
+        )}
+      </div>
+    );
 };
 
 export default NFTCollectionInfoSection;

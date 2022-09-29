@@ -2,6 +2,7 @@ import { GetStaticPropsContext } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ReactElement, useCallback, useEffect, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 
 import { fetchAllEvents, fetchEventsDetail } from '~/apis/events';
 import BottomSheet from '~/components/Design/BottomSheet';
@@ -89,10 +90,14 @@ const EventPage = ({ eventDetail }: Props) => {
             <Button
               color="white"
               onClick={() => {
-                showBottomSheetModal({
-                  bottomSheetModalName: '티켓 구매하기',
-                  children: <BottomSheetContent amount={eventDetail.price} />,
-                });
+                if (eventDetail.salesTo < new Date().getTime()) {
+                  toast.error('판매가 종료된 티켓입니다.');
+                } else {
+                  showBottomSheetModal({
+                    bottomSheetModalName: '티켓 구매하기',
+                    children: <BottomSheetContent amount={eventDetail.price} />,
+                  });
+                }
               }}
             >
               바로 구매하기
@@ -108,7 +113,15 @@ const EventPage = ({ eventDetail }: Props) => {
   );
 };
 
-const BottomSheetContent = ({ amount }: { amount: number }) => {
+const BottomSheetContent = ({
+  amount,
+  defaultValue,
+  maxValue,
+}: {
+  amount: number;
+  defaultValue?: number;
+  maxValue?: number;
+}) => {
   const router = useRouter();
   const { eventId } = router.query;
 
@@ -131,7 +144,12 @@ const BottomSheetContent = ({ amount }: { amount: number }) => {
     <div className="relative w-full px-4 py-3">
       <div className="font-bold">수량</div>
       <div className="flex items-center justify-between">
-        <Counter deafultValue={1} max={5} ref={counterDivRef} handleChangeCount={handleChangeCount} />
+        <Counter
+          deafultValue={defaultValue ?? 1}
+          max={maxValue ?? 4}
+          ref={counterDivRef}
+          handleChangeCount={handleChangeCount}
+        />
         <div className="text-end">
           <div className="text-sm text-gray2">총 결제금액</div>
           <div className="mt-1 text-2xl font-semibold text-brand-pink">{totalAmount.toLocaleString('ko-KR')}원</div>

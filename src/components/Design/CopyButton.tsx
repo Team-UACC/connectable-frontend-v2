@@ -1,11 +1,15 @@
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 
+import CopyButtonSVG from '~/assets/svgs/CopyButtonSVG';
+
 interface Props {
   copyTarget: string;
+  color?: 'white' | 'pink';
+  size?: number;
 }
 
-const CopyButton = ({ copyTarget }: Props) => {
+const CopyButton = ({ copyTarget, color = 'white', size = 18 }: Props) => {
   return (
     <button
       onClick={() => {
@@ -13,7 +17,7 @@ const CopyButton = ({ copyTarget }: Props) => {
         toast.success('클립보드에 복사되었습니다.');
       }}
     >
-      <Image src="/icons/icon_copy__white_18.svg" alt="copy" width={18} height={18} />
+      <CopyButtonSVG color={color} size={size} />
     </button>
   );
 };
