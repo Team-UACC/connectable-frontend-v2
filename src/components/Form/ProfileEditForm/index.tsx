@@ -83,7 +83,7 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
   }, [setValidationNickName, userName, validationNickName]);
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full px-[18px]">
       <form className={`flex w-full bg-transparent `}>
         <FormPageContainer>
           <Image

@@ -44,7 +44,7 @@ export default function FullScreenModal() {
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <div className="relative flex flex-col-reverse w-full min-h-full">
-                <div className="relative px-4 h-[calc(100vh-60px)]  overflow-y-auto">{children}</div>
+                <div className="relative h-[calc(100vh-60px)]  overflow-y-auto">{children}</div>
                 <NavHeader
                   className={['bg-inherit'].join(' ')}
                   type={theme === 'white' ? 'close-white' : 'close-black'}
