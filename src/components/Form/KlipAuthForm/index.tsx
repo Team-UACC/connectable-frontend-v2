@@ -1,29 +1,14 @@
-import Lottie from 'react-lottie';
-
-import animationData from '~/assets/lotties/spinner.json';
+import LoadingSpinner from '~/components/Design/LoadingSpinner';
 import KlipQR from '~/components/KlipQR';
 import { useKlipLogin } from '~/hooks/useAuth';
 
 export default function KlipAuth() {
   const [method, qrvalue] = useKlipLogin();
 
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
-    },
-  };
-
   if (method === 'QR')
     return (
       <div className="text-center mt-[128px]">
-        {qrvalue === 'DEFAULT' ? (
-          <Lottie options={defaultOptions} height={256} width={256} />
-        ) : (
-          <KlipQR qrvalue={qrvalue} />
-        )}
+        {qrvalue === 'DEFAULT' ? <LoadingSpinner /> : <KlipQR qrvalue={qrvalue} />}
         <br />
         <br />
         <a
