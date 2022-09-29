@@ -21,8 +21,13 @@ const _axiosInstance = axios.create({
   timeout: 5000,
 });
 
-_axiosInstance.interceptors.response.use(response => {
-  return response.data;
-});
+_axiosInstance.interceptors.response.use(
+  response => {
+    return response.data;
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
 
 export const axiosInstance = _axiosInstance;

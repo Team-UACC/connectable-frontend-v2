@@ -4,6 +4,7 @@ import { useCallback } from 'react';
 import KlipAuth from '~/components/Form/KlipAuthForm';
 import OrderForm from '~/components/Form/OrderForm';
 import ProfileEditForm from '~/components/Form/ProfileEditForm';
+import SignUpForm from '~/components/Form/SignUpForm';
 import MoreMenu from '~/components/MoreMenu';
 import TicketDetailModalPage from '~/components/Tickets/TicketDetail/TicketDetailModalPage';
 import { useModalStore } from '~/stores/modal';
@@ -20,7 +21,7 @@ const useFullScreenModal = () => {
   }, []);
 
   const showSignUpModal = useCallback(() => {
-    showModal('회원가입', <div>SignUp</div>);
+    showModal('회원가입', <SignUpForm />);
   }, []);
 
   const showOrderModal = useCallback(

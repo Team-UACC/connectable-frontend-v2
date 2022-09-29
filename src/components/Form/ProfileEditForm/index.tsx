@@ -116,13 +116,6 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
             <Input
               name="phonenumber"
               label="전화번호"
-              description={
-                certifiedPhoneNumberStep === 'InProgress'
-                  ? '문자로 전송된 인증번호를 입력해주세요.'
-                  : certifiedPhoneNumberStep === 'Fail'
-                  ? '인증번호가 일치하지 않습니다.'
-                  : undefined
-              }
               type="tel"
               placeholder="010-0000-0000"
               maxLength={13}
@@ -159,8 +152,22 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
               type="text"
               placeholder="인증번호를 입력해주세요"
               onChange={() => {
-                debouncedPhoneNumberCertification(certificationKeyRef.current?.value as string);
+                if ((certificationKeyRef.current?.value.length ?? 0) < 6) {
+                  setCertifiedPhoneNumberStep('InProgress');
+                } else {
+                  debouncedPhoneNumberCertification(certificationKeyRef.current?.value as string);
+                }
               }}
+              description={
+                certifiedPhoneNumberStep === 'InProgress'
+                  ? '문자로 전송된 인증번호를 입력해주세요.'
+                  : certifiedPhoneNumberStep === 'Fail'
+                  ? '인증번호가 일치하지 않습니다.'
+                  : certifiedPhoneNumberStep === 'Success'
+                  ? '인증되었습니다.'
+                  : undefined
+              }
+              isError={certifiedPhoneNumberStep === 'Fail'}
               autoComplete="off"
               spellCheck={false}
               ref={certificationKeyRef}
