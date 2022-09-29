@@ -74,24 +74,7 @@ const OrderTicketCard = ({
           >
             {hasSelect ? (
               <>
-                <Badge
-                  name={
-                    ticketSalesStatus === 'ON_SALE'
-                      ? '판매중'
-                      : ticketSalesStatus === 'PENDING'
-                      ? '승인대기중'
-                      : '판매완료'
-                  }
-                  size="sm"
-                />
-                <div className="mb-2">
-                  <div className="overflow-hidden text-sm font-semibold text-gray1 text-ellipsis whitespace-nowrap">
-                    {ticketData.metadata.name}
-                  </div>
-                  <div className="mt-1 text-xs text-brand-pink">
-                    판매가 <b>{ticketData.price.toLocaleString('ko-KR')}원</b>
-                  </div>
-                </div>
+                <TicketSalesInfo ticketData={ticketData} />
                 <div className="text-xs text-gray1">{`상세정보 보기 >`}</div>
               </>
             ) : (
@@ -127,6 +110,42 @@ const OrderTicketCard = ({
         )}
       </section>
     </div>
+  );
+};
+
+interface TicketSalesInfoProps {
+  ticketData: TicketSimple;
+  badgeSize?: 'sm' | 'lg';
+  fontSize?: 'sm' | 'lg';
+}
+
+export const TicketSalesInfo = ({ ticketData, badgeSize, fontSize }: TicketSalesInfoProps) => {
+  return (
+    <>
+      <Badge
+        name={
+          ticketData.ticketSalesStatus === 'ON_SALE'
+            ? '판매중'
+            : ticketData.ticketSalesStatus === 'PENDING'
+            ? '승인대기중'
+            : '판매완료'
+        }
+        size={badgeSize ?? 'sm'}
+      />
+      <div className="mb-2">
+        <div
+          className={[
+            'overflow-hidden font-semibold text-gray1 text-ellipsis whitespace-nowrap',
+            fontSize === 'sm' ? 'text-sm' : 'text-xl',
+          ].join(' ')}
+        >
+          {ticketData.metadata.name}
+        </div>
+        <div className={['mt-1 text-brand-pink', fontSize === 'sm' ? 'text-xs' : 'text-base'].join(' ')}>
+          판매가 <b>{ticketData.price.toLocaleString('ko-KR')}원</b>
+        </div>
+      </div>
+    </>
   );
 };
 

@@ -4,14 +4,20 @@ import { ReactNode } from 'react';
 interface NFTCollectionInfoSectionProps {
   contractAddress: string;
   openseaUrl: string;
+  ownedBy?: string;
+  tokenId?: number;
 }
 
-const NFTCollectionInfoSection = ({ contractAddress, openseaUrl }: NFTCollectionInfoSectionProps) => {
+const NFTCollectionInfoSection = ({ contractAddress, openseaUrl, ownedBy, tokenId }: NFTCollectionInfoSectionProps) => {
   return (
-    <section className="relative px-4 py-6 border-b-[12px] border-[#F5F5F5]">
+    <section className="relative px-4 py-6 bg-black">
       <div>
-        <h2 className="text-lg font-bold">NFT 컬렉션 상세</h2>
-        <div className="flex flex-col gap-2 mt-4">
+        <h2 className="text-lg font-black text-white font-montserrat">
+          <span className="text-point-neongreen">NFT</span> Collection Detail
+        </h2>
+        <div className="flex flex-col gap-2 mt-4 ">
+          {ownedBy && <TextInfo term="Owned By" content={ownedBy} />}
+          {tokenId && <TextInfo term="Token ID" content={tokenId} />}
           <TextInfo term="Contract Address" content={contractAddress} newTabLink={'https://scope.klaytn.com'} />
           <TextInfo term="Token Standard" content={'KIP-17'} />
           <TextInfo term="BlockChain" content={'Klaytn'} />
@@ -31,7 +37,7 @@ interface TextInfoProps {
 const TextInfo = ({ term, content, newTabLink }: TextInfoProps) => {
   return (
     <div className="relative flex w-full">
-      <h3 className="w-[40%] text-sm font-bold text-gray2">{term}</h3>
+      <h3 className="w-[40%] text-sm font-bold text-gray4">{term}</h3>
       <div className="relative max-w-[50%] w-max text-sm text-brand-pink overflow-hidden text-ellipsis whitespace-nowrap">
         {content}
       </div>
