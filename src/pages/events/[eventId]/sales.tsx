@@ -69,6 +69,7 @@ const EventSalesPage = () => {
               eventId: Number(eventId),
             });
           }}
+          disabled={selectedCount === 0}
         >{`티켓 ${selectedCount}장 결제하기`}</Button>
       </footer>
     </div>

@@ -54,7 +54,6 @@ const EventPage = ({ eventDetail }: Props) => {
 
   useEffect(() => {
     resetBottomSheetModal();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -113,12 +112,15 @@ const BottomSheetContent = ({ amount }: { amount: number }) => {
 
   const { showOrderModal } = useFullScreenModal();
 
+  const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [totalAmount, setTotalAmount] = useState<number>(amount);
+
   const counterDivRef = useRef<HTMLDivElement>(null);
 
   const handleChangeCount = useCallback(
     (count: number) => {
       setTotalAmount(count * amount);
+      setIsDisabled(count === 0);
     },
     [amount]
   );
@@ -139,6 +141,7 @@ const BottomSheetContent = ({ amount }: { amount: number }) => {
         onClick={() => {
           showOrderModal({ amount: totalAmount, ticketIdList: [], eventId: Number(eventId) });
         }}
+        disabled={isDisabled}
       >
         결제하기
       </Button>
