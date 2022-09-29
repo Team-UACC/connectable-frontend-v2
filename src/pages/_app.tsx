@@ -19,6 +19,7 @@ import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import FullScreenModal from '~/components/FullScreenModal';
 import Layout from '~/components/Layout';
 import usePathStore from '~/hooks/usePathStore';
+import useScrollRestorer from '~/hooks/useScrollRestorer';
 import useUser from '~/hooks/useUser';
 import { useModalStore } from '~/stores/modal';
 import { isShallowModalUrl } from '~/utils';
@@ -60,6 +61,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   useUser();
   usePathStore();
+  useScrollRestorer();
 
   useEffect(() => {
     const handleComplete = (url: string, { shallow }: { shallow: boolean }) => {
