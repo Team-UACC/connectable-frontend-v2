@@ -3,7 +3,7 @@ import { ReactElement, useRef, useState } from 'react';
 
 import Button from '~/components/Design/Button';
 import Layout from '~/components/Layout';
-import OrderTicketCard from '~/components/Tickets/TicketCard';
+import TicketCard from '~/components/Tickets/TicketCard';
 import TicketSkeleton from '~/components/Tickets/TicketSkeleton';
 import useTicketsByEventIdQuery from '~/hooks/apis/useTicketsByEventIdQuery';
 import useFullScreenModal from '~/hooks/useFullScreenModal';
@@ -53,7 +53,7 @@ const EventSalesPage = () => {
                 style={{ marginBottom: `-${18}px` }}
                 className={ticketData.ticketSalesStatus !== 'ON_SALE' ? 'opacity-50' : ''}
               >
-                <OrderTicketCard ticketData={ticketData} handleSelect={() => handleSelect(ticketData.id)} />
+                <TicketCard ticketData={ticketData} handleSelect={() => handleSelect(ticketData.id)} />
               </li>
             ))
           )}
@@ -70,7 +70,7 @@ const EventSalesPage = () => {
             });
           }}
           disabled={selectedCount === 0}
-        >{`티켓 ${selectedCount}장 결제하기`}</Button>
+        >{`티켓 ${selectedCount}장 구매하기`}</Button>
       </footer>
     </div>
   );

@@ -5,6 +5,7 @@ import KlipAuth from '~/components/Form/KlipAuthForm';
 import OrderForm from '~/components/Form/OrderForm';
 import ProfileEditForm from '~/components/Form/ProfileEditForm';
 import MoreMenu from '~/components/MoreMenu';
+import TicketDetailModalPage from '~/components/Tickets/TicketDetail/TicketDetailModalPage';
 import { useModalStore } from '~/stores/modal';
 
 const useFullScreenModal = () => {
@@ -24,7 +25,7 @@ const useFullScreenModal = () => {
 
   const showOrderModal = useCallback(
     ({ amount, ticketIdList, eventId }: { amount: number; ticketIdList: Array<number>; eventId: number }) => {
-      showModal('결제하기', <OrderForm amount={amount} ticketIdList={ticketIdList} eventId={eventId} />);
+      showModal('구매하기', <OrderForm amount={amount} ticketIdList={ticketIdList} eventId={eventId} />);
     },
     []
   );
@@ -33,7 +34,19 @@ const useFullScreenModal = () => {
     showModal('프로필 수정', <ProfileEditForm userName={userName} phoneNumber={phoneNumber} />);
   }, []);
 
-  return { showMoreMenuModal, showLoginModal, showSignUpModal, showOrderModal, showProfileEditModal, hideModal };
+  const showTicketDetailModal = useCallback(({ eventId, ticketId }: { eventId: number; ticketId: number }) => {
+    showModal('NFT 티켓 상세', <TicketDetailModalPage eventId={eventId} ticketId={ticketId} />);
+  }, []);
+
+  return {
+    showMoreMenuModal,
+    showLoginModal,
+    showSignUpModal,
+    showOrderModal,
+    showProfileEditModal,
+    hideModal,
+    showTicketDetailModal,
+  };
 };
 
 export default useFullScreenModal;

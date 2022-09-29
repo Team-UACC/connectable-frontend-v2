@@ -1,7 +1,11 @@
 import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { ChangeEvent, ChangeEventHandler, useCallback, useRef, useState } from 'react';
 
 import { IMAGE_BLUR_DATA_URL } from '~/constants/contents';
+import useFullScreenModal from '~/hooks/useFullScreenModal';
+import useShallowModal from '~/hooks/useShallowModal';
 import { TicketSimple } from '~/types/ticketType';
 
 import Badge from '../Design/Badge';
@@ -19,7 +23,7 @@ interface Props {
   shadowColor?: 'black' | 'pink';
 }
 
-const OrderTicketCard = ({
+const TicketCard = ({
   ticketData,
   hasSelect = true,
   handleSelect,
@@ -29,7 +33,12 @@ const OrderTicketCard = ({
 }: Props) => {
   const { ticketSalesStatus } = ticketData;
 
+  const router = useRouter();
+
   const [isSelected, setIsSelected] = useState(false);
+
+  const { showTicketDetailModal } = useFullScreenModal();
+  const { pushShallowUrl } = useShallowModal();
 
   const checkBoxRef = useRef<HTMLInputElement>(null);
 
@@ -75,7 +84,13 @@ const OrderTicketCard = ({
             {hasSelect ? (
               <>
                 <TicketSalesInfo ticketData={ticketData} />
-                <div className="text-xs text-gray1">{`상세정보 보기 >`}</div>
+                <a
+                  className="text-xs text-gray1 hover:cursor-pointer"
+                  onClick={() => {
+                    pushShallowUrl(`/events/${router.query.eventId}/sales`);
+                    showTicketDetailModal({ eventId: Number(router.query.eventId), ticketId: ticketData.id });
+                  }}
+                >{`상세정보 보기 >`}</a>
               </>
             ) : (
               <>
@@ -119,7 +134,7 @@ interface TicketSalesInfoProps {
   fontSize?: 'sm' | 'lg';
 }
 
-export const TicketSalesInfo = ({ ticketData, badgeSize, fontSize }: TicketSalesInfoProps) => {
+export const TicketSalesInfo = ({ ticketData, badgeSize = 'sm', fontSize = 'sm' }: TicketSalesInfoProps) => {
   return (
     <>
       <Badge
@@ -149,4 +164,4 @@ export const TicketSalesInfo = ({ ticketData, badgeSize, fontSize }: TicketSales
   );
 };
 
-export default OrderTicketCard;
+export default TicketCard;

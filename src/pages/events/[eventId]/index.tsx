@@ -143,7 +143,7 @@ const BottomSheetContent = ({ amount }: { amount: number }) => {
         }}
         disabled={isDisabled}
       >
-        결제하기
+        구매하기
       </Button>
     </div>
   );

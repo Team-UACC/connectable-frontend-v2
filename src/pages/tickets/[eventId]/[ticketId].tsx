@@ -2,22 +2,19 @@ import { GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import toast from 'react-hot-toast';
 
 import { fetchAllEvents, fetchEventsAllTickets, fetchEventsDetail, fetchTicketsDetail } from '~/apis/events';
 import FormOrderButton from '~/components/Button/FormOrderButton';
 import NFTTransferButton from '~/components/Button/NFTTransferButton';
 import QREntranceButton from '~/components/Button/QREntranceButton';
 import ShareButton from '~/components/Button/ShareButton';
-import Button from '~/components/Design/Button';
 import LoadingSpinner from '~/components/Design/LoadingSpinner';
-import ArtistSection from '~/components/Events/EventPage/ArtistSection';
-import EventInfoSection, { EventInfos } from '~/components/Events/EventPage/EventInfoSection';
+import { EventInfos } from '~/components/Events/EventPage/EventInfoSection';
 import NFTCollectionInfoSection from '~/components/Events/EventPage/NFTCollectionInfoSection';
 import Paragraph from '~/components/Paragraph';
 import { TicketSalesInfo } from '~/components/Tickets/TicketCard';
+import TicketDetailArticle from '~/components/Tickets/TicketDetail/TicketDetailArticle';
 import { IMAGE_BLUR_DATA_URL } from '~/constants/contents';
-import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
 import useTicketByIdsQuery from '~/hooks/apis/useTicketByIdsQuery';
 import { useUserStore } from '~/stores/user';
 import { EventDetailType } from '~/types/eventType';
@@ -66,7 +63,7 @@ const TicketDetailPage = ({ initialTicketDetailData, initialEventDetailData }: P
   const router = useRouter();
   const { eventId, ticketId } = router.query;
 
-  const { isLoggedIn, klaytnAddress } = useUserStore();
+  const { klaytnAddress } = useUserStore();
 
   const {
     data: ticketDetail,
@@ -74,73 +71,22 @@ const TicketDetailPage = ({ initialTicketDetailData, initialEventDetailData }: P
     refetch: refetchTicketDetail,
   } = useTicketByIdsQuery(Number(eventId), Number(ticketId));
 
-  const {
-    data: eventDetail,
-    isLoading: isEventDataLoading,
-    refetch: refetchEventDetail,
-  } = useEventByIdQuery(Number(eventId));
-
   useEffect(() => {
     if (router.isReady) {
-      refetchEventDetail();
       refetchTicketDetail();
     }
-  }, [refetchEventDetail, refetchTicketDetail, router]);
+  }, [refetchTicketDetail, router]);
 
-  if (isTicketDataLoading || isEventDataLoading) {
+  if (isTicketDataLoading) {
     return <LoadingSpinner />;
   }
 
   return (
     <>
-      <article className="pb-[88px] bg-white divide-y-[12px] divide-[#F5F5F5]">
-        <div>
-          <section className="relative w-full max-h-[428px]">
-            <Image
-              src={'/images/hologram.svg'}
-              alt="bg"
-              layout="responsive"
-              width={428}
-              height={428}
-              className="scale-[120%]"
-            />
-            <div className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-max drop-shadow-[6px_6px_18px_rgba(0,0,0,0.25)]">
-              <Image
-                src={ticketDetail!.metadata.image}
-                alt={'ticket'}
-                width={300}
-                height={300}
-                placeholder="blur"
-                blurDataURL={IMAGE_BLUR_DATA_URL}
-              />
-            </div>
-          </section>
-          <div className="px-[18px] pt-6 pb-5">
-            <section className="flex flex-col w-full gap-3">
-              <TicketSalesInfo ticketData={ticketDetail ?? initialTicketDetailData} badgeSize="lg" fontSize="lg" />
-            </section>
-            <section>
-              <EventInfos
-                size={18}
-                startTime={initialEventDetailData.startTime}
-                location={initialEventDetailData.location}
-              />
-            </section>
-          </div>
-        </div>
-        <div>
-          <section className="px-4 py-6">
-            <Paragraph title="공연 설명">{initialEventDetailData.description}</Paragraph>
-          </section>
-
-          <NFTCollectionInfoSection
-            contractAddress={initialEventDetailData.contractAddress}
-            openseaUrl={initialEventDetailData.contractAddress}
-            ownedBy={ticketDetail?.ownedBy}
-            tokenId={initialTicketDetailData.tokenId}
-          />
-        </div>
-      </article>
+      <TicketDetailArticle
+        ticketDetail={ticketDetail ?? initialTicketDetailData}
+        eventDetail={initialEventDetailData}
+      />
 
       <footer className={`fixed w-full max-w-layout bottom-0 z-10`}>
         <div className="w-full h-[34px] bg-gradient-to-t from-white to-transparent" />
@@ -165,9 +111,7 @@ const TicketDetailPage = ({ initialTicketDetailData, initialEventDetailData }: P
               ticketIdList={[initialTicketDetailData.id]}
               eventId={Number(eventId)}
             />
-          ) : (
-            <ShareButton />
-          )}
+          ) : null}
         </div>
       </footer>
     </>
