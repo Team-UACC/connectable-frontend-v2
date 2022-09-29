@@ -47,10 +47,10 @@ const EventSalesPage = () => {
               <TicketSkeleton />
             </>
           ) : (
-            ticketList?.map((ticketData, idx) => (
+            ticketList?.map(ticketData => (
               <li
                 key={ticketData.tokenId}
-                style={{ transform: `translateY(-${18 * idx}px)` }}
+                style={{ marginBottom: `-${18}px` }}
                 className={ticketData.ticketSalesStatus !== 'ON_SALE' ? 'opacity-50' : ''}
               >
                 <OrderTicketCard ticketData={ticketData} handleSelect={() => handleSelect(ticketData.id)} />
