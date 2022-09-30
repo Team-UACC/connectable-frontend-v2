@@ -1,0 +1,15 @@
+@font-face {
+  font-family: 'GmarketSans';
+  font-weight: 300;
+  src: url('./GmarketSansTTFLight.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'GmarketSans';
+  font-weight: 500;
+  src: url('./GmarketSansTTFMedium.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'GmarketSans';
+  font-weight: 700;
+  src: url('./GmarketSansTTFBold.ttf') format('truetype');
+}
