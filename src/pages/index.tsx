@@ -3,12 +3,14 @@ import Link from 'next/link';
 import { ReactElement, useMemo } from 'react';
 
 import { fetchAllEvents } from '~/apis/events';
+import CompanyFooter from '~/components/Constants/CompanyFooter';
 import Label from '~/components/Design/Label';
 import MySwiper from '~/components/Design/Swiper';
 import EventCard from '~/components/Events/EventCard';
+import HeadMeta from '~/components/HeadMeta';
 import Layout from '~/components/Layout';
-import { BUSINESS } from '~/constants/company';
 import { DOCS_PATH } from '~/constants/path';
+import { data } from '~/constants/seo';
 import { EventSimpleType } from '~/types/eventType';
 
 export async function getStaticProps() {
@@ -25,12 +27,21 @@ interface Props {
 
 const Home = ({ events }: Props) => {
   return (
-    <div className="">
-      <Intro />
-      <TodayTicketSwiper events={events} />
-      <EventList events={events} />
-      <Footer />
-    </div>
+    <>
+      <HeadMeta
+        title={data.title}
+        image={data.images.logo}
+        description={data.description}
+        url={data.url}
+        creator={data.creator}
+      />
+      <div>
+        <Intro />
+        <TodayTicketSwiper events={events} />
+        <EventList events={events} />
+        <CompanyFooter />
+      </div>
+    </>
   );
 };
 
@@ -92,37 +103,6 @@ const EventList = ({ events }: { events: Array<EventSimpleType> }) => {
         {length % 2 === 1 && <div className=" basis-[45%] mt-8 " />}
       </ul>
     </section>
-  );
-};
-
-const Footer = () => {
-  return (
-    <footer className="px-4 py-8 bg-gray1">
-      <ul className="flex w-full gap-4 text-xs font-bold text-gray4">
-        <li>
-          <Link href={DOCS_PATH.TERMS_OF_SERVICE} passHref>
-            <a>이용약관</a>
-          </Link>
-        </li>
-        <li>
-          <Link href={DOCS_PATH.PRIVACY_POLICY} passHref>
-            <a>개인정보처리방침</a>
-          </Link>
-        </li>
-      </ul>
-
-      <ul className="flex flex-col w-full gap-2 mt-4 text-xs text-gray3">
-        <li>
-          ©2022. {BUSINESS.NAME_ENG} {BUSINESS.NAME}
-        </li>
-        <li>사업자등록번호: {BUSINESS.REFISTRATION_NUMBER}</li>
-        <li>
-          대표: {BUSINESS.REPRESENTATIVE} | 주소: {BUSINESS.ADDRESS}
-        </li>
-        <li>이메일 문의: {BUSINESS.EMAIL}</li>
-        <li>전화 문의: {BUSINESS.PHONE}</li>
-      </ul>
-    </footer>
   );
 };
 

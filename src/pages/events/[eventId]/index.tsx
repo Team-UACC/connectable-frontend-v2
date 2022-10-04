@@ -12,8 +12,10 @@ import EventCard from '~/components/Events/EventCard';
 import ArtistSection from '~/components/Events/EventPage/ArtistSection';
 import EventInfoSection from '~/components/Events/EventPage/EventInfoSection';
 import NFTCollectionInfoSection from '~/components/Events/EventPage/NFTCollectionInfoSection';
+import HeadMeta from '~/components/HeadMeta';
 import Layout from '~/components/Layout';
-import Paragraph from '~/components/Paragraph';
+import Paragraph from '~/components/Text/Paragraph';
+import * as seo from '~/constants/seo';
 import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
 import useFullScreenModal from '~/hooks/useFullScreenModal';
 import { useBottomSheetModalStore } from '~/stores/bottomSheetModal';
@@ -56,10 +58,17 @@ const EventPage = ({ eventDetail }: Props) => {
 
   useEffect(() => {
     resetBottomSheetModal();
-  }, []);
+  }, [resetBottomSheetModal]);
 
   return (
     <>
+      <HeadMeta
+        title={`컬렉션 | ${eventDetail.name}`}
+        image={eventDetail.image}
+        description={eventDetail.description}
+        url={seo.data.url + `/events/${eventDetail.id}`}
+        creator={eventDetail.artistName}
+      />
       <article className="pb-[88px] bg-white divide-y-[12px] divide-[#F5F5F5]">
         <div>
           <EventCard

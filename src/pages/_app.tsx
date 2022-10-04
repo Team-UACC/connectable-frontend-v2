@@ -18,6 +18,7 @@ import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 import FullScreenModal from '~/components/FullScreenModal';
 import Layout from '~/components/Layout';
+import useGtag from '~/hooks/useGtag';
 import usePathStore from '~/hooks/usePathStore';
 import useScrollRestorer from '~/hooks/useScrollRestorer';
 import useUser from '~/hooks/useUser';
@@ -62,6 +63,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   useUser();
   usePathStore();
   useScrollRestorer();
+  useGtag();
 
   useEffect(() => {
     const handleComplete = (url: string, { shallow }: { shallow: boolean }) => {

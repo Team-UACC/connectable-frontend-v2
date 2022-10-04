@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 import { EventInfos } from '~/components/Events/EventPage/EventInfoSection';
 import NFTCollectionInfoSection from '~/components/Events/EventPage/NFTCollectionInfoSection';
-import Paragraph from '~/components/Paragraph';
+import Paragraph from '~/components/Text/Paragraph';
 import { IMAGE_BLUR_DATA_URL } from '~/constants/contents';
 import { EventDetailType } from '~/types/eventType';
 import { Ticket } from '~/types/ticketType';

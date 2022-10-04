@@ -191,7 +191,7 @@ export default function SignUpForm() {
               shape="square"
             />
             <a
-              href="docs/terms-of-service"
+              href="/docs/terms-of-service"
               target="_blank"
               className="text-sm font-semibold underline underline-offset-2"
             >{`확인하기`}</a>

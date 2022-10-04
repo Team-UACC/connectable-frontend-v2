@@ -1,5 +1,4 @@
 import { GetServerSidePropsContext } from 'next';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
@@ -9,12 +8,9 @@ import NFTTransferButton from '~/components/Button/NFTTransferButton';
 import QREntranceButton from '~/components/Button/QREntranceButton';
 import ShareButton from '~/components/Button/ShareButton';
 import LoadingSpinner from '~/components/Design/LoadingSpinner';
-import { EventInfos } from '~/components/Events/EventPage/EventInfoSection';
-import NFTCollectionInfoSection from '~/components/Events/EventPage/NFTCollectionInfoSection';
-import Paragraph from '~/components/Paragraph';
-import { TicketSalesInfo } from '~/components/Tickets/TicketCard';
+import HeadMeta from '~/components/HeadMeta';
 import TicketDetailArticle from '~/components/Tickets/TicketDetail/TicketDetailArticle';
-import { IMAGE_BLUR_DATA_URL } from '~/constants/contents';
+import { data } from '~/constants/seo';
 import useTicketByIdsQuery from '~/hooks/apis/useTicketByIdsQuery';
 import { useUserStore } from '~/stores/user';
 import { EventDetailType } from '~/types/eventType';
@@ -83,6 +79,13 @@ const TicketDetailPage = ({ initialTicketDetailData, initialEventDetailData }: P
 
   return (
     <>
+      <HeadMeta
+        title={`NFT 티켓 | ${initialTicketDetailData.metadata.name}`}
+        image={initialTicketDetailData.metadata.image}
+        description={initialTicketDetailData.metadata.description}
+        url={data.url + `/tickets/${initialTicketDetailData.eventId}/${initialTicketDetailData.id}`}
+        creator={initialTicketDetailData.artistName}
+      />
       <TicketDetailArticle
         ticketDetail={ticketDetail ?? initialTicketDetailData}
         eventDetail={initialEventDetailData}

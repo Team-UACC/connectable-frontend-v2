@@ -2,12 +2,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 
-import LinkToKlaytnScope from '~/components/LinkToKlaytnScope';
 import { ACCOUNT } from '~/constants/company';
 import { IMAGE_BLUR_DATA_URL } from '~/constants/contents';
 import { ORDER_STATUS_MESSAGE } from '~/constants/message';
 import { OrderStatus, TicketOrderStatusType } from '~/types/orderType';
 import { dayjsKO } from '~/utils/day';
+
+import LinkToKlaytnScope from '../Text/LinkToKlaytnScope';
 
 interface Props {
   orderData: TicketOrderStatusType;
