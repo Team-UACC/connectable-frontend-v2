@@ -4,6 +4,7 @@ import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 
 import Button, { ButtonProps } from '../Design/Button';
+import NFTTransferForm from '../Form/NFTTransferForm';
 
 interface Props extends ButtonProps {
   blockchain?: 'Klaytn';
@@ -22,7 +23,10 @@ const NFTTransferButton = ({ blockchain = 'Klaytn', eventId, ticketId, ...rest }
         if (!isLoggedIn) {
           toast.error('로그인이 필요합니다.');
         } else {
-          showModal('NFT 전송하기', 'NFT 전송하기');
+          showModal(
+            'NFT 전송하기',
+            <NFTTransferForm blockchain={blockchain} eventId={Number(eventId)} ticketId={Number(ticketId)} />
+          );
         }
       }}
     >

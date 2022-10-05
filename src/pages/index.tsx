@@ -14,7 +14,7 @@ import { data } from '~/constants/seo';
 import { EventSimpleType } from '~/types/eventType';
 
 export async function getStaticProps() {
-  const events = (await fetchAllEvents()).map(e => ({ ...e, saleStatus: '판매중' }));
+  const events = (await fetchAllEvents()).map(e => ({ ...e }));
 
   return {
     props: { events },
@@ -26,6 +26,7 @@ interface Props {
 }
 
 const Home = ({ events }: Props) => {
+  console.log(new Date().getTime());
   return (
     <>
       <HeadMeta
@@ -74,10 +75,16 @@ const TodayTicketSwiper = ({ events }: { events: Array<EventSimpleType> }) => {
     <section className="flex flex-col items-center w-full py-[60px] bg-white">
       <Label title="TODAY TICKETS" color="white" />
       <MySwiper className="mt-8">
-        {events.map(({ id, name, description, image, saleStatus }) => (
+        {events.map(({ id, name, description, image, salesTo }) => (
           <Link href={`/events/${id}`} key={id}>
             <a>
-              <EventCard title={name} description={description} image={image} saleStatus={saleStatus} overlap={true} />
+              <EventCard
+                title={name}
+                description={description}
+                image={image}
+                saleStatus={salesTo > new Date().getTime() ? '판매중' : '판매종료'}
+                overlap={true}
+              />
             </a>
           </Link>
         ))}
@@ -93,10 +100,16 @@ const EventList = ({ events }: { events: Array<EventSimpleType> }) => {
     <section className="flex flex-col items-center w-full py-[60px] bg-black">
       <Label title="ALL TICKETS" color="blue" />
       <ul className="flex flex-wrap w-full justify-evenly ">
-        {events.map(({ id, name, description, image, saleStatus }) => (
+        {events.map(({ id, name, description, image, salesTo }) => (
           <Link href={`/events/${id}`} key={id}>
             <a className=" basis-[45%] mt-8 ">
-              <EventCard title={name} description={description} image={image} saleStatus={saleStatus} overlap={false} />
+              <EventCard
+                title={name}
+                description={description}
+                image={image}
+                saleStatus={salesTo > new Date().getTime() ? '판매중' : '판매종료'}
+                overlap={false}
+              />
             </a>
           </Link>
         ))}

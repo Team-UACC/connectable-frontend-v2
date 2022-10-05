@@ -1,16 +1,14 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ChangeEvent, ChangeEventHandler, useCallback, useRef, useState } from 'react';
 
+import Badge from '~/components/Design/Badge';
+import CheckBox from '~/components/Design/CheckBox';
+import { EventInfos } from '~/components/Events/EventPage/EventInfoSection';
 import { IMAGE_BLUR_DATA_URL } from '~/constants/contents';
 import useFullScreenModal from '~/hooks/useFullScreenModal';
 import useShallowModal from '~/hooks/useShallowModal';
 import { TicketSimple } from '~/types/ticketType';
-
-import Badge from '../Design/Badge';
-import CheckBox from '../Design/CheckBox';
-import { EventInfos } from '../Events/EventPage/EventInfoSection';
 
 import TicketCardContainer from './TicketCardContainer';
 

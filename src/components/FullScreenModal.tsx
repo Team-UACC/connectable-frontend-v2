@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment } from 'react';
+import { Fragment, useEffect, useRef } from 'react';
 
 import { useModalStore } from '~/stores/modal';
 import { isShallowModalUrl } from '~/utils/index';
@@ -10,6 +10,8 @@ export default function FullScreenModal() {
   const { isOpen, modalName, children, setIsOpen, setModalContent, theme } = useModalStore();
 
   const themeColor = theme === 'white' ? 'text-black' : 'bg-black text-white';
+
+  const { containerRef } = useScrollToTop();
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -44,7 +46,9 @@ export default function FullScreenModal() {
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <div className="relative flex flex-col-reverse w-full min-h-full">
-                <div className="relative h-[calc(100vh-60px)]  overflow-y-auto">{children}</div>
+                <div ref={containerRef} className="relative h-[calc(100vh-60px)]  overflow-y-auto">
+                  {children}
+                </div>
                 <NavHeader
                   className={['bg-inherit'].join(' ')}
                   type={theme === 'white' ? 'close-white' : 'close-black'}
@@ -71,3 +75,17 @@ export default function FullScreenModal() {
     </Transition.Root>
   );
 }
+
+const useScrollToTop = () => {
+  const { isOpen } = useModalStore();
+
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      containerRef.current?.scrollTo(0, 0);
+    });
+  }, [isOpen]);
+
+  return { containerRef };
+};

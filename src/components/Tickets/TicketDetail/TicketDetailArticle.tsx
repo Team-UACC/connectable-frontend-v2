@@ -7,7 +7,7 @@ import { IMAGE_BLUR_DATA_URL } from '~/constants/contents';
 import { EventDetailType } from '~/types/eventType';
 import { Ticket } from '~/types/ticketType';
 
-import { TicketSalesInfo } from '../TicketCard';
+import { TicketSalesInfo } from '../TicketCard/TicketCard';
 
 interface Props {
   eventDetail: EventDetailType;

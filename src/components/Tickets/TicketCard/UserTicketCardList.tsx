@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import TicketCard from '~/components/Tickets/TicketCard';
+import TicketCard from '~/components/Tickets/TicketCard/TicketCard';
 import useTicketsOwnedByUserQuery from '~/hooks/apis/useTicketsOwnedByUserQuery';
 
 import TicketSkeleton from './TicketSkeleton';

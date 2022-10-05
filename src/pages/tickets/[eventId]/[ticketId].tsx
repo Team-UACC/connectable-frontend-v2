@@ -104,7 +104,13 @@ const TicketDetailPage = ({ initialTicketDetailData, initialEventDetailData }: P
                 ticketId={Number(ticketId)}
               />
               {ticketDetail && !ticketDetail.used && (
-                <QREntranceButton color="pink" ticketId={initialTicketDetailData.id} />
+                <QREntranceButton
+                  color="pink"
+                  ticketId={initialTicketDetailData.id}
+                  ticketName={initialTicketDetailData.metadata.name}
+                  eventLocation={initialEventDetailData.location}
+                  eventDate={initialEventDetailData.startTime}
+                />
               )}
             </>
           ) : ticketDetail && ticketDetail.ticketSalesStatus === 'ON_SALE' ? (

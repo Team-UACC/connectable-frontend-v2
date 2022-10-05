@@ -6,7 +6,7 @@ import CopyButton from '~/components/Design/CopyButton';
 import Tab from '~/components/Design/Tab';
 import Layout from '~/components/Layout';
 import UserOrderStatusList from '~/components/Order/UserOrderStatusList';
-import UserTicketCardList from '~/components/Tickets/UserTicketCardList';
+import UserTicketCardList from '~/components/Tickets/TicketCard/UserTicketCardList';
 import useFullScreenModal from '~/hooks/useFullScreenModal';
 import useShallowModal from '~/hooks/useShallowModal';
 import { useUserStore } from '~/stores/user';
