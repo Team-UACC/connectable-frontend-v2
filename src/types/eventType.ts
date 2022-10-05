@@ -5,7 +5,6 @@ export type EventSimpleType = {
   description: string;
   salesFrom: number;
   salesTo: number;
-  saleStatus: '판매중' | '매진' | '판매종료';
 };
 
 export interface EventDetailType extends EventSimpleType {

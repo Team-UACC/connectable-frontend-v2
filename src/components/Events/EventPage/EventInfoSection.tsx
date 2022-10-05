@@ -11,7 +11,7 @@ const EventInfoSection = ({ eventDetail }: { eventDetail: EventDetailType }) => 
   return (
     <section className="px-4 pb-6 ">
       <SpeeachBubble className="-translate-y-2 " color={eventDetail.salesTo < new Date().getTime() ? 'gray' : 'pink'}>
-        <EventSaleTimer endTime={eventDetail.endTime} />
+        <EventSaleTimer endTime={eventDetail.salesTo} />
       </SpeeachBubble>
       <span className="text-sm font-semibold text-gray5">
         {eventDetail.totalTicketCount}개 중 {eventDetail.totalTicketCount - eventDetail.onSaleTicketCount}개 판매 완료
