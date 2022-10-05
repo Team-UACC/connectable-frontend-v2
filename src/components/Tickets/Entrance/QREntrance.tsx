@@ -19,34 +19,7 @@ interface Props {
 const DURATION = 30;
 
 export default function QREntrance({ ticketId, eventDate, eventLocation, ticketName }: Props) {
-  const [qrvalue, setQrvalue] = useState('DEFAULT');
-  const [remainingTime, setRemainingTime] = useState(0);
-
-  const { isError } = useQuery(
-    ['fetchEntranceVerification', ticketId],
-    () => requestEntranceVerification({ ticketId }),
-    {
-      onSuccess: data => {
-        setRemainingTime(DURATION);
-        setQrvalue(JSON.stringify(data));
-      },
-      refetchInterval: DURATION * 1000,
-      staleTime: 0,
-      cacheTime: 0,
-      refetchOnReconnect: true,
-      refetchOnWindowFocus: true,
-    }
-  );
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setRemainingTime(time => time - 1);
-    }, 1000);
-
-    return () => {
-      clearInterval(id);
-    };
-  }, [remainingTime]);
+  const { isError, qrvalue, remainingTime } = useQREntrance({ ticketId });
 
   if (isError) {
     return <span className="font-bold">다시 시도해주세요</span>;
@@ -86,3 +59,36 @@ export default function QREntrance({ ticketId, eventDate, eventLocation, ticketN
     </div>
   );
 }
+
+const useQREntrance = ({ ticketId }: { ticketId: number }) => {
+  const [qrvalue, setQrvalue] = useState('DEFAULT');
+  const [remainingTime, setRemainingTime] = useState(0);
+
+  const { isError } = useQuery(
+    ['fetchEntranceVerification', ticketId],
+    () => requestEntranceVerification({ ticketId }),
+    {
+      onSuccess: data => {
+        setRemainingTime(DURATION);
+        setQrvalue(JSON.stringify(data));
+      },
+      refetchInterval: DURATION * 1000,
+      staleTime: 0,
+      cacheTime: 0,
+      refetchOnReconnect: true,
+      refetchOnWindowFocus: true,
+    }
+  );
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setRemainingTime(time => time - 1);
+    }, 1000);
+
+    return () => {
+      clearInterval(id);
+    };
+  }, [remainingTime]);
+
+  return { isError, remainingTime, qrvalue };
+};
