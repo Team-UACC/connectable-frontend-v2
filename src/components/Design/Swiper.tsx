@@ -23,7 +23,7 @@ const MySwiper = (props: Props) => {
         grabCursor={true}
         slidesOffsetBefore={1}
         autoplay={{ delay: 2500, disableOnInteraction: false }}
-        speed={1000}
+        speed={300}
         loop={true}
         pagination={{
           clickable: true,
