@@ -84,7 +84,6 @@ const useScrollToTop = () => {
   useEffect(() => {
     setTimeout(() => {
       containerRef.current?.scrollTo(0, 0);
-      console.log(containerRef.current?.scrollTop, isOpen);
     });
   }, [isOpen]);
 
