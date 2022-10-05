@@ -139,12 +139,13 @@ const BottomSheetContent = ({
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [totalAmount, setTotalAmount] = useState<number>(amount);
 
-  const counterDivRef = useRef<HTMLDivElement>(null);
+  const countRef = useRef<number>(0);
 
   const handleChangeCount = useCallback(
     (count: number) => {
       setTotalAmount(count * amount);
       setIsDisabled(count === 0);
+      countRef.current = count;
     },
     [amount]
   );
@@ -153,12 +154,7 @@ const BottomSheetContent = ({
     <div className="relative w-full px-4 py-3">
       <div className="font-bold">수량</div>
       <div className="flex items-center justify-between">
-        <Counter
-          deafultValue={defaultValue ?? 1}
-          max={maxValue ?? 4}
-          ref={counterDivRef}
-          handleChangeCount={handleChangeCount}
-        />
+        <Counter deafultValue={defaultValue ?? 1} max={maxValue ?? 4} handleChangeCount={handleChangeCount} />
         <div className="text-end">
           <div className="text-sm text-gray2">총 결제금액</div>
           <div className="mt-1 text-2xl font-semibold text-brand-pink">{totalAmount.toLocaleString('ko-KR')}원</div>
@@ -168,7 +164,11 @@ const BottomSheetContent = ({
         color="black"
         className="mt-3"
         onClick={() => {
-          showOrderModal({ amount: totalAmount, ticketIdList: [], eventId: Number(eventId) });
+          showOrderModal({
+            amount: totalAmount,
+            ticketIdList: new Array(countRef.current).fill(0),
+            eventId: Number(eventId),
+          });
         }}
         disabled={isDisabled}
       >
