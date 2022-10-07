@@ -26,7 +26,6 @@ interface Props {
 }
 
 const Home = ({ events }: Props) => {
-  console.log(new Date().getTime());
   return (
     <>
       <HeadMeta
