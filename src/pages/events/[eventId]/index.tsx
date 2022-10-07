@@ -85,10 +85,7 @@ const EventPage = ({ eventDetail }: Props) => {
           <section className="px-4 py-6 ">
             <Paragraph title="공연 설명">{eventDetail.description}</Paragraph>
           </section>
-          <NFTCollectionInfoSection
-            contractAddress={eventDetail.contractAddress}
-            openseaUrl={eventDetail.contractAddress}
-          />
+          <NFTCollectionInfoSection contractAddress={eventDetail.contractAddress} openseaUrl={eventDetail.openseaUrl} />
         </div>
       </article>
 

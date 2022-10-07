@@ -54,7 +54,7 @@ const TicketDetailArticle = ({ ticketDetail, eventDetail }: Props) => {
 
         <NFTCollectionInfoSection
           contractAddress={eventDetail.contractAddress}
-          openseaUrl={eventDetail.contractAddress}
+          openseaUrl={eventDetail.openseaUrl}
           ownedBy={ticketDetail?.ownedBy}
           tokenId={ticketDetail.tokenId}
         />
