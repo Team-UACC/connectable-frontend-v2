@@ -20,7 +20,11 @@ const NFTCollectionInfoSection = ({ contractAddress, openseaUrl, ownedBy, tokenI
         <div className="flex flex-col gap-2 mt-4 ">
           {ownedBy && <TextInfo term="Owned By" content={ownedBy} copyData={ownedBy} />}
           {tokenId && <TextInfo term="Token ID" content={tokenId} />}
-          <TextInfo term="Contract Address" content={contractAddress} newTabLink={'https://scope.klaytn.com'} />
+          <TextInfo
+            term="Contract Address"
+            content={contractAddress}
+            newTabLink={`https://scope.klaytn.com/account/${contractAddress}`}
+          />
           <TextInfo term="Token Standard" content={'KIP-17'} />
           <TextInfo term="BlockChain" content={'Klaytn'} />
           <TextInfo term="OpenSea" content={'오픈씨에서 확인하기'} newTabLink={openseaUrl} />

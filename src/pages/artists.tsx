@@ -13,8 +13,6 @@ const LoginSection = () => {
         <h1 className=" m-auto text-[2rem] font-bold text-gray1">ARTIST PAGE</h1>
         <div className="whitespace-pre-line text-gray2">
           아티스트 페이지는 준비중입니다. <br />
-          <br />
-          2022-10-10 오픈 예정
         </div>
       </section>
     </div>
