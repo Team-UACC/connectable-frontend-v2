@@ -5,6 +5,11 @@ import { ReactElement, useCallback, useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { fetchAllEvents, fetchEventsDetail } from '~/apis/events';
+import BookingGuidance from '~/components/Constants/lets-rock/BookingGuidance';
+import EntranceGuidance from '~/components/Constants/lets-rock/EntranceGuidance';
+import EtcGuidance from '~/components/Constants/lets-rock/EtcGuidance';
+import { LETS_ROCK } from '~/components/Constants/lets-rock/metadata';
+import RefundGuidance from '~/components/Constants/lets-rock/RefundGuidance';
 import BottomSheet from '~/components/Design/BottomSheet';
 import Button from '~/components/Design/Button';
 import Counter from '~/components/Design/Counter';
@@ -81,12 +86,24 @@ const EventPage = ({ eventDetail }: Props) => {
           <EventInfoSection eventDetail={data ?? eventDetail} />
         </div>
         <ArtistSection artistImage={eventDetail.artistImage} artistName={eventDetail.artistName} />
-        <div>
-          <section className="px-4 py-6 ">
-            <Paragraph title="공연 설명">{eventDetail.description}</Paragraph>
-          </section>
-          <NFTCollectionInfoSection contractAddress={eventDetail.contractAddress} openseaUrl={eventDetail.openseaUrl} />
-        </div>
+
+        <section className="px-4 py-6 ">
+          <Paragraph title="공연 설명">{eventDetail.description}</Paragraph>
+        </section>
+
+        {eventDetail.name === LETS_ROCK.name && (
+          <>
+            <BookingGuidance />
+            <RefundGuidance />
+            <EntranceGuidance />
+            <EtcGuidance />
+          </>
+        )}
+
+        <NFTCollectionInfoSection
+          contractAddress={eventDetail.contractAddress}
+          openseaUrl={eventDetail.contractAddress}
+        />
       </article>
 
       <footer className={`fixed w-full max-w-layout bottom-0 z-10`}>
