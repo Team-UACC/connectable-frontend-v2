@@ -3,9 +3,9 @@ import { ReactNode } from 'react';
 import useFullScreenModal from '~/hooks/useFullScreenModal';
 import useShallowModal from '~/hooks/useShallowModal';
 
-import BottomSheet from './Design/BottomSheet';
 import NavFooter, { FooterTabType } from './Design/NavFooter';
 import NavHeader, { NavHeaderType } from './Design/NavHeader';
+import FooterWrapper from './Footer/FooterWrapper';
 
 interface Props {
   children: ReactNode;
@@ -42,9 +42,9 @@ export default function Layout({ children, selectedFooter, headerType, headerNam
       </header>
       <div className={`min-h-[calc(100vh-${navPaddingSize}px)]`}>{children}</div>
       {selectedFooter && (
-        <footer className={`fixed w-full max-w-layout bottom-0 z-10`}>
+        <FooterWrapper>
           <NavFooter selected={selectedFooter} />
-        </footer>
+        </FooterWrapper>
       )}
     </div>
   );

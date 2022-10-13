@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { memo, ReactNode, useEffect, useState } from 'react';
 
 import SpeeachBubble from '~/components/Design/SpeechBubble';
+import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
 import { EventDetailType } from '~/types/eventType';
 import { dayjsKO } from '~/utils/day';
 
@@ -13,13 +14,23 @@ const EventInfoSection = ({ eventDetail }: { eventDetail: EventDetailType }) => 
       <SpeeachBubble className="-translate-y-2 " color={eventDetail.salesTo < new Date().getTime() ? 'gray' : 'pink'}>
         <EventSaleTimer endTime={eventDetail.salesTo} />
       </SpeeachBubble>
-      <span className="text-sm font-semibold text-gray5">
-        {eventDetail.totalTicketCount}개 중 {eventDetail.totalTicketCount - eventDetail.onSaleTicketCount}개 판매 완료
-      </span>
+      <RemainingTicketsCount eventId={eventDetail.id} />
       <div className="mt-3">
         <EventInfos startTime={eventDetail.startTime} endTime={eventDetail.endTime} location={eventDetail.location} />
       </div>
     </section>
+  );
+};
+
+const RemainingTicketsCount = ({ eventId }: { eventId: number }) => {
+  const { data, isSuccess } = useEventByIdQuery(Number(eventId), { cacheTime: 0, staleTime: 0 });
+
+  return (
+    <span className="text-sm font-semibold text-gray5">
+      {isSuccess
+        ? `${data.totalTicketCount}개 중 ${data.totalTicketCount - data.onSaleTicketCount}개 판매 완료`
+        : '...'}
+    </span>
   );
 };
 
