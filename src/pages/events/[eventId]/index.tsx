@@ -94,8 +94,7 @@ const EventPage = ({ eventDetail }: Props) => {
           openseaUrl={eventDetail.contractAddress}
         />
       </div>
-      <FooterWrapper>
-        <div className="w-full h-[34px] bg-gradient-to-t from-white to-transparent" />
+      <FooterWrapper bgTopGradient={true}>
         <div className="flex gap-3 px-4 pb-4 bg-white ">
           {eventDetail.salesOption === 'FLAT_PRICE' && (
             <Button
