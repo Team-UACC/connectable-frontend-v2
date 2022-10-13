@@ -70,7 +70,7 @@ const EventPage = ({ eventDetail }: Props) => {
 
         <ArtistSection artistImage={eventDetail.artistImage} artistName={eventDetail.artistName} />
 
-        <Paragraph title="공연 설명">{eventDetail.description}</Paragraph>
+        <Paragraph title="이벤트 설명">{eventDetail.description}</Paragraph>
 
         <EventGuidances eventName={eventDetail.name} />
 

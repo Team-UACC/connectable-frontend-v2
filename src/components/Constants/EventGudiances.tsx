@@ -3,6 +3,7 @@ import EntranceGuidance from './lets-rock/EntranceGuidance';
 import EtcGuidance from './lets-rock/EtcGuidance';
 import { LETS_ROCK } from './lets-rock/metadata';
 import RefundGuidance from './lets-rock/RefundGuidance';
+import { AdditionalGuidance } from './welcome-connectable/AddtionalGuidance';
 
 const EventGuidances = ({ eventName }: { eventName: string }) => {
   return (
@@ -15,6 +16,7 @@ const EventGuidances = ({ eventName }: { eventName: string }) => {
           <EtcGuidance />
         </>
       )}
+      {eventName === 'Connectale 웰컴 티켓' && <AdditionalGuidance />}
     </>
   );
 };
