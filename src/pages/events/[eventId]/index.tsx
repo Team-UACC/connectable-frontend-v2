@@ -1,28 +1,24 @@
 import { GetStaticPropsContext } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { ReactElement, useCallback, useEffect, useRef, useState } from 'react';
+import { ReactElement, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
 import { fetchAllEvents, fetchEventsDetail } from '~/apis/events';
-import BookingGuidance from '~/components/Constants/lets-rock/BookingGuidance';
-import EntranceGuidance from '~/components/Constants/lets-rock/EntranceGuidance';
-import EtcGuidance from '~/components/Constants/lets-rock/EtcGuidance';
-import { LETS_ROCK } from '~/components/Constants/lets-rock/metadata';
-import RefundGuidance from '~/components/Constants/lets-rock/RefundGuidance';
+import EventGuidances from '~/components/Constants/EventGudiances';
 import BottomSheet from '~/components/Design/BottomSheet';
 import Button from '~/components/Design/Button';
-import Counter from '~/components/Design/Counter';
 import EventCard from '~/components/Events/EventCard';
 import ArtistSection from '~/components/Events/EventPage/ArtistSection';
 import EventInfoSection from '~/components/Events/EventPage/EventInfoSection';
 import NFTCollectionInfoSection from '~/components/Events/EventPage/NFTCollectionInfoSection';
+import TicketCountingForm from '~/components/Events/TicketCountingForm';
+import FooterWrapper from '~/components/Footer/FooterWrapper';
 import HeadMeta from '~/components/HeadMeta';
 import Layout from '~/components/Layout';
 import Paragraph from '~/components/Text/Paragraph';
 import * as seo from '~/constants/seo';
 import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
-import useFullScreenModal from '~/hooks/useFullScreenModal';
 import { useBottomSheetModalStore } from '~/stores/bottomSheetModal';
 import { EventDetailType } from '~/types/eventType';
 
@@ -74,8 +70,8 @@ const EventPage = ({ eventDetail }: Props) => {
         url={seo.data.url + `/events/${eventDetail.id}`}
         creator={eventDetail.artistName}
       />
-      <article className="pb-[88px] bg-white divide-y-[12px] divide-[#F5F5F5]">
-        <div>
+      <div className="pb-[88px] bg-white divide-y-[12px] divide-[#F5F5F5]">
+        <section>
           <EventCard
             title={eventDetail.name}
             description={'short description'}
@@ -84,29 +80,21 @@ const EventPage = ({ eventDetail }: Props) => {
             isFull={true}
           />
           <EventInfoSection eventDetail={data ?? eventDetail} />
-        </div>
+        </section>
         <ArtistSection artistImage={eventDetail.artistImage} artistName={eventDetail.artistName} />
 
         <section className="px-4 py-6 ">
           <Paragraph title="공연 설명">{eventDetail.description}</Paragraph>
         </section>
 
-        {eventDetail.name === LETS_ROCK.name && (
-          <>
-            <BookingGuidance />
-            <RefundGuidance />
-            <EntranceGuidance />
-            <EtcGuidance />
-          </>
-        )}
+        <EventGuidances eventName={eventDetail.name} />
 
         <NFTCollectionInfoSection
           contractAddress={eventDetail.contractAddress}
           openseaUrl={eventDetail.contractAddress}
         />
-      </article>
-
-      <footer className={`fixed w-full max-w-layout bottom-0 z-10`}>
+      </div>
+      <FooterWrapper>
         <div className="w-full h-[34px] bg-gradient-to-t from-white to-transparent" />
         <div className="flex gap-3 px-4 pb-4 bg-white ">
           {eventDetail.salesOption === 'FLAT_PRICE' && (
@@ -118,7 +106,7 @@ const EventPage = ({ eventDetail }: Props) => {
                 } else {
                   showBottomSheetModal({
                     bottomSheetModalName: '티켓 구매하기',
-                    children: <BottomSheetContent amount={eventDetail.price} />,
+                    children: <TicketCountingForm eventId={eventDetail.id} price={eventDetail.price} />,
                   });
                 }
               }}
@@ -130,65 +118,9 @@ const EventPage = ({ eventDetail }: Props) => {
             <Button color="black">티켓 선택</Button>
           </Link>
         </div>
-      </footer>
+      </FooterWrapper>
       <BottomSheet />
     </>
-  );
-};
-
-const BottomSheetContent = ({
-  amount,
-  defaultValue,
-  maxValue,
-}: {
-  amount: number;
-  defaultValue?: number;
-  maxValue?: number;
-}) => {
-  const router = useRouter();
-  const { eventId } = router.query;
-
-  const { showOrderModal } = useFullScreenModal();
-
-  const [isDisabled, setIsDisabled] = useState<boolean>(false);
-  const [totalAmount, setTotalAmount] = useState<number>(amount);
-
-  const countRef = useRef<number>(0);
-
-  const handleChangeCount = useCallback(
-    (count: number) => {
-      setTotalAmount(count * amount);
-      setIsDisabled(count === 0);
-      countRef.current = count;
-    },
-    [amount]
-  );
-
-  return (
-    <div className="relative w-full px-4 py-3">
-      <div className="font-bold">수량</div>
-      <div className="flex items-center justify-between">
-        <Counter deafultValue={defaultValue ?? 1} max={maxValue ?? 4} handleChangeCount={handleChangeCount} />
-        <div className="text-end">
-          <div className="text-sm text-gray2">총 결제금액</div>
-          <div className="mt-1 text-2xl font-semibold text-brand-pink">{totalAmount.toLocaleString('ko-KR')}원</div>
-        </div>
-      </div>
-      <Button
-        color="black"
-        className="mt-3"
-        onClick={() => {
-          showOrderModal({
-            amount: totalAmount,
-            ticketIdList: new Array(countRef.current).fill(0),
-            eventId: Number(eventId),
-          });
-        }}
-        disabled={isDisabled}
-      >
-        구매하기
-      </Button>
-    </div>
   );
 };
 

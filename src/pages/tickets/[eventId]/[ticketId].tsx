@@ -8,6 +8,7 @@ import NFTTransferButton from '~/components/Button/NFTTransferButton';
 import QREntranceButton from '~/components/Button/QREntranceButton';
 import ShareButton from '~/components/Button/ShareButton';
 import LoadingSpinner from '~/components/Design/LoadingSpinner';
+import FooterWrapper from '~/components/Footer/FooterWrapper';
 import HeadMeta from '~/components/HeadMeta';
 import TicketDetailArticle from '~/components/Tickets/TicketDetail/TicketDetailArticle';
 import { data } from '~/constants/seo';
@@ -91,7 +92,7 @@ const TicketDetailPage = ({ initialTicketDetailData, initialEventDetailData }: P
         eventDetail={initialEventDetailData}
       />
 
-      <footer className={`fixed w-full max-w-layout bottom-0 z-10`}>
+      <FooterWrapper>
         <div className="w-full h-[34px] bg-gradient-to-t from-white to-transparent" />
         <div className="flex gap-3 px-4 pb-4 bg-white ">
           {ticketDetail && klaytnAddress === ticketDetail.ownedBy ? (
@@ -122,7 +123,7 @@ const TicketDetailPage = ({ initialTicketDetailData, initialEventDetailData }: P
             />
           ) : null}
         </div>
-      </footer>
+      </FooterWrapper>
     </>
   );
 };
