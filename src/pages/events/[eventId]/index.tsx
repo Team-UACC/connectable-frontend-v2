@@ -1,6 +1,5 @@
 import { GetStaticPropsContext } from 'next';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { ReactElement, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
@@ -18,7 +17,6 @@ import HeadMeta from '~/components/HeadMeta';
 import Layout from '~/components/Layout';
 import Paragraph from '~/components/Text/Paragraph';
 import * as seo from '~/constants/seo';
-import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
 import { useBottomSheetModalStore } from '~/stores/bottomSheetModal';
 import { EventDetailType } from '~/types/eventType';
 
@@ -42,20 +40,7 @@ interface Props {
 }
 
 const EventPage = ({ eventDetail }: Props) => {
-  const router = useRouter();
-  const { eventId } = router.query;
-
   const { resetBottomSheetModal } = useBottomSheetModalStore();
-
-  const { data, refetch: refetchEventDetail } = useEventByIdQuery(Number(eventId), {
-    initialData: eventDetail,
-  });
-
-  useEffect(() => {
-    if (router.isReady) {
-      refetchEventDetail();
-    }
-  }, [router, refetchEventDetail]);
 
   useEffect(() => {
     resetBottomSheetModal();
@@ -80,7 +65,7 @@ const EventPage = ({ eventDetail }: Props) => {
             overlap={true}
             isFull={true}
           />
-          <EventInfoSection eventDetail={data ?? eventDetail} />
+          <EventInfoSection eventDetail={eventDetail} />
         </section>
 
         <ArtistSection artistImage={eventDetail.artistImage} artistName={eventDetail.artistName} />
