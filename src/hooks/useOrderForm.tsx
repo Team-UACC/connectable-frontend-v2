@@ -6,6 +6,7 @@ import { useQueryClient } from 'react-query';
 import { postOrderForm } from '~/apis/orders';
 import OrderFormSuccessToast from '~/components/Toast/OrderFormSuccessToast';
 import queryKeys from '~/constants/queryKeys';
+import { useBottomSheetModalStore } from '~/stores/bottomSheetModal';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 import { ErrorResponse400 } from '~/types/errorType';
@@ -25,6 +26,7 @@ export default function useOrderForm({
 
   const { phoneNumber } = useUserStore();
   const { hideModal } = useModalStore();
+  const { resetBottomSheetModal, hideBottomSheetModal } = useBottomSheetModalStore();
 
   const handleClickSubmitButton = (e: MouseEvent<HTMLButtonElement>) => {
     const currentButton = e.currentTarget;
@@ -45,6 +47,8 @@ export default function useOrderForm({
         queryClient.invalidateQueries(queryKeys.tickets.byEventId(eventId));
 
         hideModal();
+        resetBottomSheetModal();
+        hideBottomSheetModal();
         return <OrderFormSuccessToast />;
       },
       error: (err: AxiosError<ErrorResponse400>) => {
