@@ -1,6 +1,9 @@
+import { getCookie } from 'cookies-next';
+import { GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import { ReactElement } from 'react';
 
+import { fetchUser } from '~/apis/users';
 import Button from '~/components/Design/Button';
 import CopyButton from '~/components/Design/CopyButton';
 import Tab from '~/components/Design/Tab';
@@ -13,8 +16,22 @@ import { useUserStore } from '~/stores/user';
 
 const TITLES = ['마이 티켓', '거래 내역'];
 
-function MyPage() {
-  const { isLoggedIn } = useUserStore();
+export async function getServerSideProps({ req, res }: GetServerSidePropsContext) {
+  const jwt = getCookie('auth', { req, res });
+  const response = await fetchUser(jwt as string);
+
+  const isLoggedIn = response.status === 'success';
+
+  return { props: { isLoggedIn } };
+}
+
+interface Props {
+  isLoggedIn: boolean;
+}
+
+function MyPage({ isLoggedIn }: Props) {
+  const userStore = useUserStore();
+  isLoggedIn ||= userStore.isLoggedIn;
   const { userName, klaytnAddress, phoneNumber } = useUserStore();
   const { showProfileEditModal } = useFullScreenModal();
 

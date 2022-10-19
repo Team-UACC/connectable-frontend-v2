@@ -36,7 +36,7 @@ type AppPropsWithLayout = AppProps & {
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const router = useRouter();
 
-  const { hideModal } = useModalStore();
+  const { isOpen, hideModal } = useModalStore();
 
   const [queryClient] = useState(
     () =>
@@ -70,7 +70,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       toast.dismiss();
 
       if (!isShallowModalUrl(url) && !shallow) {
-        hideModal();
+        isOpen && hideModal();
       }
     };
 
@@ -79,7 +79,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     return () => {
       router.events.off('routeChangeComplete', handleComplete);
     };
-  }, [router, hideModal]);
+  }, [router, isOpen, hideModal]);
 
   return (
     <>

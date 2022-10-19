@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
 
-export const authorizationOptions = () => {
-  const jwt = getCookie('auth');
+export const authorizationOptions = (jwt?: string) => {
+  jwt ??= getCookie('auth') as string;
 
   if (!jwt) return;
 
