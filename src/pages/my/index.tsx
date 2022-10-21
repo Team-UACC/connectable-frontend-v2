@@ -1,9 +1,6 @@
-import { getCookie } from 'cookies-next';
-import { GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import { ReactElement } from 'react';
 
-import { fetchUser } from '~/apis/users';
 import Button from '~/components/Design/Button';
 import CopyButton from '~/components/Design/CopyButton';
 import Tab from '~/components/Design/Tab';
@@ -16,30 +13,14 @@ import { useUserStore } from '~/stores/user';
 
 const TITLES = ['마이 티켓', '거래 내역'];
 
-export async function getServerSideProps({ req, res }: GetServerSidePropsContext) {
-  const jwt = getCookie('auth', { req, res });
-  let isLoggedIn;
-  try {
-    const response = await fetchUser(jwt as string);
-    isLoggedIn = response.status === 'success';
-  } catch (e) {
-    isLoggedIn = false;
-  }
-
-  return { props: { _isLoggedIn: isLoggedIn } };
-}
-
-interface Props {
-  _isLoggedIn: boolean;
-}
-
-function MyPage({ _isLoggedIn }: Props) {
+function MyPage() {
+  const { isLoggedIn } = useUserStore();
   const { userName, klaytnAddress, phoneNumber } = useUserStore();
   const { showProfileEditModal } = useFullScreenModal();
 
   const { pushShallowUrl } = useShallowModal();
 
-  if (_isLoggedIn === false) return <LoginSection />;
+  if (isLoggedIn === false) return <LoginSection />;
 
   return (
     <div className="relative flex flex-col items-center w-full">
