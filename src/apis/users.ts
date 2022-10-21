@@ -13,8 +13,8 @@ type FetchUserRes =
       status: 'failed';
     };
 
-export const fetchUser = async (): Promise<FetchUserRes> => {
-  return axiosInstance.get(`/users`, authorizationOptions());
+export const fetchUser = async (jwt?: string): Promise<FetchUserRes> => {
+  return axiosInstance.get(`/users`, authorizationOptions(jwt));
 };
 
 type RequestUserLoginRes =

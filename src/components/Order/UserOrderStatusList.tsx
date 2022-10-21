@@ -6,8 +6,8 @@ import OrderStatusCard from './UserOrderStatusCard';
 
 const UserOrderStatusList = () => {
   const { data: orderList, isLoading } = useQuery(['userOrderStatusList'], fetchOrderStatusList, {
-    cacheTime: 0,
-    staleTime: 0,
+    cacheTime: 10 * 1000,
+    staleTime: 10 * 1000,
   });
 
   if (isLoading) return <div>loading...</div>;

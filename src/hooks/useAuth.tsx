@@ -1,4 +1,5 @@
 import { deleteCookie, setCookie } from 'cookies-next';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useQuery } from 'react-query';
@@ -61,7 +62,10 @@ export const useKlipLogin = () => {
 
 export const useLogout = () => {
   const { setIsLoggedIn } = useUserStore();
+  const router = useRouter();
+
   const logOut = () => {
+    router.replace('/');
     deleteCookie(AUTH_COOKIE_KEY);
     setIsLoggedIn(false);
     toast.success('로그아웃 되었습니다.');

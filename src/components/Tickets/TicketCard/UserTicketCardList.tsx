@@ -6,7 +6,11 @@ import useTicketsOwnedByUserQuery from '~/hooks/apis/useTicketsOwnedByUserQuery'
 import TicketSkeleton from './TicketSkeleton';
 
 const UserTicketCardList = () => {
-  const { data: ticketList, isLoading, error } = useTicketsOwnedByUserQuery({ cacheTime: 0, staleTime: 0 });
+  const {
+    data: ticketList,
+    isLoading,
+    error,
+  } = useTicketsOwnedByUserQuery({ cacheTime: 10 * 1000, staleTime: 10 * 1000 });
 
   if (error) return <div>error</div>;
 

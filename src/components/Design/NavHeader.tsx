@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { DetailedHTMLProps, HTMLAttributes, MouseEvent } from 'react';
+import { DetailedHTMLProps, HTMLAttributes, MouseEvent, useCallback } from 'react';
 
 export type NavHeaderType = 'sub-transparent' | 'sub-white' | 'close-black' | 'close-white' | 'home';
 
@@ -15,6 +15,14 @@ interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLEleme
 
 const NavHeader = (props: Props) => {
   const router = useRouter();
+
+  const handleClickBack = useCallback(() => {
+    if (document.referrer.includes(process.env.NEXT_PUBLIC_DOMAIN_NAME as string)) {
+      router.back();
+    } else {
+      router.push('/');
+    }
+  }, [router]);
 
   const {
     type = 'home',
@@ -33,7 +41,7 @@ const NavHeader = (props: Props) => {
         className={['relative w-full h-[60px] flex items-center bg-transparent p-[18px]', className].join(' ')}
         {...rest}
       >
-        <button onClick={() => router.back()} className="flex items-center">
+        <button onClick={handleClickBack} className="flex items-center">
           <Image src={`/icons/icon_arrow_back_circle_white.svg`} alt="back" width={36} height={36} />
         </button>
       </nav>
@@ -46,7 +54,7 @@ const NavHeader = (props: Props) => {
         className={['relative w-full h-[60px] flex items-center bg-white bg-opacity-50 p-[18px]', className].join(' ')}
         {...rest}
       >
-        <button onClick={() => router.back()} className="w-8 h-8 p-1">
+        <button onClick={handleClickBack} className="w-8 h-8 p-1">
           <Image src={`/icons/icon_arrow_back_black_24.svg`} alt="back" width={24} height={24} />
         </button>
         <span className="absolute text-lg font-bold -translate-x-1/2 left-1/2">{children}</span>
