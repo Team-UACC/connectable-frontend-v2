@@ -26,7 +26,7 @@ export async function getServerSideProps({ req, res }: GetServerSidePropsContext
     isLoggedIn = false;
   }
 
-  return { props: { isLoggedIn } };
+  return { props: { _isLoggedIn: isLoggedIn } };
 }
 
 interface Props {
