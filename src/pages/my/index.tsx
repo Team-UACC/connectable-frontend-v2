@@ -18,26 +18,28 @@ const TITLES = ['마이 티켓', '거래 내역'];
 
 export async function getServerSideProps({ req, res }: GetServerSidePropsContext) {
   const jwt = getCookie('auth', { req, res });
-  const response = await fetchUser(jwt as string);
-
-  const isLoggedIn = response.status === 'success';
+  let isLoggedIn;
+  try {
+    const response = await fetchUser(jwt as string);
+    isLoggedIn = response.status === 'success';
+  } catch (e) {
+    isLoggedIn = false;
+  }
 
   return { props: { isLoggedIn } };
 }
 
 interface Props {
-  isLoggedIn: boolean;
+  _isLoggedIn: boolean;
 }
 
-function MyPage({ isLoggedIn }: Props) {
-  const userStore = useUserStore();
-  isLoggedIn ||= userStore.isLoggedIn;
+function MyPage({ _isLoggedIn }: Props) {
   const { userName, klaytnAddress, phoneNumber } = useUserStore();
   const { showProfileEditModal } = useFullScreenModal();
 
   const { pushShallowUrl } = useShallowModal();
 
-  if (isLoggedIn === false) return <LoginSection />;
+  if (_isLoggedIn === false) return <LoginSection />;
 
   return (
     <div className="relative flex flex-col items-center w-full">
