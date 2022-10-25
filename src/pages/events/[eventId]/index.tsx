@@ -55,8 +55,7 @@ const EventPage = ({ eventDetail }: Props) => {
         url={seo.data.url + `/events/${eventDetail.id}`}
         creator={eventDetail.artistName}
       />
-
-      <div className="pb-[88px] bg-white divide-y-[12px] divide-[#F5F5F5]">
+      <div className="bg-white divide-y-[12px] divide-[#F5F5F5]">
         <section>
           <EventCard
             title={eventDetail.name}
@@ -72,26 +71,34 @@ const EventPage = ({ eventDetail }: Props) => {
 
         <Paragraph title="이벤트 설명">{eventDetail.description}</Paragraph>
 
-        <EventGuidances eventName={eventDetail.name} />
+        <div className="border-b-[12px] border-[#F5F5F5]">
+          <EventGuidances eventName={eventDetail.name} />
+        </div>
+
+        <div className="sticky bottom-0 border-none">
+          <FooterWrapper bgTopGradient={true} position="relative">
+            <div className="flex gap-3 px-4 pb-4 bg-white ">
+              {eventDetail.salesOption === 'FLAT_PRICE' ? (
+                <BuyNowButton
+                  eventId={eventDetail.id}
+                  price={eventDetail.price}
+                  endOfSale={eventDetail.salesTo < new Date().getTime()}
+                />
+              ) : (
+                <LinkToSalesPageButton eventId={eventDetail.id} name={'티켓 구매하기'} />
+              )}
+            </div>
+          </FooterWrapper>
+        </div>
+
+        {eventDetail.salesOption === 'FLAT_PRICE' && (
+          <div className="p-4 border-none">
+            <LinkToSalesPageButton eventId={eventDetail.id} name={'티켓 목록 확인하기'} />
+          </div>
+        )}
 
         <NFTCollectionInfoSection contractAddress={eventDetail.contractAddress} openseaUrl={eventDetail.openseaUrl} />
       </div>
-
-      <FooterWrapper bgTopGradient={true}>
-        <div className="flex gap-3 px-4 pb-4 bg-white ">
-          {eventDetail.salesOption === 'FLAT_PRICE' && (
-            <BuyNowButton
-              eventId={eventDetail.id}
-              price={eventDetail.price}
-              endOfSale={eventDetail.salesTo < new Date().getTime()}
-            />
-          )}
-
-          <Link href={`/events/${eventDetail.id}/sales`}>
-            <Button color="black">티켓 선택</Button>
-          </Link>
-        </div>
-      </FooterWrapper>
 
       <BottomSheet />
     </>
@@ -117,6 +124,14 @@ const BuyNowButton = ({ eventId, price, endOfSale }: { eventId: number; price: n
     >
       바로 구매하기
     </Button>
+  );
+};
+
+const LinkToSalesPageButton = ({ eventId, name = '티켓 선택' }: { eventId: number; name?: string }) => {
+  return (
+    <Link href={`/events/${eventId}/sales`}>
+      <Button color="black">{name}</Button>
+    </Link>
   );
 };
 
