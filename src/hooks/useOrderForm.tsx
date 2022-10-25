@@ -1,4 +1,5 @@
 import { AxiosError } from 'axios';
+import { useRouter } from 'next/router';
 import { MouseEvent, RefObject } from 'react';
 import toast from 'react-hot-toast';
 import { useQueryClient } from 'react-query';
@@ -7,7 +8,6 @@ import { postOrderForm } from '~/apis/orders';
 import OrderFormSuccessToast from '~/components/Toast/OrderFormSuccessToast';
 import queryKeys from '~/constants/queryKeys';
 import { useBottomSheetModalStore } from '~/stores/bottomSheetModal';
-import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 import { ErrorResponse400 } from '~/types/errorType';
 
@@ -22,10 +22,10 @@ export default function useOrderForm({
   ticketIdList,
   eventId,
 }: Props): [(e: MouseEvent<HTMLButtonElement>) => void] {
+  const router = useRouter();
   const queryClient = useQueryClient();
 
   const { phoneNumber } = useUserStore();
-  const { hideModal } = useModalStore();
   const { resetBottomSheetModal, hideBottomSheetModal } = useBottomSheetModalStore();
 
   const handleClickSubmitButton = (e: MouseEvent<HTMLButtonElement>) => {
@@ -46,9 +46,11 @@ export default function useOrderForm({
       success: () => {
         queryClient.invalidateQueries(queryKeys.tickets.byEventId(eventId));
 
-        hideModal();
         resetBottomSheetModal();
         hideBottomSheetModal();
+
+        router.replace(`/events/${eventId}`);
+
         return <OrderFormSuccessToast />;
       },
       error: (err: AxiosError<ErrorResponse400>) => {

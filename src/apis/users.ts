@@ -2,18 +2,14 @@ import { Ticket } from '~/types/ticketType';
 
 import { authorizationOptions, axiosInstance } from '.';
 
-type FetchUserRes =
-  | {
-      status: 'success';
-      nickname: string;
-      phoneNumber: string;
-      klaytnAddress: string;
-    }
-  | {
-      status: 'failed';
-    };
+export type UserStatus = {
+  status: 'success';
+  nickname: string;
+  phoneNumber: string;
+  klaytnAddress: string;
+};
 
-export const fetchUser = async (jwt?: string): Promise<FetchUserRes> => {
+export const fetchUser = async (jwt?: string): Promise<UserStatus> => {
   return axiosInstance.get(`/users`, authorizationOptions(jwt));
 };
 

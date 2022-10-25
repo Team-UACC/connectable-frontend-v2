@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { useEffect } from 'react';
 
 import FormOrderButton from '~/components/Button/FormOrderButton';
 import Button from '~/components/Design/Button';
@@ -22,8 +21,6 @@ const TicketDetailModalPage = ({ eventId, ticketId }: Props) => {
     Number(ticketId),
     { staleTime: 0, cacheTime: 0 }
   );
-
-  useEffect(() => {}, []);
 
   if (isEventDataLoading || isTicketDataLoading) {
     return <LoadingSpinner />;

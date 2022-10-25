@@ -37,26 +37,13 @@ const EventSalesPage = ({ eventDetail }: Props) => {
   const { eventId } = router.query;
 
   const { showOrderModal } = useFullScreenModal();
-
-  const [selectedCount, setSelectedCount] = useState(0);
-
-  const checkedSetRef = useRef<Set<number>>(new Set());
+  const { selectedCount, checkedSetRef, handleSelect } = useTicketCounting();
 
   const { data: ticketList, isLoading } = useTicketsByEventIdQuery(Number(eventId), {
     staleTime: 0,
     onSuccess: () => (checkedSetRef.current = new Set<number>()),
     enabled: router.isReady,
   });
-
-  const handleSelect = (id: number) => {
-    if (checkedSetRef.current.has(id)) {
-      setSelectedCount(now => now - 1);
-    } else {
-      setSelectedCount(now => now + 1);
-    }
-
-    checkedSetRef.current.has(id) ? checkedSetRef.current.delete(id) : checkedSetRef.current.add(id);
-  };
 
   return (
     <>
@@ -68,6 +55,9 @@ const EventSalesPage = ({ eventDetail }: Props) => {
         creator={eventDetail.artistName}
       />
       <div>
+        <div className="font-semibold text-center text-gray2">
+          {eventDetail.salesOption === 'FLAT_PRICE' ? '* 모두 동일한 기능의 티켓입니다. *' : undefined}
+        </div>
         <section className="relative w-full m-auto pb-[120px]">
           <ul className="relative flex flex-col w-full">
             {isLoading ? (
@@ -110,6 +100,24 @@ const EventSalesPage = ({ eventDetail }: Props) => {
       </div>
     </>
   );
+};
+
+const useTicketCounting = () => {
+  const [selectedCount, setSelectedCount] = useState(0);
+
+  const checkedSetRef = useRef<Set<number>>(new Set());
+
+  const handleSelect = (id: number) => {
+    if (checkedSetRef.current.has(id)) {
+      setSelectedCount(now => now - 1);
+    } else {
+      setSelectedCount(now => now + 1);
+    }
+
+    checkedSetRef.current.has(id) ? checkedSetRef.current.delete(id) : checkedSetRef.current.add(id);
+  };
+
+  return { selectedCount, checkedSetRef, handleSelect };
 };
 
 EventSalesPage.getLayout = (page: ReactElement) => (

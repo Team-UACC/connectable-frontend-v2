@@ -13,7 +13,7 @@ import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { ReactElement, ReactNode, useEffect, useState } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 import FullScreenModal from '~/components/FullScreenModal';
@@ -21,7 +21,7 @@ import Layout from '~/components/Layout';
 import useGtag from '~/hooks/useGtag';
 import usePathStore from '~/hooks/usePathStore';
 import useScrollRestorer from '~/hooks/useScrollRestorer';
-import useUser from '~/hooks/useUser';
+import useUserStatus from '~/hooks/useUserStatus';
 import { useModalStore } from '~/stores/modal';
 import { isShallowModalUrl } from '~/utils';
 
@@ -36,7 +36,7 @@ type AppPropsWithLayout = AppProps & {
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const router = useRouter();
 
-  const { isOpen, hideModal } = useModalStore();
+  const { hideModal } = useModalStore();
 
   const [queryClient] = useState(
     () =>
@@ -60,17 +60,15 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       </Layout>
     ));
 
-  useUser();
+  useUserStatus();
   usePathStore();
   useScrollRestorer();
   useGtag();
 
   useEffect(() => {
     const handleComplete = (url: string, { shallow }: { shallow: boolean }) => {
-      toast.dismiss();
-
       if (!isShallowModalUrl(url) && !shallow) {
-        isOpen && hideModal();
+        hideModal();
       }
     };
 
@@ -79,7 +77,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     return () => {
       router.events.off('routeChangeComplete', handleComplete);
     };
-  }, [router, isOpen, hideModal]);
+  }, [router, hideModal]);
 
   return (
     <>

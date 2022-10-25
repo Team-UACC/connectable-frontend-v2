@@ -3,8 +3,8 @@ import { useCallback, useEffect } from 'react';
 import { fetchUser } from '~/apis/users';
 import { useUserStore } from '~/stores/user';
 
-export default function useUser() {
-  const { setIsLoggedIn, addUserState, resetUserState, isLoggedIn } = useUserStore();
+export default function useUserStatus() {
+  const { setIsLoggedIn, addUserState, resetUserState } = useUserStore();
 
   const initializeUser = useCallback(async () => {
     const response = await fetchUser();
@@ -21,5 +21,5 @@ export default function useUser() {
 
   useEffect(() => {
     initializeUser();
-  }, [initializeUser, isLoggedIn]);
+  }, [initializeUser]);
 }
