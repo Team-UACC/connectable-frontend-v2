@@ -20,7 +20,7 @@ const BottomSheet = () => {
     <>
       {isOpen && (
         <div
-          className={`absolute top-0 bg-black bg-opacity-30 h-[2000px] z-[999] w-full max-w-layout m-auto`}
+          className={`absolute top-0 bg-black bg-opacity-30 h-full z-[999] w-full max-w-layout m-auto`}
           onClick={() => {
             hideBottomSheetModal();
           }}
