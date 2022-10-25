@@ -60,7 +60,7 @@ const EventPage = ({ eventDetail }: Props) => {
         <section>
           <EventCard
             title={eventDetail.name}
-            description={'short description'}
+            description={'NFT at CONNECTABLE'}
             image={eventDetail.image}
             overlap={true}
             isFull={true}
@@ -74,10 +74,7 @@ const EventPage = ({ eventDetail }: Props) => {
 
         <EventGuidances eventName={eventDetail.name} />
 
-        <NFTCollectionInfoSection
-          contractAddress={eventDetail.contractAddress}
-          openseaUrl={eventDetail.contractAddress}
-        />
+        <NFTCollectionInfoSection contractAddress={eventDetail.contractAddress} openseaUrl={eventDetail.openseaUrl} />
       </div>
 
       <FooterWrapper bgTopGradient={true}>
