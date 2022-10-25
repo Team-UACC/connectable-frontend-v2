@@ -21,5 +21,6 @@ export default function useUserStatus() {
 
   useEffect(() => {
     initializeUser();
-  }, [initializeUser]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 }
