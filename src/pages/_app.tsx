@@ -12,8 +12,8 @@ import 'swiper/css/navigation';
 import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-import { ReactElement, ReactNode, Suspense, useEffect, useState } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import { ReactElement, ReactNode, useEffect, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
 import FullScreenModal from '~/components/FullScreenModal';
@@ -67,8 +67,6 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   useEffect(() => {
     const handleComplete = (url: string, { shallow }: { shallow: boolean }) => {
-      toast.dismiss();
-
       if (!isShallowModalUrl(url) && !shallow) {
         hideModal();
       }
