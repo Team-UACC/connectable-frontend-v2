@@ -42,7 +42,6 @@ const EventSalesPage = ({ eventDetail }: Props) => {
   const { data: ticketList, isLoading } = useTicketsByEventIdQuery(Number(eventId), {
     staleTime: 0,
     onSuccess: () => (checkedSetRef.current = new Set<number>()),
-    enabled: router.isReady,
   });
 
   return (
