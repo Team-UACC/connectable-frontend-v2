@@ -23,7 +23,7 @@ const EventInfoSection = ({ eventDetail }: { eventDetail: EventDetailType }) => 
 };
 
 const RemainingTicketsCount = ({ eventId }: { eventId: number }) => {
-  const { data, isSuccess } = useEventByIdQuery(Number(eventId), { cacheTime: 0, staleTime: 0 });
+  const { data, isSuccess } = useEventByIdQuery(Number(eventId), { cacheTime: 5 * 1000 });
 
   return (
     <span className="text-sm font-semibold text-gray5">

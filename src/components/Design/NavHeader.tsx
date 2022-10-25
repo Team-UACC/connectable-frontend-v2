@@ -17,7 +17,11 @@ const NavHeader = (props: Props) => {
   const router = useRouter();
 
   const handleClickBack = useCallback(() => {
-    if (document.referrer.includes(process.env.NEXT_PUBLIC_DOMAIN_NAME as string)) {
+    const storage = globalThis?.sessionStorage;
+    if (!storage) return;
+    const prevPath = storage.getItem('prevPath');
+
+    if (prevPath != 'null') {
       router.back();
     } else {
       router.push('/');
