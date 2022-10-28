@@ -1,4 +1,4 @@
-import Link from 'next/link';
+/* eslint-disable @next/next/no-html-link-for-pages */
 import { Component, ErrorInfo, ReactNode } from 'react';
 
 import Layout from './Layout';
@@ -38,9 +38,9 @@ class ErrorBoundary extends Component<Props, State> {
               올바른 동작인지 다시 한번 확인해주세요.
             </div>
             <br />
-            <Link href="/">
-              <a className="mt-6 underline text-brand-skyblue">홈으로 돌아가기</a>
-            </Link>
+            <a href="/" className="mt-6 underline text-brand-skyblue">
+              홈으로 돌아가기
+            </a>
           </section>
         </Layout>
       );
