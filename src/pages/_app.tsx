@@ -16,6 +16,7 @@ import { ReactElement, ReactNode, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 
+import ErrorBoundary from '~/components/ErrorBoundary';
 import FullScreenModal from '~/components/FullScreenModal';
 import Layout from '~/components/Layout';
 import useGtag from '~/hooks/useGtag';
@@ -80,7 +81,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   }, [router, hideModal]);
 
   return (
-    <>
+    <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           {getLayout(<Component {...pageProps} />)}
@@ -88,7 +89,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
           <Toaster containerStyle={{ top: 300 }} toastOptions={{ duration: 3000 }} />
         </Hydrate>
       </QueryClientProvider>
-    </>
+    </ErrorBoundary>
   );
 }
 
