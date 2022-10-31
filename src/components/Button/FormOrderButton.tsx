@@ -4,6 +4,8 @@ import Button, { ButtonProps } from '~/components/Design/Button';
 import useFullScreenModal from '~/hooks/useFullScreenModal';
 import { useUserStore } from '~/stores/user';
 
+import LoginRequestToast from '../Toast/LoginRequestToast';
+
 interface Props extends ButtonProps {
   amount: number;
   ticketIdList: Array<number>;
@@ -22,7 +24,7 @@ const FormOrderButton = ({ amount, ticketIdList, eventId, children, ...rest }: P
         if (isLoggedIn) {
           showOrderModal({ amount, ticketIdList, eventId });
         } else {
-          toast.error('로그인이 필요합니다.');
+          toast(<LoginRequestToast />);
         }
       }}
     >

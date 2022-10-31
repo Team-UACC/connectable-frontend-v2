@@ -5,6 +5,7 @@ import { useUserStore } from '~/stores/user';
 
 import Button, { ButtonProps } from '../Design/Button';
 import NFTTransferForm from '../Form/NFTTransferForm';
+import LoginRequestToast from '../Toast/LoginRequestToast';
 
 interface Props extends ButtonProps {
   blockchain?: 'Klaytn';
@@ -21,7 +22,7 @@ const NFTTransferButton = ({ blockchain = 'Klaytn', eventId, ticketId, ...rest }
       {...rest}
       onClick={() => {
         if (!isLoggedIn) {
-          toast.error('로그인이 필요합니다.');
+          toast(<LoginRequestToast />);
         } else {
           showModal(
             'NFT 전송하기',
