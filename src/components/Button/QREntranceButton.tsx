@@ -5,6 +5,8 @@ import QREntrance from '~/components/Tickets/Entrance/QREntrance';
 import { useModalStore } from '~/stores/modal';
 import { useUserStore } from '~/stores/user';
 
+import LoginRequestToast from '../Toast/LoginRequestToast';
+
 interface Props extends ButtonProps {
   ticketId: number;
   ticketName: string;
@@ -20,7 +22,7 @@ const QREntranceButton = ({ ticketId, ticketName, eventLocation, eventDate, ...r
       {...rest}
       onClick={() => {
         if (!isLoggedIn) {
-          toast.error('로그인이 필요합니다.');
+          toast(<LoginRequestToast />);
         } else {
           showModal(
             'QR 입장',

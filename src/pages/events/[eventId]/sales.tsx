@@ -1,6 +1,7 @@
 import { GetStaticPropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { ReactElement, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 
 import { fetchAllEvents, fetchEventsDetail } from '~/apis/events';
 import Button from '~/components/Design/Button';
@@ -8,9 +9,11 @@ import HeadMeta from '~/components/HeadMeta';
 import Layout from '~/components/Layout';
 import TicketCard from '~/components/Tickets/TicketCard/TicketCard';
 import TicketSkeleton from '~/components/Tickets/TicketCard/TicketSkeleton';
+import LoginRequestToast from '~/components/Toast/LoginRequestToast';
 import * as seo from '~/constants/seo';
 import useTicketsByEventIdQuery from '~/hooks/apis/useTicketsByEventIdQuery';
 import useFullScreenModal from '~/hooks/useFullScreenModal';
+import { useUserStore } from '~/stores/user';
 import { EventDetailType } from '~/types/eventType';
 
 export async function getStaticPaths() {
@@ -37,12 +40,12 @@ const EventSalesPage = ({ eventDetail }: Props) => {
   const { eventId } = router.query;
 
   const { showOrderModal } = useFullScreenModal();
+  const { isLoggedIn } = useUserStore();
   const { selectedCount, checkedSetRef, handleSelect } = useTicketCounting();
 
   const { data: ticketList, isLoading } = useTicketsByEventIdQuery(Number(eventId), {
     staleTime: 0,
     onSuccess: () => (checkedSetRef.current = new Set<number>()),
-    enabled: router.isReady,
   });
 
   return (
@@ -85,14 +88,18 @@ const EventSalesPage = ({ eventDetail }: Props) => {
           <Button
             color="black"
             onClick={() => {
-              showOrderModal({
-                amount: ticketList!.reduce(
-                  (total, v) => (checkedSetRef.current.has(v.id) ? total + v.price : total),
-                  0
-                ),
-                ticketIdList: Array.from(checkedSetRef.current),
-                eventId: Number(eventId),
-              });
+              if (!isLoggedIn) {
+                toast(<LoginRequestToast />);
+              } else {
+                showOrderModal({
+                  amount: ticketList!.reduce(
+                    (total, v) => (checkedSetRef.current.has(v.id) ? total + v.price : total),
+                    0
+                  ),
+                  ticketIdList: Array.from(checkedSetRef.current),
+                  eventId: Number(eventId),
+                });
+              }
             }}
             disabled={selectedCount === 0}
           >{`티켓 ${selectedCount}장 구매하기`}</Button>

@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { useUserStore } from '~/stores/user';
 
 import Button from '../Design/Button';
+import LoginRequestToast from '../Toast/LoginRequestToast';
 
 const ShareButton = () => {
   const { isLoggedIn } = useUserStore();
@@ -14,7 +15,7 @@ const ShareButton = () => {
       fullWidth={false}
       onClick={() => {
         if (!isLoggedIn) {
-          toast.error('로그인이 필요합니다.');
+          toast(<LoginRequestToast />);
         } else {
           toast.success('준비중입니다.');
         }

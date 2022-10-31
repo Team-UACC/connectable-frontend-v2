@@ -16,8 +16,10 @@ import FooterWrapper from '~/components/Footer/FooterWrapper';
 import HeadMeta from '~/components/HeadMeta';
 import Layout from '~/components/Layout';
 import Paragraph from '~/components/Text/Paragraph';
+import LoginRequestToast from '~/components/Toast/LoginRequestToast';
 import * as seo from '~/constants/seo';
 import { useBottomSheetModalStore } from '~/stores/bottomSheetModal';
+import { useUserStore } from '~/stores/user';
 import { EventDetailType } from '~/types/eventType';
 
 export async function getStaticPaths() {
@@ -107,6 +109,7 @@ const EventPage = ({ eventDetail }: Props) => {
 
 const BuyNowButton = ({ eventId, price, endOfSale }: { eventId: number; price: number; endOfSale: boolean }) => {
   const { showBottomSheetModal } = useBottomSheetModalStore();
+  const { isLoggedIn } = useUserStore();
 
   return (
     <Button
@@ -115,10 +118,14 @@ const BuyNowButton = ({ eventId, price, endOfSale }: { eventId: number; price: n
         if (endOfSale) {
           toast.error('판매가 종료된 티켓입니다.');
         } else {
-          showBottomSheetModal({
-            bottomSheetModalName: '티켓 구매하기',
-            children: <TicketCountingForm eventId={eventId} price={price} />,
-          });
+          if (!isLoggedIn) {
+            toast(<LoginRequestToast />);
+          } else {
+            showBottomSheetModal({
+              bottomSheetModalName: '티켓 구매하기',
+              children: <TicketCountingForm eventId={eventId} price={price} />,
+            });
+          }
         }
       }}
     >
