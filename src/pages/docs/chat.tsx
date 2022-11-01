@@ -7,7 +7,7 @@ import Layout from '~/components/Layout';
 import { KAKAO_TALK_ONE_TO_ONE_CHAT } from '~/constants/link';
 import { data } from '~/constants/seo';
 
-export default function ChatPage() {
+const ChatPage = () => {
   useEffect(() => {
     window.open(KAKAO_TALK_ONE_TO_ONE_CHAT, '_blank');
   }, []);
@@ -37,10 +37,12 @@ export default function ChatPage() {
       </section>
     </>
   );
-}
+};
 
 ChatPage.getLayout = (page: ReactElement) => (
   <Layout headerType="home" selectedFooter={null} bgColor="white">
     {page}
   </Layout>
 );
+
+export default ChatPage;

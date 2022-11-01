@@ -7,7 +7,7 @@ import Layout from '~/components/Layout';
 import DotText from '~/components/Text/DotText';
 import { data } from '~/constants/seo';
 
-export default function TermOfServicePage() {
+const TermOfServicePage = () => {
   return (
     <>
       <HeadMeta
@@ -534,10 +534,12 @@ export default function TermOfServicePage() {
       <CompanyFooter />
     </>
   );
-}
+};
 
 TermOfServicePage.getLayout = (page: ReactElement) => (
   <Layout headerType="home" selectedFooter={null} bgColor="white">
     {page}
   </Layout>
 );
+
+export default TermOfServicePage;
