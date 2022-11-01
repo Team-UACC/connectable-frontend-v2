@@ -10,7 +10,7 @@ import useFullScreenModal from '~/hooks/useFullScreenModal';
 import useShallowModal from '~/hooks/useShallowModal';
 import { TicketSimple } from '~/types/ticketType';
 
-import TicketCardContainer from './TicketCardContainer';
+import TicketCardBackground from './TicketCardBackground';
 
 interface Props {
   ticketData: TicketSimple;
@@ -50,7 +50,7 @@ const TicketCard = ({
 
   return (
     <div className={['relative'].join(' ')}>
-      <TicketCardContainer
+      <TicketCardBackground
         id={ticketData.id}
         cutout={cutout}
         shadowColor={shadowColor ?? isSelected ? 'pink' : 'black'}
