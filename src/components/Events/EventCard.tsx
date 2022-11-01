@@ -21,7 +21,7 @@ const EventCard = ({ title, description, image, saleStatus, overlap, isFull }: P
     const maxWidth = isFull ? 432 : 400;
 
     return (
-      <article className="relative w-full text-start">
+      <article className="relative w-max text-start">
         <Image
           src={image}
           alt={title}
