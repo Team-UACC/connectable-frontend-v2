@@ -9,7 +9,7 @@ import DotText from '~/components/Text/DotText';
 import { KAKAO_TALK_ONE_TO_ONE_CHAT } from '~/constants/link';
 import { data } from '~/constants/seo';
 
-export default function GuidePage() {
+const GuidePage = () => {
   return (
     <>
       <HeadMeta title={`Connectable | 안내서`} image={data.images.logo} url={data.url + `/docs/guide`} />
@@ -161,10 +161,12 @@ export default function GuidePage() {
       <CompanyFooter />
     </>
   );
-}
+};
 
 GuidePage.getLayout = (page: ReactElement) => (
   <Layout headerType="home" selectedFooter={null} bgColor="white">
     {page}
   </Layout>
 );
+
+export default GuidePage;

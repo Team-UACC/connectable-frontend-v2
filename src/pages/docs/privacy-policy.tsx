@@ -8,7 +8,7 @@ import DotText from '~/components/Text/DotText';
 import { BUSINESS } from '~/constants/company';
 import { data } from '~/constants/seo';
 
-export default function PrivacyPolicyPage() {
+const PrivacyPolicyPage = () => {
   return (
     <>
       <HeadMeta
@@ -103,10 +103,12 @@ export default function PrivacyPolicyPage() {
       <CompanyFooter />
     </>
   );
-}
+};
 
 PrivacyPolicyPage.getLayout = (page: ReactElement) => (
   <Layout headerType="home" selectedFooter={null} bgColor="white">
     {page}
   </Layout>
 );
+
+export default PrivacyPolicyPage;

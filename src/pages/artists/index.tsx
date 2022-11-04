@@ -7,7 +7,19 @@ import Layout from '~/components/Layout';
 import { Artist } from '~/types/artistType';
 
 export async function getStaticProps() {
-  const artistsList = await fetchAllArtists();
+  // const artistsList = await fetchAllArtists();
+  // 임시 데이터
+
+  const artistsList = [
+    {
+      artistName: 'Connectable',
+      artistImage: 'https://connectable-events.s3.ap-northeast-2.amazonaws.com/welcome-ticket/welcome-ticket.png',
+    },
+    {
+      artistName: '렛츠락 페스티벌',
+      artistImage: 'https://connectable-events.s3.ap-northeast-2.amazonaws.com/lets-rock-festival/image.jpeg',
+    },
+  ];
 
   return {
     props: { artistsList },

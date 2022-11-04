@@ -1,14 +1,14 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import React from 'react';
 
-import TicketCardContainer from './TicketCardContainer';
+import TicketCardBackground from './TicketCardBackground';
 
 export default {
-  title: 'Tickets/TicketCardContainer',
-  component: TicketCardContainer,
-} as ComponentMeta<typeof TicketCardContainer>;
+  title: 'Tickets/TicketCardBackground',
+  component: TicketCardBackground,
+} as ComponentMeta<typeof TicketCardBackground>;
 
-const Template: ComponentStory<typeof TicketCardContainer> = args => <TicketCardContainer {...args} />;
+const Template: ComponentStory<typeof TicketCardBackground> = args => <TicketCardBackground {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {};

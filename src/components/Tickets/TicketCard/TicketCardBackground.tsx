@@ -7,7 +7,7 @@ interface Props {
   shadowColor?: 'black' | 'pink';
 }
 
-const TicketCardContainer = ({ id, cutout = 'left', borderColor = 'none', shadowColor = 'black' }: Props) => {
+const TicketCardBackground = ({ id, cutout = 'left', borderColor = 'none', shadowColor = 'black' }: Props) => {
   const cutoutDrawnAttribute = useMemo(
     () =>
       cutout === 'left'
@@ -68,4 +68,4 @@ const TicketCardContainer = ({ id, cutout = 'left', borderColor = 'none', shadow
   );
 };
 
-export default TicketCardContainer;
+export default TicketCardBackground;

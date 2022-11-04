@@ -3,7 +3,7 @@ import { ReactElement } from 'react';
 
 import Layout from '~/components/Layout';
 
-export default function NotFoundPage() {
+const NotFoundPage = () => {
   const router = useRouter();
   return (
     <section className="absolute text-center -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 min-w-[320px]">
@@ -23,10 +23,12 @@ export default function NotFoundPage() {
       </button>
     </section>
   );
-}
+};
 
 NotFoundPage.getLayout = (page: ReactElement) => (
   <Layout headerType="home" selectedFooter="events" bgColor="white">
     {page}
   </Layout>
 );
+
+export default NotFoundPage;
