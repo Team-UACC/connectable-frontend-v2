@@ -23,8 +23,8 @@ export default function KlipAuth() {
     );
   else
     return (
-      <div className="font-bold text-center mt-[196px]">
-        카카오톡으로 이동해서 로그인을 완료하세요. <LoadingSpinner />
+      <div className="font-bold text-center mt-[256px]">
+        카카오톡으로 이동해서 로그인을 완료하세요. <LoadingSpinner size={128} />
       </div>
     );
 }
