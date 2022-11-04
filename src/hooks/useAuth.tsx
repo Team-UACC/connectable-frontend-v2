@@ -36,7 +36,8 @@ export const useKlipLogin = () => {
           showSignUpModal();
         } else {
           setIsLoggedIn(true);
-          toast.success('로그인되었습니다.');
+          const id = toast.success('로그인되었습니다.');
+          setTimeout(() => toast.dismiss(id), 2.5 * 1000);
           hideModal();
         }
       }
