@@ -11,7 +11,6 @@ import 'swiper/css/navigation';
 
 import { NextPage } from 'next';
 import type { AppProps } from 'next/app';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { ReactElement, ReactNode, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
@@ -54,8 +53,6 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       })
   );
 
-  const [loading, setLoading] = useState(true);
-
   const getLayout =
     Component.getLayout ??
     ((page: ReactElement) => (
@@ -83,24 +80,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     };
   }, [router, hideModal]);
 
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 2 * 1000);
-  }, []);
-
-  return loading ? (
-    <div className="relative flex items-center justify-center w-full h-screen m-auto bg-black max-w-layout ">
-      <div className="flex items-center justify-center w-full animate-bounce">
-        <Image
-          src={'/images/logo/Connectable_sg1_w.png'}
-          alt="logo"
-          layout="fixed"
-          width={280}
-          height={140}
-          className=""
-        />
-      </div>
-    </div>
-  ) : (
+  return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>

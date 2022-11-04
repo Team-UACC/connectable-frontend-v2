@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ReactElement, useMemo } from 'react';
+import { ReactElement, Suspense, useMemo } from 'react';
 
 import { fetchAllEvents } from '~/apis/events';
 import CompanyFooter from '~/components/Constants/CompanyFooter';
@@ -37,8 +37,12 @@ const Home = ({ events }: Props) => {
       />
       <div>
         <Intro />
-        <TodayTicketSwiper events={events} />
-        <EventList events={events} />
+        <Suspense fallback="loading">
+          <TodayTicketSwiper events={events} />
+        </Suspense>
+        <Suspense>
+          <EventList events={events} />
+        </Suspense>
         <CompanyFooter />
       </div>
     </>
@@ -64,6 +68,7 @@ const Intro = () => {
         layout="responsive"
         placeholder="empty"
         className="animate-fadeIn"
+        priority={true}
       />
     </section>
   );
