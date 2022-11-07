@@ -1,4 +1,5 @@
 import { Artist } from '~/types/artistType';
+import { EventSimpleType } from '~/types/eventType';
 
 import { axiosInstance } from '.';
 
@@ -8,4 +9,8 @@ export const fetchAllArtists = async (): Promise<Array<Artist>> => {
 
 export const fetchArtistById = async (artistId: number): Promise<Artist> => {
   return axiosInstance.get(`/artist/${artistId}`);
+};
+
+export const fetchEventsByArtistId = async (artistId: number): Promise<Array<EventSimpleType>> => {
+  return axiosInstance.get(`artists/${artistId}/events`);
 };

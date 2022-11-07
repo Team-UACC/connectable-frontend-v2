@@ -1,4 +1,9 @@
 export interface Artist {
-  artistImage: string;
-  artistName: string;
+  id: number;
+  image: string;
+  name: string;
+}
+
+export interface ArtistDetail extends Artist {
+  description: string;
 }
