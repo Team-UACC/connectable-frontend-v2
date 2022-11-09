@@ -1,14 +1,14 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import React from 'react';
 
-import InputForm from './InputForm';
+import TextAreaForm from './TextAreaForm';
 
 export default {
-  title: 'Design/InputForm',
-  component: InputForm,
-} as ComponentMeta<typeof InputForm>;
+  title: 'Design/TextAreaForm',
+  component: TextAreaForm,
+} as ComponentMeta<typeof TextAreaForm>;
 
-const Template: ComponentStory<typeof InputForm> = args => <InputForm {...args} />;
+const Template: ComponentStory<typeof TextAreaForm> = args => <TextAreaForm {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

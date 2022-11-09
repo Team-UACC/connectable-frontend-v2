@@ -3,11 +3,11 @@ import { FormEvent, forwardRef, InputHTMLAttributes, Ref } from 'react';
 
 import { SEND_ICON } from '~/constants/images';
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
+interface Props extends InputHTMLAttributes<HTMLTextAreaElement> {
   handleSubmit: (e: FormEvent) => void;
 }
 
-const InputForm = forwardRef(function Input(props: Props, forwardRef: Ref<HTMLInputElement>) {
+const InputForm = forwardRef(function Input(props: Props, forwardRef: Ref<HTMLTextAreaElement>) {
   const { placeholder = '내용을 입력해주세요.', handleSubmit, ...rest } = props;
 
   return (
@@ -15,14 +15,16 @@ const InputForm = forwardRef(function Input(props: Props, forwardRef: Ref<HTMLIn
       className="relative"
       onSubmit={e => {
         e.preventDefault();
+
         handleSubmit(e);
       }}
     >
-      <input
+      <textarea
         className={
-          'border-gray6 focus:border-black border-[1px] rounded-lg p-4 w-full outline-none  caret-brand-pink disabled:border-none disabled:text-gray5'
+          'border-gray6 focus:border-black border-[1px] rounded-lg p-4 w-full outline-none  caret-brand-pink disabled:border-none disabled:text-gray5 pr-10 resize-none'
         }
         ref={forwardRef}
+        spellCheck={false}
         placeholder={placeholder}
         {...rest}
       />
