@@ -1,25 +1,13 @@
 import { ReactElement } from 'react';
 
 import { fetchAllArtists } from '~/apis/artists';
-import ArtistCardList from '~/components/Artist/ArtistCardList';
+import ArtistCardList from '~/components/Artist/ArtistCardsList';
 import Label from '~/components/Design/Label';
 import Layout from '~/components/Layout';
 import { Artist } from '~/types/artistType';
 
 export async function getStaticProps() {
-  // const artistsList = await fetchAllArtists();
-  // 임시 데이터
-
-  const artistsList = [
-    {
-      artistName: 'Connectable',
-      artistImage: 'https://connectable-events.s3.ap-northeast-2.amazonaws.com/welcome-ticket/welcome-ticket.png',
-    },
-    {
-      artistName: '렛츠락 페스티벌',
-      artistImage: 'https://connectable-events.s3.ap-northeast-2.amazonaws.com/lets-rock-festival/image.jpeg',
-    },
-  ];
+  const artistsList = await fetchAllArtists();
 
   return {
     props: { artistsList },
@@ -39,7 +27,7 @@ const ArtistPage = ({ artistsList }: Props) => {
         <br />
         당신의 아티스트를 만나보세요
       </div>
-      <ArtistCardList artistsList={artistsList} />
+      <ArtistCardList artists={artistsList} />
     </div>
   );
 };

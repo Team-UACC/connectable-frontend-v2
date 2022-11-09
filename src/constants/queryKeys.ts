@@ -9,4 +9,7 @@ export default {
     byId: (eventId: number) => ['event', eventId],
     byArtist: (artistId: number) => ['events', 'artist', artistId],
   },
+  artist: {
+    comment: (id: number) => ['artist', 'comment', id],
+  },
 };
