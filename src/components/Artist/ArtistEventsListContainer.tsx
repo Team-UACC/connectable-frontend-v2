@@ -1,4 +1,4 @@
-import useEventsByArtistId from '~/hooks/apis/useEventsByArtistId';
+import useEventsByArtistId from '~/hooks/apis/useEventsByArtistIdQuery';
 
 import EventCardList from '../Events/EventCardList';
 

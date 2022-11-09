@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 
 import { createArtistComment } from '~/apis/artists';
-import useArtistCommentById from '~/hooks/apis/useArtistCommentById';
+import useArtistCommentById from '~/hooks/apis/useArtistCommentQuery';
 
 import TextAreaForm from '../Design/TextAreaForm';
 

@@ -5,7 +5,7 @@ import { fetchCommentsByArtistId } from '~/apis/artists';
 import queryKeys from '~/constants/queryKeys';
 import { ArtistComment } from '~/types/artistType';
 
-export default function useArtistCommentById(
+export default function useArtistCommentQuery(
   artistId: number,
   options?: Omit<UseQueryOptions<Array<ArtistComment>, AxiosError>, 'queryKey' | 'queryFn'>
 ) {
