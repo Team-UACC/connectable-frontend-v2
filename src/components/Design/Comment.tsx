@@ -11,7 +11,7 @@ interface Props {
 const Comment = ({ profileImage, userName, contents, writtenAt, additional = '' }: Props) => {
   return (
     <div className="relative flex w-full bg-transparent">
-      <div className="mr-2">
+      <div className="mr-2 shrink-0">
         <Image src={profileImage} alt="profile_image" width={36} height={36} />
       </div>
       <div className="flex flex-col gap-[2px]">
