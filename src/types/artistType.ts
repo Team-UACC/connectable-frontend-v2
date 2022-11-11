@@ -4,14 +4,20 @@ export interface Artist {
   name: string;
 }
 
+type Notice = {
+  contents: string;
+  noticeStatus: string;
+  title: string;
+};
+
 export interface ArtistDetail extends Artist {
   description: string;
 
   twitterUrl?: string;
   instagramUrl?: string;
-  websiteUrl?: string;
+  webpageUrl?: string;
 
-  notification: string;
+  notice: Notice;
 }
 
 interface Comment {
