@@ -15,7 +15,7 @@ interface Props {
 
 const ArtistCommentsContainer = ({ id }: Props) => {
   const { data: comments } = useArtistCommentById(id);
-  const { data: isHolderData } = useQuery(['isHolder', id], () => fetchIsArtistNftOwner(1));
+  const { data: isHolderData } = useQuery(['isHolder', id], () => fetchIsArtistNftOwner(id));
 
   const { mutate, isLoading } = useArtistCommentMutation(id, {
     onSuccess: () => {
