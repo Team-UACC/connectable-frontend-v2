@@ -23,7 +23,7 @@ export const createArtistComment = async (artistId: number, contents: string): P
   return axiosInstance.post(`/artists/${artistId}/comments`, JSON.stringify(contents));
 };
 
-export const fetchIsArtistNftOwenr = async (artistId: number): Promise<{ isNftHolder: boolean }> => {
+export const fetchIsArtistNftOwner = async (artistId: number): Promise<{ isNftHolder: boolean }> => {
   return axiosInstance.get(`/artists/${artistId}/owner`, authorizationOptions());
 };
 
