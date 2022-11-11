@@ -9,7 +9,11 @@ interface Props {
 const ArtistEventsListContainer = ({ id }: Props) => {
   const { data: events } = useEventsByArtistId(id);
 
-  return <EventCardList events={events ?? []} />;
+  return (
+    <div className="pb-10">
+      <EventCardList events={events ?? []} theme="black" />
+    </div>
+  );
 };
 
 export default ArtistEventsListContainer;

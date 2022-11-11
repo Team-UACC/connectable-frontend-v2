@@ -5,7 +5,7 @@ import { EventSimpleType } from '~/types/eventType';
 
 import EventCard from './EventCard';
 
-const EventCardList = ({ events }: { events: Array<EventSimpleType> }) => {
+const EventCardList = ({ events, theme = 'white' }: { events: Array<EventSimpleType>; theme?: 'white' | 'black' }) => {
   const length = useMemo(() => events.length, [events]);
 
   return (
@@ -15,6 +15,7 @@ const EventCardList = ({ events }: { events: Array<EventSimpleType> }) => {
           <a className=" basis-[45%] mt-8 ">
             <EventCard
               title={name}
+              titleColor={theme}
               description={description}
               image={image}
               saleStatus={salesTo > new Date().getTime() ? '판매중' : '판매종료'}
