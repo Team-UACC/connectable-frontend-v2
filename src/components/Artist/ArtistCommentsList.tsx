@@ -19,7 +19,7 @@ const ArtistCommentsList = ({ comments }: Props) => {
           userName={nickname}
           contents={contents}
           additional={ticketName}
-          writtenAt={dayjs(writtenAt).format('YYYY.MM.DD')}
+          writtenAt={dayjs(writtenAt).format('YYYY.MM.DD hh:mm')}
         />
       ))}
     </section>

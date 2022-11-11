@@ -7,6 +7,7 @@ import ArtistCommentsContainer from '~/components/Artist/ArtistCommentsContainer
 import ArtistEventsListContainer from '~/components/Artist/ArtistEventsListContainer';
 import Tab from '~/components/Design/Tab';
 import Layout from '~/components/Layout';
+import SNSLinkBox from '~/components/SNSLinkBox';
 import { ArtistDetail } from '~/types/artistType';
 
 export async function getStaticPaths() {
@@ -19,7 +20,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }: GetStaticPropsContext) {
   const { artistId } = params!;
 
-  const artistDetail = fetchArtistById(Number(artistId));
+  const artistDetail = await fetchArtistById(Number(artistId));
 
   return {
     props: { artistDetail },
@@ -39,17 +40,30 @@ const ArtistDetailPage = ({ artistDetail }: Props) => {
             <Image src={artistDetail.image} alt="artist-bg" layout="responsive" width={100} height={100} />
           </div>
         </div>
-        <div className="flex pt-[90px] flex-col px-[18px] gap-[18px]">
+        <div className="flex pt-[90px] flex-col p-[18px] gap-[18px]">
           <div>
             <Image src={artistDetail.image} alt="artist-profile" width={100} height={100} className="rounded-full" />
           </div>
-          <div>
+
+          <div className="flex items-center justify-between">
             <div>
               <div className="text-sm font-semibold text-gray4">아티스트</div>
               <div className="text-2xl font-semibold text-gray1">{artistDetail.name}</div>
             </div>
+            <SNSLinkBox
+              twitterUrl={artistDetail.twitterUrl}
+              instagramUrl={artistDetail.instagramUrl}
+              websiteUrl={artistDetail.webpageUrl}
+            />
           </div>
-          <div>{artistDetail.description}</div>
+
+          {artistDetail?.notice?.contents && (
+            <div className="rounded-[1px] bg-background1 border-gray6 border-[1px] p-4 text-gray1 text-sm">
+              {artistDetail?.notice?.contents ?? 'adasdas'}
+            </div>
+          )}
+
+          <div className="text-gray3">{artistDetail.description} </div>
         </div>
       </section>
       <section>

@@ -1,5 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import React, { useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 import queryKeys from '~/constants/queryKeys';
@@ -91,6 +92,7 @@ const Template: ComponentStory<typeof ArtistCommentsContainer> = args => {
   return (
     <QueryClientProvider client={queryClient}>
       <ArtistCommentsContainer {...args} />
+      <Toaster containerStyle={{ top: 300 }} toastOptions={{ duration: 3000 }} />
     </QueryClientProvider>
   );
 };
