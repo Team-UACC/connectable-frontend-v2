@@ -8,6 +8,7 @@ export type EventSimpleType = {
 };
 
 export interface EventDetailType extends EventSimpleType {
+  artistId: number;
   artistName: string;
   artistImage: string;
   twitterUrl: string;
