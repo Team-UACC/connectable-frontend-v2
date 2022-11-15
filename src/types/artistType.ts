@@ -1,3 +1,5 @@
+import { TicketMetaData } from './ticketType';
+
 export interface Artist {
   id: number;
   image: string;
@@ -28,5 +30,5 @@ interface Comment {
 
 export interface ArtistComment extends Comment {
   id: number;
-  ticketName: string;
+  ticketMetadata: TicketMetaData;
 }

@@ -59,7 +59,7 @@ const ArtistDetailPage = ({ artistDetail }: Props) => {
 
           {artistDetail?.notice?.contents && (
             <div className="rounded-[1px] bg-background1 border-gray6 border-[1px] p-4 text-gray1 text-sm">
-              {artistDetail?.notice?.contents ?? 'adasdas'}
+              {artistDetail.notice.contents}
             </div>
           )}
 

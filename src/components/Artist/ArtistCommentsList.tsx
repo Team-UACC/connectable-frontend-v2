@@ -12,7 +12,7 @@ interface Props {
 const ArtistCommentsList = ({ comments }: Props) => {
   return (
     <section className="relative w-full p-[18px] flex flex-col gap-6">
-      {comments.map(({ id, nickname, contents, ticketName, writtenAt }) => (
+      {comments.map(({ id, nickname, contents, ticketMetadata: { name: ticketName }, writtenAt }) => (
         <Comment
           key={id}
           profileImage={DEFAULT_PROFILE}
