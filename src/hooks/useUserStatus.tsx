@@ -4,7 +4,7 @@ import { fetchUser } from '~/apis/users';
 import { useUserStore } from '~/stores/user';
 
 export default function useUserStatus() {
-  const { setIsLoggedIn, addUserState, resetUserState } = useUserStore();
+  const { isLoggedIn, setIsLoggedIn, addUserState, resetUserState } = useUserStore();
 
   const initializeUser = useCallback(async () => {
     const response = await fetchUser();
@@ -20,7 +20,7 @@ export default function useUserStatus() {
   }, [addUserState, resetUserState, setIsLoggedIn]);
 
   useEffect(() => {
-    initializeUser();
+    if (isLoggedIn) initializeUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isLoggedIn]);
 }
