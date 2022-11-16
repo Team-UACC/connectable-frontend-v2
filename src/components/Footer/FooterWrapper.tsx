@@ -9,7 +9,7 @@ interface Props {
 const FooterWrapper = ({ children, bgTopGradient = false, position = 'fixed' }: Props) => {
   return (
     <footer className={`${position} w-full max-w-layout bottom-0 z-10`}>
-      {bgTopGradient && <div className="w-full h-[34px] bg-gradient-to-t from-white to-transparent" />}
+      {bgTopGradient && <div className="w-full h-[34px] bg-gradient-to-t from-white to-[rgba(255,255,255,0)]" />}
       {children}
     </footer>
   );

@@ -1,12 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ReactElement, Suspense, useMemo } from 'react';
+import { ReactElement } from 'react';
 
 import { fetchAllEvents } from '~/apis/events';
 import CompanyFooter from '~/components/Constants/CompanyFooter';
 import Label from '~/components/Design/Label';
 import MySwiper from '~/components/Design/Swiper';
 import EventCard from '~/components/Events/EventCard';
+import EventCardList from '~/components/Events/EventCardList';
 import HeadMeta from '~/components/HeadMeta';
 import Layout from '~/components/Layout';
 import { DOCS_PATH } from '~/constants/path';
@@ -37,12 +38,8 @@ const Home = ({ events }: Props) => {
       />
       <div>
         <Intro />
-        <Suspense fallback="loading">
-          <TodayTicketSwiper events={events} />
-        </Suspense>
-        <Suspense>
-          <EventList events={events} />
-        </Suspense>
+        <TodayTicketSwiper events={events} />
+        <AllTicketsList events={events} />
         <CompanyFooter />
       </div>
     </>
@@ -97,28 +94,11 @@ const TodayTicketSwiper = ({ events }: { events: Array<EventSimpleType> }) => {
   );
 };
 
-const EventList = ({ events }: { events: Array<EventSimpleType> }) => {
-  const length = useMemo(() => events.length, [events]);
-
+const AllTicketsList = ({ events }: { events: Array<EventSimpleType> }) => {
   return (
     <section className="flex flex-col items-center w-full py-[60px] bg-black">
       <Label title="ALL TICKETS" color="blue" />
-      <ul className="flex flex-wrap w-full justify-evenly ">
-        {events.map(({ id, name, description, image, salesTo }) => (
-          <Link href={`/events/${id}`} key={id}>
-            <a className=" basis-[45%] mt-8 ">
-              <EventCard
-                title={name}
-                description={description}
-                image={image}
-                saleStatus={salesTo > new Date().getTime() ? '판매중' : '판매종료'}
-                overlap={false}
-              />
-            </a>
-          </Link>
-        ))}
-        {length % 2 === 1 && <div className=" basis-[45%] mt-8 " />}
-      </ul>
+      <EventCardList events={events} />
     </section>
   );
 };

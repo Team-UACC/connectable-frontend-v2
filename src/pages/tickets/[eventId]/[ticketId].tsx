@@ -88,7 +88,7 @@ const PageFooter = ({ ticketDetail, eventDetail }: { ticketDetail: Ticket; event
     <FooterWrapper>
       <div className="w-full h-[34px] bg-gradient-to-t from-white to-transparent" />
       <div className="flex gap-3 px-4 pb-4 bg-white ">
-        {ticketDetail && klaytnAddress === ticketDetail.ownedBy ? (
+        {ticketDetail && klaytnAddress.toLowerCase() === ticketDetail.ownedBy.toLowerCase() ? (
           <>
             <ShareButton />
             <NFTTransferButton

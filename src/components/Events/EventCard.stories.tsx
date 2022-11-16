@@ -8,7 +8,11 @@ export default {
   component: EventCard,
 } as ComponentMeta<typeof EventCard>;
 
-const Template: ComponentStory<typeof EventCard> = args => <EventCard {...args} />;
+const Template: ComponentStory<typeof EventCard> = args => (
+  <div className="max-w-[400px]">
+    <EventCard {...args} />
+  </div>
+);
 
 export const OVERLAP_ONSALE = Template.bind({});
 OVERLAP_ONSALE.args = {

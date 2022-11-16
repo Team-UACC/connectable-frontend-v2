@@ -5,13 +5,13 @@ import { Artist } from '~/types/artistType';
 
 import ArtistCard from './ArtistCard';
 
-const ArtistCardList = ({ artistsList }: { artistsList: Array<Artist> }) => {
-  const length = useMemo(() => artistsList.length, [artistsList]);
+const ArtistCardList = ({ artists }: { artists: Array<Artist> }) => {
+  const length = useMemo(() => artists.length, [artists]);
 
   return (
     <div className="flex flex-wrap justify-around mt-[36px] w-full">
-      {artistsList.map(artist => (
-        <Link href={`/artists/${artist.artistName}`} key={artist.artistName}>
+      {artists.map(artist => (
+        <Link href={`/artists/${artist.id}`} key={artist.name}>
           <a className="hover:pointer-cursor mb-[18px]">
             <ArtistCard artist={artist} />
           </a>

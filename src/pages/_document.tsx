@@ -1,4 +1,5 @@
 import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
+import Script from 'next/script';
 
 import { data } from '~/constants/seo';
 import { GA_TRACKING_ID } from '~/libs/gtag';
@@ -23,10 +24,13 @@ class MyDocument extends Document {
 
           <meta charSet="utf-8" />
 
-          <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
+          <Script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
@@ -34,9 +38,8 @@ class MyDocument extends Document {
             gtag('config', '${GA_TRACKING_ID}', {
               page_path: window.location.pathname,
             });
-          `,
-            }}
-          />
+          `}
+          </Script>
 
           <meta name="naver-site-verification" content="654a4a445c7c03f1f99c7b363f4242dd3b253538" />
         </Head>
