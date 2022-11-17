@@ -20,7 +20,7 @@ export default function useUserStatus() {
   }, [addUserState, resetUserState, setIsLoggedIn]);
 
   useEffect(() => {
-    if (isLoggedIn) initializeUser();
+    initializeUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn]);
 }
