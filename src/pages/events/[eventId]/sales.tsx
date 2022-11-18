@@ -1,6 +1,6 @@
 import { GetStaticPropsContext } from 'next';
 import { useRouter } from 'next/router';
-import { ReactElement, useRef, useState } from 'react';
+import { ChangeEvent, ReactElement, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { fetchAllEvents, fetchEventsDetail } from '~/apis/events';
@@ -41,7 +41,7 @@ const EventSalesPage = ({ eventDetail }: Props) => {
 
   const { showOrderModal } = useFullScreenModal();
   const { isLoggedIn } = useUserStore();
-  const { selectedCount, checkedSetRef, handleSelect } = useTicketCounting();
+  const { selectedCount, checkedSetRef, handleSelect } = useTicketCounting({ maxCount: 4 });
 
   const { data: ticketList, isLoading } = useTicketsByEventIdQuery(Number(eventId), {
     staleTime: 0,
@@ -78,7 +78,7 @@ const EventSalesPage = ({ eventDetail }: Props) => {
                   style={{ marginBottom: `-${18}px` }}
                   className={ticketData.ticketSalesStatus !== 'ON_SALE' ? 'opacity-50' : ''}
                 >
-                  <TicketCard ticketData={ticketData} handleSelect={() => handleSelect(ticketData.id)} />
+                  <TicketCard ticketData={ticketData} handleSelect={e => handleSelect(e, ticketData.id)} />
                 </li>
               ))
             )}
@@ -109,12 +109,28 @@ const EventSalesPage = ({ eventDetail }: Props) => {
   );
 };
 
-const useTicketCounting = () => {
+const useTicketCounting = ({ maxCount }: { maxCount: number }) => {
+  const { isLoggedIn } = useUserStore();
+
   const [selectedCount, setSelectedCount] = useState(0);
 
   const checkedSetRef = useRef<Set<number>>(new Set());
 
-  const handleSelect = (id: number) => {
+  const handleSelect = (e: ChangeEvent<HTMLInputElement>, id: number) => {
+    if (!isLoggedIn) {
+      e.preventDefault();
+      e.currentTarget.checked = false;
+      toast(<LoginRequestToast />);
+      return;
+    }
+
+    if (checkedSetRef.current.size >= maxCount) {
+      e.preventDefault();
+      e.currentTarget.checked = false;
+      toast.error(`최대 ${maxCount}개까지 구매할 수 있어요.`);
+      return;
+    }
+
     if (checkedSetRef.current.has(id)) {
       setSelectedCount(now => now - 1);
     } else {

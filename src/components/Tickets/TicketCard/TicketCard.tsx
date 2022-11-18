@@ -42,8 +42,8 @@ const TicketCard = ({
 
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      setIsSelected(e.currentTarget.checked);
       handleSelect && handleSelect(e);
+      setIsSelected(e.currentTarget.checked);
     },
     [handleSelect]
   );

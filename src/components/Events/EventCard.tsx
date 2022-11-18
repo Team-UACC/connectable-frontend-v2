@@ -32,6 +32,7 @@ const EventCard = ({ title, description, image, saleStatus, overlap, isFull, tit
           className={isFull ? '' : 'rounded-xl'}
           placeholder="blur"
           blurDataURL={IMAGE_BLUR_DATA_URL}
+          objectFit="cover"
         />
         <div
           className={[
@@ -62,6 +63,7 @@ const EventCard = ({ title, description, image, saleStatus, overlap, isFull, tit
         className="rounded"
         placeholder="blur"
         blurDataURL={IMAGE_BLUR_DATA_URL}
+        objectFit="cover"
       />
       <section className={['flex flex-col gap-1 mt-2', titleColorClassName].join(' ')}>
         {saleStatus && <Badge name={saleStatus} color={titleColor} opacity={saleStatus !== '판매중'} />}
