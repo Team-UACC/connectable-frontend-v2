@@ -6,7 +6,7 @@ interface Props {
   title?: string;
   description?: string;
   url?: string;
-  image: string;
+  image?: string;
   creator?: string;
 }
 
@@ -20,7 +20,7 @@ const HeadMeta = ({ title, description, url, image, creator }: Props) => {
       <meta property="og:description" content={description ?? data.description} />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={url ?? data.url} />
-      <meta property="og:image" content={image} />
+      <meta property="og:image" content={image ?? data.images.logo} />
       <meta property="og:article:author" content="Connectable" />
 
       <meta name="twitter:creator" content={creator ?? data.creator} />

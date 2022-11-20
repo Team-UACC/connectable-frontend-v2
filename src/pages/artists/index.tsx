@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 import { fetchAllArtists } from '~/apis/artists';
 import ArtistCardList from '~/components/Artist/ArtistCardsList';
 import Label from '~/components/Design/Label';
+import HeadMeta from '~/components/HeadMeta';
 import Layout from '~/components/Layout';
 import { Artist } from '~/types/artistType';
 
@@ -20,15 +21,19 @@ interface Props {
 
 const ArtistPage = ({ artistsList }: Props) => {
   return (
-    <div className="px-[18px] py-[40px] flex flex-col items-center">
-      <Label title="ARTISTS" color="blue" />
-      <div className="mt-4 text-sm leading-6 text-center text-gray4">
-        오직 커넥터블에서만!
-        <br />
-        당신의 아티스트를 만나보세요
+    <>
+      <HeadMeta title="Connectable | 아티스트" />
+
+      <div className="px-[18px] py-[40px] flex flex-col items-center">
+        <Label title="ARTISTS" color="blue" />
+        <div className="mt-4 text-sm leading-6 text-center text-gray4">
+          오직 커넥터블에서만!
+          <br />
+          당신의 아티스트를 만나보세요
+        </div>
+        <ArtistCardList artists={artistsList} />
       </div>
-      <ArtistCardList artists={artistsList} />
-    </div>
+    </>
   );
 };
 

@@ -4,6 +4,7 @@ import { ReactElement } from 'react';
 import Button from '~/components/Design/Button';
 import CopyButton from '~/components/Design/CopyButton';
 import Tab from '~/components/Design/Tab';
+import HeadMeta from '~/components/HeadMeta';
 import Layout from '~/components/Layout';
 import UserOrderStatusList from '~/components/Order/UserOrderStatusList';
 import UserTicketCardList from '~/components/Tickets/TicketCard/UserTicketCardList';
@@ -20,42 +21,53 @@ function MyPage() {
 
   const { pushShallowUrl } = useShallowModal();
 
-  if (isLoggedIn === false) return <LoginSection />;
+  if (isLoggedIn === false)
+    return (
+      <>
+        <HeadMeta title="Connectable | 로그인" />
+
+        <LoginSection />
+      </>
+    );
 
   return (
-    <div className="relative flex flex-col items-center w-full">
-      <div className=" text-white flex flex-col items-center w-full h-[20rem] border-brand bg-black">
-        <div className="relative mt-[2.25rem]">
-          <Image
-            src="/icons/default_profile.svg"
-            alt="profile"
-            width={100}
-            height={100}
-            style={{ borderRadius: '50%' }}
-          />
-          <button
-            className="absolute bottom-[6px] right-0"
-            onClick={() => {
-              pushShallowUrl();
-              showProfileEditModal({ userName, phoneNumber });
-            }}
-          >
-            <Image src="/icons/icon_edit.svg" alt="edit" width={24} height={24} />
-          </button>
+    <>
+      <HeadMeta title="Connectable | 마이페이지" />
+
+      <div className="relative flex flex-col items-center w-full">
+        <div className=" text-white flex flex-col items-center w-full h-[20rem] border-brand bg-black">
+          <div className="relative mt-[2.25rem]">
+            <Image
+              src="/icons/default_profile.svg"
+              alt="profile"
+              width={100}
+              height={100}
+              style={{ borderRadius: '50%' }}
+            />
+            <button
+              className="absolute bottom-[6px] right-0"
+              onClick={() => {
+                pushShallowUrl();
+                showProfileEditModal({ userName, phoneNumber });
+              }}
+            >
+              <Image src="/icons/icon_edit.svg" alt="edit" width={24} height={24} />
+            </button>
+          </div>
+          <h1 className="mt-4 text-2xl font-bold text-center ">{userName}</h1>
+          <div className="relative w-[14rem] mt-6 text-sm flex flex-col gap-2 text-gray6 ">
+            <TextInfo title="Klip주소" info={klaytnAddress} hasCopy={true} />
+            <TextInfo title="전화번호" info={phoneNumber} />
+          </div>
         </div>
-        <h1 className="mt-4 text-2xl font-bold text-center ">{userName}</h1>
-        <div className="relative w-[14rem] mt-6 text-sm flex flex-col gap-2 text-gray6 ">
-          <TextInfo title="Klip주소" info={klaytnAddress} hasCopy={true} />
-          <TextInfo title="전화번호" info={phoneNumber} />
+        <div className="w-full min-h-[calc(100vh-126px-20rem)] bg-white">
+          <Tab titles={TITLES}>
+            <UserTicketCardList />
+            <UserOrderStatusList />
+          </Tab>
         </div>
       </div>
-      <div className="w-full min-h-[calc(100vh-126px-20rem)] bg-white">
-        <Tab titles={TITLES}>
-          <UserTicketCardList />
-          <UserOrderStatusList />
-        </Tab>
-      </div>
-    </div>
+    </>
   );
 }
 
