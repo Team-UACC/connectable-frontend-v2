@@ -1,5 +1,6 @@
+import { GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
-import { ReactElement } from 'react';
+import { ReactElement, useEffect, useRef } from 'react';
 
 import Button from '~/components/Design/Button';
 import CopyButton from '~/components/Design/CopyButton';
@@ -14,19 +15,40 @@ import { useUserStore } from '~/stores/user';
 
 const TITLES = ['마이 티켓', '거래 내역'];
 
-function MyPage() {
-  const { isLoggedIn } = useUserStore();
-  const { userName, klaytnAddress, phoneNumber } = useUserStore();
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+  const { auth } = ctx.req.cookies;
+
+  // auth cookie가 있으면 로그인 상태로 간주하고 skeleton을 내려줌 (낙관적으로 skeleton 보여주기)
+
+  return {
+    props: {
+      hasSkeleton: Boolean(auth),
+    },
+  };
+}
+
+interface Props {
+  hasSkeleton: boolean;
+}
+
+function MyPage({ hasSkeleton }: Props) {
+  const { isLoggedIn, userName, klaytnAddress, phoneNumber } = useUserStore();
   const { showProfileEditModal } = useFullScreenModal();
 
   const { pushShallowUrl } = useShallowModal();
+
+  const hasSkeletonRef = useRef(hasSkeleton);
+
+  useEffect(() => {
+    hasSkeletonRef.current = false;
+  }, []);
 
   if (isLoggedIn === false)
     return (
       <>
         <HeadMeta title="Connectable | 로그인" />
 
-        <LoginSection />
+        {hasSkeletonRef.current ? <PageSkeleton /> : <LoginSection />}
       </>
     );
 
@@ -113,6 +135,13 @@ const LoginSection = () => {
     </div>
   );
 };
+
+const PageSkeleton = () => (
+  <div className="w-full">
+    <div className="bg-black h-[20rem] " />
+    <div className="bg-white h-[calc(100vh-20rem)]" />
+  </div>
+);
 
 MyPage.getLayout = (page: ReactElement) => (
   <Layout headerType="home" selectedFooter="my">
