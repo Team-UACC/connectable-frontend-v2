@@ -6,6 +6,7 @@ import { useQuery } from 'react-query';
 import { requestEntranceVerification } from '~/apis/users';
 import LoadingSpinner from '~/components/Design/LoadingSpinner';
 import { EventInfos } from '~/components/Events/EventPage/EventInfoSection';
+import { TIMER_ICON } from '~/constants/images';
 
 import TicketEntranceContainer from './TicketEntranceContainer';
 
@@ -38,7 +39,7 @@ export default function QREntrance({ ticketId, eventDate, eventLocation, ticketN
             <div className="relative w-full flex items-center justify-evenly h-[calc(min(100vw,428px)-80px)] border-b-[1px] border-dashed border-gray6 flex-col">
               <QRCode value={qrvalue} size={192} />
               <div className="flex w-max text-gray2">
-                <Image src="/icons/icon_timer_24.svg" alt="timer" width={24} height={24} />
+                <Image src={TIMER_ICON} alt="timer" width={24} height={24} />
                 <span className="ml-1 font-bold">
                   남은 시간 <span className="font-normal text-brand-skyblue">{remainingTime}초</span>
                 </span>

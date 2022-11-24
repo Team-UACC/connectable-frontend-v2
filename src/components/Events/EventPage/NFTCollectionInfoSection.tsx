@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { ReactNode } from 'react';
 
 import CopyButton from '~/components/Design/CopyButton';
+import { OPEN_NEW_TAB_ICON } from '~/constants/images';
 
 interface NFTCollectionInfoSectionProps {
   contractAddress: string;
@@ -50,7 +51,7 @@ const TextInfo = ({ term, content, newTabLink, copyData }: TextInfoProps) => {
           {content}
         </div>
         <button className="ml-2">
-          <Image src={'/icons/icon_open_in_new_18.svg'} alt="open_new" width={18} height={18} />
+          <Image src={OPEN_NEW_TAB_ICON} alt="open_new" width={18} height={18} />
         </button>
       </a>
     );

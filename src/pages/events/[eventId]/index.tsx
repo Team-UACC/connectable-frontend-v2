@@ -1,26 +1,26 @@
 import { GetStaticPropsContext } from 'next';
 import Link from 'next/link';
 import { ReactElement, useEffect } from 'react';
-import toast from 'react-hot-toast';
+import { dehydrate, QueryClient } from 'react-query';
 
 import { fetchAllEvents, fetchEventsDetail } from '~/apis/events';
 import EventGuidances from '~/components/Constants/EventGudiances';
 import BottomSheet from '~/components/Design/BottomSheet';
 import Button from '~/components/Design/Button';
+import SkeletonBox from '~/components/Design/SkeletonBox';
 import EventCard from '~/components/Events/EventCard';
 import ArtistSection from '~/components/Events/EventPage/ArtistSection';
+import BuyNowButton from '~/components/Events/EventPage/BuyNowButton';
 import EventInfoSection from '~/components/Events/EventPage/EventInfoSection';
 import NFTCollectionInfoSection from '~/components/Events/EventPage/NFTCollectionInfoSection';
-import TicketCountingForm from '~/components/Events/TicketCountingForm';
 import FooterWrapper from '~/components/Footer/FooterWrapper';
 import HeadMeta from '~/components/HeadMeta';
 import Layout from '~/components/Layout';
 import Paragraph from '~/components/Text/Paragraph';
-import LoginRequestToast from '~/components/Toast/LoginRequestToast';
+import queryKeys from '~/constants/queryKeys';
 import * as seo from '~/constants/seo';
+import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
 import { useBottomSheetModalStore } from '~/stores/bottomSheetModal';
-import { useUserStore } from '~/stores/user';
-import { EventDetailType } from '~/types/eventType';
 
 export async function getStaticPaths() {
   const events = await fetchAllEvents();
@@ -28,25 +28,37 @@ export async function getStaticPaths() {
   return { paths, fallback: false };
 }
 
-export async function getStaticProps({ params }: GetStaticPropsContext) {
-  const eventDetail = await fetchEventsDetail(Number(params?.eventId));
+export async function getStaticProps({ params }: GetStaticPropsContext<{ eventId: string }>) {
+  if (!params) return null;
+
+  const { eventId } = params;
+
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(queryKeys.events.byId(Number(eventId)), () => fetchEventsDetail(Number(eventId)));
+
   return {
     props: {
-      eventDetail,
+      eventId,
+      dehydratedState: dehydrate(queryClient),
     },
   };
 }
 
 interface Props {
-  eventDetail: EventDetailType;
+  eventId: number;
 }
 
-const EventPage = ({ eventDetail }: Props) => {
+const EventPage = ({ eventId }: Props) => {
   const { resetBottomSheetModal } = useBottomSheetModalStore();
+
+  const { data: eventDetail, isSuccess } = useEventByIdQuery(eventId);
 
   useEffect(() => {
     resetBottomSheetModal();
   }, [resetBottomSheetModal]);
+
+  if (!isSuccess) return <PageSkeletion />;
 
   return (
     <>
@@ -111,33 +123,6 @@ const EventPage = ({ eventDetail }: Props) => {
   );
 };
 
-const BuyNowButton = ({ eventId, price, endOfSale }: { eventId: number; price: number; endOfSale: boolean }) => {
-  const { showBottomSheetModal } = useBottomSheetModalStore();
-  const { isLoggedIn } = useUserStore();
-
-  return (
-    <Button
-      color="white"
-      onClick={() => {
-        if (endOfSale) {
-          toast.error('판매가 종료된 티켓입니다.');
-        } else {
-          if (!isLoggedIn) {
-            toast(<LoginRequestToast />);
-          } else {
-            showBottomSheetModal({
-              bottomSheetModalName: '티켓 구매하기',
-              children: <TicketCountingForm eventId={eventId} price={price} />,
-            });
-          }
-        }
-      }}
-    >
-      바로 구매하기
-    </Button>
-  );
-};
-
 const LinkToSalesPageButton = ({ eventId, name = '티켓 선택' }: { eventId: number; name?: string }) => {
   return (
     <Link href={`/events/${eventId}/sales`}>
@@ -146,8 +131,30 @@ const LinkToSalesPageButton = ({ eventId, name = '티켓 선택' }: { eventId: n
   );
 };
 
+const PageSkeletion = () => (
+  <div>
+    <SkeletonBox width={0} height={0} style={{ width: '100%', height: 'min(432px,100vw)', borderRadius: 'none' }} />
+
+    <div className="p-4">
+      <SkeletonBox width={250} height={16} className="mt-2 " />
+      <SkeletonBox width={200} height={16} className="mt-2" />
+      <SkeletonBox width={150} height={16} className="mt-3" />
+      <SkeletonBox width={180} height={16} className="mt-3" />
+      <SkeletonBox width={100} height={16} className="mt-3" />
+    </div>
+
+    <div className="flex p-4 mt-8">
+      <SkeletonBox width={100} height={100} style={{ borderRadius: '9999px' }} />
+      <div className="flex flex-col gap-4 p-4">
+        <SkeletonBox width={80} height={16} />
+        <SkeletonBox width={150} height={16} />
+      </div>
+    </div>
+  </div>
+);
+
 EventPage.getLayout = (page: ReactElement) => (
-  <Layout headerType="sub-transparent" selectedFooter={null}>
+  <Layout headerType="sub-transparent" selectedFooter={null} bgColor="white">
     {page}
   </Layout>
 );
