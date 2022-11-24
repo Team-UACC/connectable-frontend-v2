@@ -1,7 +1,7 @@
 import { GetStaticPropsContext } from 'next';
 import Link from 'next/link';
 import { ReactElement, useEffect } from 'react';
-import toast from 'react-hot-toast';
+import { dehydrate, QueryClient } from 'react-query';
 
 import { fetchAllEvents, fetchEventsDetail } from '~/apis/events';
 import EventGuidances from '~/components/Constants/EventGudiances';
@@ -9,18 +9,18 @@ import BottomSheet from '~/components/Design/BottomSheet';
 import Button from '~/components/Design/Button';
 import EventCard from '~/components/Events/EventCard';
 import ArtistSection from '~/components/Events/EventPage/ArtistSection';
+import BuyNowButton from '~/components/Events/EventPage/BuyNowButton';
 import EventInfoSection from '~/components/Events/EventPage/EventInfoSection';
 import NFTCollectionInfoSection from '~/components/Events/EventPage/NFTCollectionInfoSection';
-import TicketCountingForm from '~/components/Events/TicketCountingForm';
 import FooterWrapper from '~/components/Footer/FooterWrapper';
 import HeadMeta from '~/components/HeadMeta';
 import Layout from '~/components/Layout';
 import Paragraph from '~/components/Text/Paragraph';
-import LoginRequestToast from '~/components/Toast/LoginRequestToast';
+import queryKeys from '~/constants/queryKeys';
 import * as seo from '~/constants/seo';
+import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
+import NotFoundPage from '~/pages/404';
 import { useBottomSheetModalStore } from '~/stores/bottomSheetModal';
-import { useUserStore } from '~/stores/user';
-import { EventDetailType } from '~/types/eventType';
 
 export async function getStaticPaths() {
   const events = await fetchAllEvents();
@@ -28,25 +28,37 @@ export async function getStaticPaths() {
   return { paths, fallback: false };
 }
 
-export async function getStaticProps({ params }: GetStaticPropsContext) {
-  const eventDetail = await fetchEventsDetail(Number(params?.eventId));
+export async function getStaticProps({ params }: GetStaticPropsContext<{ eventId: string }>) {
+  if (!params) return null;
+
+  const { eventId } = params;
+
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(queryKeys.events.byId(Number(eventId)), () => fetchEventsDetail(Number(eventId)));
+
   return {
     props: {
-      eventDetail,
+      eventId,
+      dehydratedState: dehydrate(queryClient),
     },
   };
 }
 
 interface Props {
-  eventDetail: EventDetailType;
+  eventId: number;
 }
 
-const EventPage = ({ eventDetail }: Props) => {
+const EventPage = ({ eventId }: Props) => {
   const { resetBottomSheetModal } = useBottomSheetModalStore();
+
+  const { data: eventDetail, isSuccess } = useEventByIdQuery(eventId);
 
   useEffect(() => {
     resetBottomSheetModal();
   }, [resetBottomSheetModal]);
+
+  if (!isSuccess) return <NotFoundPage />;
 
   return (
     <>
@@ -108,33 +120,6 @@ const EventPage = ({ eventDetail }: Props) => {
 
       <BottomSheet />
     </>
-  );
-};
-
-const BuyNowButton = ({ eventId, price, endOfSale }: { eventId: number; price: number; endOfSale: boolean }) => {
-  const { showBottomSheetModal } = useBottomSheetModalStore();
-  const { isLoggedIn } = useUserStore();
-
-  return (
-    <Button
-      color="white"
-      onClick={() => {
-        if (endOfSale) {
-          toast.error('판매가 종료된 티켓입니다.');
-        } else {
-          if (!isLoggedIn) {
-            toast(<LoginRequestToast />);
-          } else {
-            showBottomSheetModal({
-              bottomSheetModalName: '티켓 구매하기',
-              children: <TicketCountingForm eventId={eventId} price={price} />,
-            });
-          }
-        }
-      }}
-    >
-      바로 구매하기
-    </Button>
   );
 };
 
