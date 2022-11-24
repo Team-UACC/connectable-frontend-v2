@@ -25,7 +25,7 @@ export default function MoreMenu() {
         }
       },
     },
-    { name: '회원탈퇴', handleClick: () => {} },
+    // { name: '회원탈퇴', handleClick: () => {} },
   ];
 
   return (
@@ -34,7 +34,10 @@ export default function MoreMenu() {
         {MENU.map(term => {
           if (term.href === undefined) {
             return (
-              <li className="w-full mb-2 leading-[3rem] cursor-pointer hover:font-bold hover:text-lg hover:leading-[3rem]">
+              <li
+                key={term.name}
+                className="w-full mb-2 leading-[3rem] cursor-pointer hover:font-bold hover:text-lg hover:leading-[3rem]"
+              >
                 <button className="w-full text-start" onClick={term.handleClick}>
                   {term.name}
                 </button>

@@ -113,7 +113,7 @@ const NavHeader = (props: Props) => {
         <Image src={`/icons/Connectable_sg2_w.png`} alt="logo" width={171} height={36} />
       )}
       <div className="flex gap-4">
-        <div className="relative w-6 h-6 ">
+        {/* <div className="relative w-6 h-6 ">
           {hasNotificaiton && <div className="absolute w-[6px] h-[6px] bg-brand-pink top-0 right-0 rounded-full"></div>}
           <button
             className="ml-[4px] mt-[2px]"
@@ -123,7 +123,7 @@ const NavHeader = (props: Props) => {
           >
             <Image src={`/icons/notifications.svg`} alt="noti" width={16} height={20} />
           </button>
-        </div>
+        </div> */}
         <button onClick={handleClickMoreMenu}>
           <Image src={`/icons/menu.svg`} alt="menu" width={24} height={24} />
         </button>
