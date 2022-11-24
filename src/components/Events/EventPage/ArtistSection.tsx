@@ -2,6 +2,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 
+import { CHEVRON_RIGHT_ICON } from '~/constants/images';
+
 interface ArtistSectionProps {
   artistId: number;
   artistImage: string;
@@ -29,7 +31,7 @@ const ArtistSection = ({ artistId, artistImage, artistName }: ArtistSectionProps
         </div>
       </div>
       <LinkToArtistPage id={artistId}>
-        <Image src={'/icons/icon_chevron_right_32.svg'} alt=">" width={32} height={32} />
+        <Image src={CHEVRON_RIGHT_ICON} alt=">" width={32} height={32} />
       </LinkToArtistPage>
     </section>
   );

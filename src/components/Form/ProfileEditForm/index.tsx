@@ -5,6 +5,7 @@ import { ReactNode, useEffect, useRef, useState } from 'react';
 import { requestSMSCertificationKey, verifyCertificationKey } from '~/apis/auth';
 import Button from '~/components/Design/Button';
 import Input from '~/components/Design/Input';
+import { DEFAULT_PROFILE } from '~/constants/images';
 import useUserInfoForm from '~/hooks/useUserInfoForm';
 import { timeFormatterForMinute } from '~/utils/day';
 
@@ -86,13 +87,7 @@ export default function ProfileEditForm({ userName, phoneNumber }: Props) {
     <div className="relative w-full px-[18px]">
       <form className={`flex w-full bg-transparent `}>
         <FormPageContainer>
-          <Image
-            src="/icons/default_profile.svg"
-            alt="profile"
-            width={100}
-            height={100}
-            style={{ borderRadius: '50%' }}
-          />
+          <Image src={DEFAULT_PROFILE} alt="profile" width={100} height={100} style={{ borderRadius: '50%' }} />
           <Input
             name="username"
             label="닉네임"

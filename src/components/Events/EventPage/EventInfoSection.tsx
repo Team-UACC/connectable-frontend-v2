@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { memo, ReactNode, useEffect, useState } from 'react';
 
 import SpeeachBubble from '~/components/Design/SpeechBubble';
+import { CALENDAR_ICON, HOURGLASS_ICON, LOCATION_ICON } from '~/constants/images';
 import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
 import { EventDetailType } from '~/types/eventType';
 import { dayjsKO } from '~/utils/day';
@@ -56,19 +57,19 @@ export const EventInfos = memo(
       <>
         {location && (
           <TextInfo
-            term={<Image src="/icons/icon_location_24.svg" alt="location" width={size} height={size} />}
+            term={<Image src={LOCATION_ICON} alt="location" width={size} height={size} />}
             description={location}
           />
         )}
         {startTime && (
           <TextInfo
-            term={<Image src="/icons/icon_calendar_24.svg" alt="calendar" width={size} height={size} />}
+            term={<Image src={CALENDAR_ICON} alt="calendar" width={size} height={size} />}
             description={eventStart}
           />
         )}
         {startTime && endTime && (
           <TextInfo
-            term={<Image src="/icons/icon_hourglass_24.svg" alt="hourglass" width={size} height={size} />}
+            term={<Image src={HOURGLASS_ICON} alt="hourglass" width={size} height={size} />}
             description={`${Math.floor((endTime - startTime) / 1000 / 60)}분`}
           />
         )}

@@ -9,6 +9,7 @@ import HeadMeta from '~/components/HeadMeta';
 import Layout from '~/components/Layout';
 import UserOrderStatusList from '~/components/Order/UserOrderStatusList';
 import UserTicketCardList from '~/components/Tickets/TicketCard/UserTicketCardList';
+import { DEFAULT_PROFILE, EDIT_ICON } from '~/constants/images';
 import useFullScreenModal from '~/hooks/useFullScreenModal';
 import useShallowModal from '~/hooks/useShallowModal';
 import { useUserStore } from '~/stores/user';
@@ -59,13 +60,7 @@ function MyPage({ hasSkeleton }: Props) {
       <div className="relative flex flex-col items-center w-full">
         <div className=" text-white flex flex-col items-center w-full h-[20rem] border-brand bg-black">
           <div className="relative mt-[2.25rem]">
-            <Image
-              src="/icons/default_profile.svg"
-              alt="profile"
-              width={100}
-              height={100}
-              style={{ borderRadius: '50%' }}
-            />
+            <Image src={DEFAULT_PROFILE} alt="profile" width={100} height={100} style={{ borderRadius: '50%' }} />
             <button
               className="absolute bottom-[6px] right-0"
               onClick={() => {
@@ -73,7 +68,7 @@ function MyPage({ hasSkeleton }: Props) {
                 showProfileEditModal({ userName, phoneNumber });
               }}
             >
-              <Image src="/icons/icon_edit.svg" alt="edit" width={24} height={24} />
+              <Image src={EDIT_ICON} alt="edit" width={24} height={24} />
             </button>
           </div>
           <h1 className="mt-4 text-2xl font-bold text-center ">{userName}</h1>

@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import { ReactNode } from 'react';
 
+import { EXTERNAL_LINK_ICON } from '~/constants/images';
+
 interface Props {
   href: string;
   children: ReactNode;
@@ -13,7 +15,7 @@ export default function LinkText({ href, children }: Props) {
           <span className="underline">{children}</span>
         </div>
         <Image
-          src="/images/external-link.svg"
+          src={EXTERNAL_LINK_ICON}
           alt="tx-hash"
           width={18}
           height={18}

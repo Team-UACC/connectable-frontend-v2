@@ -4,6 +4,15 @@ import { useRouter } from 'next/router';
 import { DetailedHTMLProps, HTMLAttributes, MouseEvent, useCallback } from 'react';
 import toast from 'react-hot-toast';
 
+import {
+  ARROW_BACK_BLACK_ICON,
+  ARROW_BACK_WHITE_CIRCLE_ICON,
+  CLOSE_BLACK_ICON,
+  CLOSE_WHITE_ICON,
+  LOGO_SG2_W,
+  MENU_ICON,
+} from '~/constants/images';
+
 export type NavHeaderType = 'sub-transparent' | 'sub-white' | 'close-black' | 'close-white' | 'home';
 
 interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {
@@ -47,7 +56,7 @@ const NavHeader = (props: Props) => {
         {...rest}
       >
         <button onClick={handleClickBack} className="flex items-center">
-          <Image src={`/icons/icon_arrow_back_circle_white.svg`} alt="back" width={36} height={36} />
+          <Image src={ARROW_BACK_WHITE_CIRCLE_ICON} alt="back" width={36} height={36} />
         </button>
       </nav>
     );
@@ -60,7 +69,7 @@ const NavHeader = (props: Props) => {
         {...rest}
       >
         <button onClick={handleClickBack} className="w-8 h-8 p-1">
-          <Image src={`/icons/icon_arrow_back_black_24.svg`} alt="back" width={24} height={24} />
+          <Image src={ARROW_BACK_BLACK_ICON} alt="back" width={24} height={24} />
         </button>
         <span className="absolute text-lg font-bold -translate-x-1/2 left-1/2">{children}</span>
       </nav>
@@ -74,7 +83,7 @@ const NavHeader = (props: Props) => {
         {...rest}
       >
         <button onClick={handleClickClose} className="w-8 h-8 p-1">
-          <Image src={`/icons/icon_nav_black_close_32.svg`} alt="back" width={24} height={24} />
+          <Image src={CLOSE_BLACK_ICON} alt="back" width={24} height={24} />
         </button>
         <span className="absolute text-lg font-bold -translate-x-1/2 left-1/2">{children}</span>
       </nav>
@@ -88,7 +97,7 @@ const NavHeader = (props: Props) => {
         {...rest}
       >
         <button onClick={handleClickClose} className="w-8 h-8 p-1">
-          <Image src={`/icons/icon_nav_white_close_32.svg`} alt="back" width={24} height={24} />
+          <Image src={CLOSE_WHITE_ICON} alt="back" width={24} height={24} />
         </button>
         <span className="absolute text-lg font-bold -translate-x-1/2 left-1/2">{children}</span>
       </nav>
@@ -106,11 +115,11 @@ const NavHeader = (props: Props) => {
       {logoLink ? (
         <Link href={logoLink}>
           <a>
-            <Image src={`/icons/Connectable_sg2_w.png`} alt="logo" width={171} height={36} />
+            <Image src={LOGO_SG2_W} alt="logo" width={171} height={36} />
           </a>
         </Link>
       ) : (
-        <Image src={`/icons/Connectable_sg2_w.png`} alt="logo" width={171} height={36} />
+        <Image src={LOGO_SG2_W} alt="logo" width={171} height={36} />
       )}
       <div className="flex gap-4">
         {/* <div className="relative w-6 h-6 ">
@@ -125,7 +134,7 @@ const NavHeader = (props: Props) => {
           </button>
         </div> */}
         <button onClick={handleClickMoreMenu}>
-          <Image src={`/icons/menu.svg`} alt="menu" width={24} height={24} />
+          <Image src={MENU_ICON} alt="menu" width={24} height={24} />
         </button>
       </div>
     </nav>

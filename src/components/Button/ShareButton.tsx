@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 
+import { SHARE_ICON } from '~/constants/images';
 import { useUserStore } from '~/stores/user';
 
 import Button from '../Design/Button';
@@ -22,7 +23,7 @@ const ShareButton = () => {
       }}
     >
       <div className="flex items-center justify-center">
-        <Image src="/icons/icon_share_32.svg" alt="share" layout="fixed" width={32} height={32} />
+        <Image src={SHARE_ICON} alt="share" layout="fixed" width={32} height={32} />
       </div>
     </Button>
   );
