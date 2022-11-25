@@ -1,10 +1,10 @@
 import { GetStaticPropsContext } from 'next';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
 import { ChangeEvent, ReactElement, Suspense, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
+import { dehydrate, QueryClient } from 'react-query';
 
-import { fetchAllEvents, fetchEventsDetail } from '~/apis/events';
+import { fetchAllEvents } from '~/apis/events';
 import Button from '~/components/Design/Button';
 import { SaleTicketListProps } from '~/components/Events/SalePage/SaleTicketList';
 import HeadMeta from '~/components/HeadMeta';
@@ -12,6 +12,7 @@ import Layout from '~/components/Layout';
 import TicketSkeleton from '~/components/Tickets/TicketCard/TicketSkeleton';
 import LoginRequestToast from '~/components/Toast/LoginRequestToast';
 import * as seo from '~/constants/seo';
+import useEventByIdQuery, { prefetchEventById } from '~/hooks/apis/useEventByIdQuery';
 import useFullScreenModal from '~/hooks/useFullScreenModal';
 import { useUserStore } from '~/stores/user';
 import { EventDetailType } from '~/types/eventType';
@@ -31,22 +32,27 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }: GetStaticPropsContext) {
-  const eventDetail = await fetchEventsDetail(Number(params?.eventId));
+  if (!params) return null;
+  const { eventId } = params;
+
+  const queryClient = new QueryClient();
+
+  await prefetchEventById({ queryClient, eventId: Number(eventId) });
+
   return {
     props: {
-      eventDetail,
+      eventId,
+      dehydratedState: dehydrate(queryClient),
     },
   };
 }
 
 interface Props {
-  eventDetail: EventDetailType;
+  eventId: string;
 }
 
-const EventSalesPage = ({ eventDetail }: Props) => {
-  const router = useRouter();
-  const { eventId } = router.query;
-
+const EventSalesPage = ({ eventId }: Props) => {
+  const { data: eventDetail } = useEventByIdQuery(Number(eventId)) as { data: EventDetailType };
   const { renderTicketList, renderBuyButton } = useTicketCounting({
     maxCount: 4,
     eventId: Number(eventId),

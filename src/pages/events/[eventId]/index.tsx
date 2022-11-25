@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ReactElement, useEffect } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
 
-import { fetchAllEvents, fetchEventsDetail } from '~/apis/events';
+import { fetchAllEvents } from '~/apis/events';
 import EventGuidances from '~/components/Constants/EventGudiances';
 import BottomSheet from '~/components/Design/BottomSheet';
 import Button from '~/components/Design/Button';
@@ -17,10 +17,10 @@ import FooterWrapper from '~/components/Footer/FooterWrapper';
 import HeadMeta from '~/components/HeadMeta';
 import Layout from '~/components/Layout';
 import Paragraph from '~/components/Text/Paragraph';
-import queryKeys from '~/constants/queryKeys';
 import * as seo from '~/constants/seo';
-import useEventByIdQuery from '~/hooks/apis/useEventByIdQuery';
+import useEventByIdQuery, { prefetchEventById } from '~/hooks/apis/useEventByIdQuery';
 import { useBottomSheetModalStore } from '~/stores/bottomSheetModal';
+import { EventDetailType } from '~/types/eventType';
 
 export async function getStaticPaths() {
   const events = await fetchAllEvents();
@@ -35,7 +35,7 @@ export async function getStaticProps({ params }: GetStaticPropsContext<{ eventId
 
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(queryKeys.events.byId(Number(eventId)), () => fetchEventsDetail(Number(eventId)));
+  await prefetchEventById({ queryClient, eventId: Number(eventId) });
 
   return {
     props: {
@@ -46,19 +46,17 @@ export async function getStaticProps({ params }: GetStaticPropsContext<{ eventId
 }
 
 interface Props {
-  eventId: number;
+  eventId: string;
 }
 
 const EventPage = ({ eventId }: Props) => {
   const { resetBottomSheetModal } = useBottomSheetModalStore();
 
-  const { data: eventDetail, isSuccess } = useEventByIdQuery(eventId);
+  const { data: eventDetail } = useEventByIdQuery(Number(eventId)) as { data: EventDetailType };
 
   useEffect(() => {
     resetBottomSheetModal();
   }, [resetBottomSheetModal]);
-
-  if (!isSuccess) return <PageSkeletion />;
 
   return (
     <>

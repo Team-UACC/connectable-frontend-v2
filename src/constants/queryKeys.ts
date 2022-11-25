@@ -5,7 +5,7 @@ export default {
     detailByIds: (eventId: number, tokenId: number) => ['ticketDetailByIds', eventId, tokenId],
   },
   events: {
-    list: ['events'],
+    all: ['events'],
     byId: (eventId: number) => ['event', eventId],
     byArtist: (artistId: number) => ['events', 'artist', artistId],
   },
