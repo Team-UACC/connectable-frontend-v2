@@ -97,11 +97,7 @@ const TicketCard = ({
                   {ticketData.metadata.name}
                 </div>
                 <div className="text-xs text-gray3">
-                  <EventInfos
-                    size={18}
-                    startTime={new Date(2022, 11, 18, 19, 30).getTime()}
-                    location={'서울, 예술의 전당'}
-                  />
+                  <EventInfos size={18} startTime={ticketData.eventDate} location={'서울특별시'} />
                 </div>
               </>
             )}

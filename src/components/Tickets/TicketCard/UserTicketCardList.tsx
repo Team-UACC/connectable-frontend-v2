@@ -26,15 +26,17 @@ const UserTicketCardList = () => {
 
   return (
     <ul className="relative flex flex-col w-full pb-8">
-      {ticketList?.map(ticketData => (
-        <li key={ticketData.tokenId} style={{ marginBottom: `-${18}px` }}>
-          <Link href={`tickets/${ticketData.eventId}/${ticketData.id}`} className="relative w-full">
-            <a>
-              <TicketCard ticketData={ticketData} cutout="right" hasSelect={false} />
-            </a>
-          </Link>
-        </li>
-      ))}
+      {ticketList
+        ?.sort((a, b) => b.eventDate - a.eventDate)
+        .map(ticketData => (
+          <li key={ticketData.tokenId} style={{ marginBottom: `-${18}px` }}>
+            <Link href={`tickets/${ticketData.eventId}/${ticketData.id}`} className="relative w-full">
+              <a>
+                <TicketCard ticketData={ticketData} cutout="right" hasSelect={false} />
+              </a>
+            </Link>
+          </li>
+        ))}
     </ul>
   );
 };
