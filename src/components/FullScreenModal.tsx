@@ -57,7 +57,6 @@ export default function FullScreenModal() {
                     const current = storage.getItem('currentPath') || '/';
 
                     if (isShallowModalUrl(current)) {
-                      window.history.back();
                       window.history.replaceState(window.history.state, '', window.location.pathname);
                     }
 

@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { useQuery, UseQueryOptions } from 'react-query';
+import { QueryClient, useQuery, UseQueryOptions } from 'react-query';
 
 import { fetchEventsDetail } from '~/apis/events';
 import queryKeys from '~/constants/queryKeys';
@@ -11,3 +11,6 @@ export default function useEventByIdQuery(
 ) {
   return useQuery(queryKeys.events.byId(eventId), () => fetchEventsDetail(eventId), options);
 }
+
+export const prefetchEventById = async ({ queryClient, eventId }: { queryClient: QueryClient; eventId: number }) =>
+  queryClient.prefetchQuery(queryKeys.events.byId(eventId), () => fetchEventsDetail(eventId));

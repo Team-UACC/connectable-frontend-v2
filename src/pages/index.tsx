@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { ReactElement } from 'react';
+import { dehydrate, QueryClient } from 'react-query';
 
-import { fetchAllEvents } from '~/apis/events';
 import CompanyFooter from '~/components/Constants/CompanyFooter';
 import Label from '~/components/Design/Label';
 import MySwiper from '~/components/Design/Swiper';
@@ -12,21 +12,22 @@ import HeadMeta from '~/components/HeadMeta';
 import Layout from '~/components/Layout';
 import { DOCS_PATH } from '~/constants/path';
 import { data } from '~/constants/seo';
+import useAllEvents, { prefetchAllEvents } from '~/hooks/apis/useAllEvents';
 import { EventSimpleType } from '~/types/eventType';
 
 export async function getStaticProps() {
-  const events = (await fetchAllEvents()).map(e => ({ ...e }));
+  const queryClient = new QueryClient();
+
+  await prefetchAllEvents({ queryClient });
 
   return {
-    props: { events },
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
   };
 }
 
-interface Props {
-  events: Array<EventSimpleType>;
-}
-
-const Home = ({ events }: Props) => {
+const Home = () => {
   return (
     <>
       <HeadMeta
@@ -38,8 +39,8 @@ const Home = ({ events }: Props) => {
       />
       <div>
         <Intro />
-        <TodayTicketSwiper events={events} />
-        <AllTicketsList events={events} />
+        <TodayTicketSwiper />
+        <AllTicketsList />
         <CompanyFooter />
       </div>
     </>
@@ -71,7 +72,8 @@ const Intro = () => {
   );
 };
 
-const TodayTicketSwiper = ({ events }: { events: Array<EventSimpleType> }) => {
+const TodayTicketSwiper = () => {
+  const { data: events } = useAllEvents() as { data: Array<EventSimpleType> };
   return (
     <section className="flex flex-col items-center w-full py-[60px] bg-white">
       <Label title="TODAY TICKETS" color="white" />
@@ -94,7 +96,9 @@ const TodayTicketSwiper = ({ events }: { events: Array<EventSimpleType> }) => {
   );
 };
 
-const AllTicketsList = ({ events }: { events: Array<EventSimpleType> }) => {
+const AllTicketsList = () => {
+  const { data: events } = useAllEvents() as { data: Array<EventSimpleType> };
+
   return (
     <section className="flex flex-col items-center w-full py-[60px] bg-black">
       <Label title="ALL TICKETS" color="blue" />
