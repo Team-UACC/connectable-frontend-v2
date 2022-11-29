@@ -1,22 +1,18 @@
 import { GetServerSidePropsContext } from 'next';
-import Link from 'next/link';
-import { ReactElement } from 'react';
+import dynamic from 'next/dynamic';
+import { ReactElement, Suspense } from 'react';
+import { dehydrate, QueryClient } from 'react-query';
 
-import { fetchAllEvents, fetchEventsAllTickets, fetchEventsDetail, fetchTicketsDetail } from '~/apis/events';
-import FormOrderButton from '~/components/Button/FormOrderButton';
-import NFTTransferButton from '~/components/Button/NFTTransferButton';
-import QREntranceButton from '~/components/Button/QREntranceButton';
-import ShareButton from '~/components/Button/ShareButton';
-import Button from '~/components/Design/Button';
-import FooterWrapper from '~/components/Footer/FooterWrapper';
-import HeadMeta from '~/components/HeadMeta';
+import { fetchAllEvents, fetchEventsAllTickets } from '~/apis/events';
 import Layout from '~/components/Layout';
 import TicketDetailArticle from '~/components/Tickets/TicketDetail/TicketDetailArticle';
-import { data } from '~/constants/seo';
-import useTicketByIdsQuery from '~/hooks/apis/useTicketByIdsQuery';
-import { useUserStore } from '~/stores/user';
-import { EventDetailType } from '~/types/eventType';
-import { Ticket } from '~/types/ticketType';
+import TicketDetailHeadMeta from '~/components/Tickets/TicketDetail/TicketDetailHeadMeta';
+import { prefetchEventById } from '~/hooks/apis/useEventByIdQuery';
+import { prefetchTicketById } from '~/hooks/apis/useTicketByIdsQuery';
+
+const TicketPageFooter = dynamic(() => import('~/components/Tickets/TicketDetail/TicketPageFooter'), {
+  ssr: false,
+});
 
 export async function getStaticPaths() {
   const events = await fetchAllEvents();
@@ -39,88 +35,38 @@ export async function getStaticProps(context: GetServerSidePropsContext<{ eventI
 
   const { eventId, ticketId } = context.params;
 
-  const [eventDetail, ticketDetail] = await Promise.all([
-    fetchEventsDetail(Number(eventId)),
-    fetchTicketsDetail(Number(eventId), Number(ticketId)),
+  const queryClient = new QueryClient();
+
+  await Promise.all([
+    prefetchEventById({ queryClient, eventId: Number(eventId) }),
+    prefetchTicketById({ queryClient, eventId: Number(eventId), ticketId: Number(ticketId) }),
   ]);
 
   return {
     props: {
-      initialEventDetailData: eventDetail,
-      initialTicketDetailData: { ...ticketDetail, ticketSalesStatus: '' },
+      eventId: eventId,
+      ticketId: ticketId,
+      dehydratedState: dehydrate(queryClient),
     },
   };
 }
 
 interface Props {
-  initialTicketDetailData: Ticket;
-  initialEventDetailData: EventDetailType;
+  eventId: string;
+  ticketId: string;
 }
 
-const TicketDetailPage = ({ initialTicketDetailData, initialEventDetailData }: Props) => {
-  const { data: ticketDetail } = useTicketByIdsQuery(initialEventDetailData.id, initialTicketDetailData.id, {
-    staleTime: 0,
-    cacheTime: 0,
-  });
+const TicketDetailPage = ({ eventId, ticketId }: Props) => {
+  const props = { ticketId: Number(ticketId), eventId: Number(eventId) };
 
   return (
     <>
-      <HeadMeta
-        title={`NFT 티켓 | ${initialTicketDetailData.metadata.name}`}
-        image={initialTicketDetailData.metadata.image}
-        description={initialTicketDetailData.metadata.description}
-        url={data.url + `/tickets/${initialTicketDetailData.eventId}/${initialTicketDetailData.id}`}
-        creator={initialTicketDetailData.artistName}
-      />
-      <TicketDetailArticle
-        ticketDetail={ticketDetail ?? initialTicketDetailData}
-        eventDetail={initialEventDetailData}
-      />
-      {ticketDetail && <PageFooter ticketDetail={ticketDetail} eventDetail={initialEventDetailData} />}
+      <TicketDetailHeadMeta {...props} />
+      <TicketDetailArticle {...props} />
+      <Suspense>
+        <TicketPageFooter {...props} />
+      </Suspense>
     </>
-  );
-};
-
-const PageFooter = ({ ticketDetail, eventDetail }: { ticketDetail: Ticket; eventDetail: EventDetailType }) => {
-  const { klaytnAddress } = useUserStore();
-
-  return (
-    <FooterWrapper>
-      <div className="w-full h-[34px] bg-gradient-to-t from-white to-transparent" />
-      <div className="flex gap-3 px-4 pb-4 bg-white ">
-        {ticketDetail && klaytnAddress.toLowerCase() === ticketDetail.ownedBy.toLowerCase() ? (
-          <>
-            <ShareButton />
-            <NFTTransferButton
-              color="black"
-              blockchain="Klaytn"
-              eventId={Number(eventDetail.id)}
-              ticketId={Number(ticketDetail.id)}
-            />
-            {ticketDetail && !ticketDetail.used && (
-              <QREntranceButton
-                color="pink"
-                ticketId={ticketDetail.id}
-                ticketName={ticketDetail.metadata.name}
-                eventLocation={eventDetail.location}
-                eventDate={eventDetail.startTime}
-              />
-            )}
-          </>
-        ) : ticketDetail && ticketDetail.ticketSalesStatus === 'ON_SALE' ? (
-          <FormOrderButton
-            color="black"
-            amount={ticketDetail.price}
-            ticketIdList={[ticketDetail.id]}
-            eventId={Number(eventDetail.id)}
-          />
-        ) : (
-          <Link href={`/events/${eventDetail.id}`}>
-            <Button color="black">컬렉션 페이지로 이동</Button>
-          </Link>
-        )}
-      </div>
-    </FooterWrapper>
   );
 };
 
