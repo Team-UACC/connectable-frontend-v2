@@ -20,8 +20,7 @@ import { EventDetailType } from '~/types/eventType';
 const SaleTicketList = dynamic<SaleTicketListProps>(
   () => import('~/components/Events/SalePage/SaleTicketList') as any,
   {
-    suspense: true,
-    ssr: true,
+    ssr: false,
   }
 );
 
