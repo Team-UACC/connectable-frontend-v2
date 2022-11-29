@@ -34,10 +34,6 @@ const TicketPageFooter = ({ ticketId, eventId }: TicketPageFooterProps) => {
 
   const isOnSale = ticketDetail && ticketDetail.ticketSalesStatus === 'ON_SALE';
 
-  if (!klaytnAddress) {
-    return null;
-  }
-
   return (
     <FooterWrapper>
       <div className="w-full h-[34px] bg-gradient-to-t from-white to-transparent" />
